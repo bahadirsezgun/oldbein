@@ -1,0 +1,73 @@
+.btn-menu {
+	 position:absolute;
+	 left:20px;
+	 top:20px;
+	 width:40px;
+	 height:40px;
+	 margin:5px;
+	 padding:5px;
+	 border-radius:20px;
+	 font-size:large;
+	 font-weight:lighter;
+  	 animation-name: turnover;
+	 animation-duration: 0.1s; /* or: Xms */
+	 animation-iteration-count: 10;
+	 animation-direction: alternate; /* or: normal */
+	 animation-timing-function: linear; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
+	 animation-fill-mode: forwards; /* or: backwards, both, none */
+	 animation-delay: 0.1s; /* or: Xms */
+}
+
+.container-menu{
+	margin: 0px;
+	padding: 0px;
+}
+
+
+.col-menu{
+	min-height: 150px;
+	max-height: 150px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #000000;
+	border-right-style: solid;
+	border-right-color :#B7B7B7;
+	border-right-width:thin;
+	opacity:0.8;
+	
+}
+
+.col-item{
+	margin-top:50px;
+	text-align: center;
+	position: relative;
+	font-size: 46px;
+	font-weight:lighter;
+	background-color: transparent;
+	border: none;
+	display: block;
+}
+
+
+
+
+@keyframes turnover {
+   0%,100%{
+    transform: rotateY(0deg);
+   }
+   10%,90% {
+    transform: rotateY(20deg);
+   }
+   20%,80% {
+    transform: rotateY(40deg);
+   }
+   30%,70% {
+    transform: rotateY(60deg);
+   }
+   30%,70% {
+    transform: rotateY(80deg);
+   }
+   40%,60% {
+    transform: rotateY(100deg);
+   }
+} 

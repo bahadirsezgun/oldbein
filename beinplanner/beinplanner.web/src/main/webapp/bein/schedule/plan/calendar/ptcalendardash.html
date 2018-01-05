@@ -1,0 +1,135 @@
+<div class="row" data-ng-controller="PtCalendarDashController as ptcc"
+	data-ng-init="initPTC()">
+	<section ng-show="!showClassDetail">
+		<div class="col-md-12 hpanel hpanel-success ">
+			<div class="col-md-2 text-center contact-panel"></div>
+			<div class="col-md-4 text-center">
+				<h1 class="text-success">{{calendarDateNameStr|translate}}</h1>
+				<h4 class="text-success">{{calendarDateStr}}</h4>
+				<select class="form-control form-md" ng-model="staffId" ng-show="visibleStaff"
+						ng-change="changeStaff()"
+						ng-options="staff.userId as staff.userName+' '+staff.userSurname for staff in staffs">
+						<option value="">{{'pleaseSelect'|translate}}</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<div class="btn-group pull-right">
+					<button class="btn btn-sm btn-default " ng-click="prevDate()">
+						{{'prev'|translate}}</button>
+					<button class="btn btn-sm btn-default" ng-click="nextDate()">
+						{{'next'|translate}}</button>
+				</div>
+			</div>
+		</div>
+         <div class="hr-line-dashed clearfix"></div>
+		<div class="col-md-12 hpanel hpanel-success hidden-xs">
+
+			<div class="hpanel hblue" ng-repeat="stp in scheduleTimePlans">
+			<div class="panel-body">
+			  <div class="row">
+				  <div class="col-xs-10">
+				   		<div class="row">
+					   		<div class="col-xs-12">
+								   		<label class="text-medium " ng-repeat="user in stp.users">{{user.userName+" "+user.userSurname}}</label>
+								   		<label class="text-medium pull-right">{{stp.planDayTime}}</label>
+								   		
+					        </div>
+				        	<div class="col-xs-12">
+					        
+					        		<div class="row">
+					   					<div class="col-xs-8">
+					   						<label class="text-medium ">{{stp.progName}}</label>
+											<br/>
+									       
+					                    </div>
+					        			<div class="col-xs-4">
+					        			    <label class="text-success text-medium clearfix">{{stp.userName+" "+stp.userSurname}}</label>
+					   						<label class="pull-right text-medium">{{stp.sequence}}</label>
+					   						
+					   					</div>
+					         		</div>
+					        </div>
+				        </div>
+				  </div>
+				  <div class="col-xs-2 text-center" style="vertical-align: middle;">
+				    <a  ng-click="changeTime(stp)"><i class="pe-7s-angle-right-circle fa-4x"></i></a>
+				  </div>
+			  </div>
+			</div>
+		 </div>
+	  </div>
+	  
+	  
+	  <div class="col-md-12 hpanel hpanel-success visible-xs">
+
+			<div class="hpanel hblue" ng-repeat="stp in scheduleTimePlans">
+			<div class="panel-body">
+			  <div class="row">
+				  <div class="col-xs-10">
+				   		<p class="text-medium " ng-repeat="user in stp.users">{{user.userName+" "+user.userSurname}}</p>
+						<p class="text-medium text-danger">{{stp.planDayTime+"   -    "+stp.sequence}}</p>
+						<p class="text-medium ">{{stp.progName}}</p>
+						<p class="text-success  clearfix">{{stp.userName+" "+stp.userSurname}}</p>
+				  </div>
+				  <div class="col-xs-2 text-center" style="vertical-align: middle;">
+				    <a  ng-click="changeTime(stp)"><i class="pe-7s-angle-right-circle fa-4x"></i></a>
+				  </div>
+			  </div>
+			</div>
+		 </div>
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	</section>
+	
+	
+	
+	<section ng-show="showClassDetail">
+	
+	     <a class="btn btn-default btn-lg pull-right" ng-click="showClassDetail=false"><i class="pe-7s-close fa-4x text-danger"></i></a>
+	     <div class="text-center">
+				<h1 class="text-success">{{calendarDateNameStr|translate}}</h1>
+				<h4 class="text-success">{{calendarDateStr}}</h4>
+				
+			</div>
+			
+		<div class="register-container">
+			<div class="hpanel hblue">	
+			 <div class="panel-body">
+				<label class="form-block" >{{'changeInstructor'|translate}}</label>
+				<select class="form-control form-md" ng-model="staffId" ng-show="visibleStaff"
+						ng-options="staff.userId as staff.userName+' '+staff.userSurname for staff in staffs">
+						<option value="">{{'pleaseSelect'|translate}}</option>
+				</select>
+				
+				<label class="form-block" >{{'changedDate'|translate}}</label>
+				<input autocomplete="off" type="text" class="form-control"
+					ng-model="planDateStr" id="planDateStr">
+				
+				<label class="form-block" >{{'changedTime'|translate}}</label>
+				<select class="form-control input-md font-light"
+					ng-model="timeOfPlan">
+					<option value="">{{'timeSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+				</div>
+				
+				<div class="panel-footer">
+				<a class="btn btn-success btn-lg" ng-click="confirmIt()">{{'save'|translate}}</a>
+				<a class="btn btn-danger btn-lg pull-right" ng-click="deleteIt()">{{'deleteLbl'|translate}}</a>
+				
+				</div>
+				
+			</div>
+	     </div>
+	     
+	
+	
+	</section>
+	
+</div>

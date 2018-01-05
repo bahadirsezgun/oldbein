@@ -1,0 +1,113 @@
+<div class="animate zoomIn"
+	ng-controller="PlanListSearchBookingController" ng-init="initPLSBC()">
+	<div class="row" ng-show="showTimes">
+		<div class="col-md-12 animated fadeInUp" ng-include="timesPage"></div>
+	</div>
+	<div class="register-container animate zoomIn">
+
+		<div class="row" ng-show="!showTimes">
+			<div class="col-md-12">
+				<div class="text-center m-b-md">
+					<h3>{{'listClassSearch' | translate}}</h3>
+					<small>{{'listClassSearchComment' | translate}}</small>
+				</div>
+				<div class="hpanel" style="border-top: 1px solid #e4e5e7">
+					<div class="panel-body">
+						<form>
+							<div class="row">
+								<div class="form-group" ng-show="!searchStaff && !searchStudio">
+									<label>{{'planStartDate' | translate}}</label>
+
+									<div class="input-group ">
+										<input type="text" class="form-control" id="planDateStr"
+											ng-model="planDateStr"> <span class="input-group-btn"><button
+												type="button" class="btn btn-primary"
+												ng-click="searchPlans()">
+												<i class="pe-7s-search "></i>
+											</button> </span>
+
+									</div>
+
+
+								</div>
+								<!-- <div class="form-group col-lg-12" ng-show="!searchStaff && !searchStudio">     
+	                             <div class="col-sm-8 col-sm-offset-2">
+						                <button class="btn btn-default" type="button" ng-click="staffFilter()">{{'chooseInstructor'|translate}}</button>
+						                <button class="btn btn-default" type="button" ng-click="studioFilter()">{{'chooseStudio'|translate}}</button>
+						            </div>
+						    </div>
+                            
+                            <div class="form-group col-lg-12" >
+                            <div class="text-center m-b-md">
+				                <h3>{{'filters' | translate}}</h3>
+				                <small>{{'filtersComment' | translate}}</small>
+				            </div>
+                            
+                            
+                             <div class="form-group col-lg-3 projects" ng-show="selectedStaffId!=0" >
+                                 <div class="hpanel hblue project-people" >
+						            <div class="panel-body text-center">
+						                <img alt="logo" class="img-circle m-b" ng-src="{{selectedStaff.profileUrl==null?(selectedStaff.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(selectedStaff.urlType==1?'../pt/member/get/profile/'+selectedStaff.userId+'/1' :'/beinplanner/homerlib/images/'+selectedStaff.profileUrl )   }}">
+						                <small>{{selectedStaff.userName}} {{selectedStaff.userSurname}}</small>
+						                
+						            </div>
+						            <div class="panel-footer contact-footer">
+						                <div class="row">
+						                    <div class="col-md-12 border-right text-center">
+						                        <a  data-ng-click="removeStaff()" ><i class="pe-7s-close-circle fa-3x"></i> </a>
+						                    </div>
+						                </div>
+						            </div>
+						        </div>
+				            </div>
+                            
+                             <div class="form-group col-lg-9" >
+                                 <div class="content animate-panel"  >
+							       <div class="row">  
+								       <div class="col-lg-4" ng-repeat="studio in selectedStudious" >
+								        <div class="hpanel hblue contact-panel">
+								            <div class="panel-body text-center">
+								                <div class="m">
+								                   <i class="pe-7s-cart fa-2x"></i>
+								                </div>
+								                <button type="button" class="btn btn-default btn-xs" ng-click="removeStudio(studio)"><small>{{studio.studioShortName}}</small><i class="pe-7s-close-circle "></i></button>
+								            </div>
+								        </div>
+								       </div>
+							       </div>
+							    </div>
+				            </div>
+                            
+                            
+                            
+                            </div>
+                            
+                            
+                            
+                           <div class="form-group col-lg-12" ng-show="searchStaff">
+                                 <a  ng-click="closeFilter()"><i class="pe-7s-close fa-5x"></i> </a>
+                                 <div class="hr-line-dashed"></div>
+                                 <div ng-include="instructorPage"></div>
+                           </div>      
+				                 
+				           <div class="form-group col-lg-12" ng-show="searchStudio">
+                                <a   ng-click="closeFilter()"><i class="pe-7s-close fa-5x"></i> </a>
+                                 <div class="hr-line-dashed"></div>
+                                 <div ng-include="studiosPage"></div>
+                           </div> -->
+
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong>BEINPlanner</strong> - {{'appNameTitle' | translate}} <br /> 2010
+				Copyright by BEINPlanner
+			</div>
+		</div>
+	</div>
+</div>

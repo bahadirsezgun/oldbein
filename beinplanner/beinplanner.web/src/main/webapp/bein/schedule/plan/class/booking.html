@@ -1,0 +1,311 @@
+<div class="row" ng-controller="ClassBookingController"
+	ng-init="initCB()">
+	<section ng-show="!showResult">
+		<div class="col-lg-9">
+			<div class="hpanel" ng-show="!showUser">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-3 text-center">
+							<i class="pe-7s-user fa-5x text-muted"></i>
+							<p class="small m-t-md">
+								<strong>{{'instructor'|translate}}</strong>
+								{{'instructorComment'|translate}} <br />
+								<br />{{'instructorComment1'|translate}}
+							</p>
+
+							<div class="row">
+								<div class="col-lg-12 text-center">
+									<button type="button" class="btn btn-danger2"
+										ng-click="findMember()">
+										<i class="pe-7s-plus fa-2x"></i><br />{{'member'|translate}}
+									</button>
+								</div>
+							</div>
+							<br />
+							<br />
+							<div class="row">
+								<div class="col-lg-12 text-center">
+									<button type="button" class="btn btn-primary"
+										ng-click="showOldClasses()" ng-show="hasOldClasses">
+										<i class="pe-7s-look fa-2x"></i><br />{{'showOldClasses1'|translate}}<br />{{'showOldClasses2'|translate}}
+									</button>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="col-lg-9">
+							<div class="row">
+
+								<div class="form-group col-lg-12">
+									<label class="col-sm-12">{{'instructor' | translate}}</label>
+									<div class="col-sm-10">
+										<select class="form-control" ng-model="staff"
+											ng-change="setStaff(staff)"
+											ng-options="staff as staff.userName+' '+staff.userSurname for staff in staffs">
+											<option value="">{{'pleaseSelect'|translate}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-show="!preProgramed">
+									<label class="col-sm-12">{{'program' | translate}}</label>
+
+									<div class="col-sm-10">
+										<select class="form-control  " ng-change="ppChange()"
+											ng-model="programClass"
+											ng-options="programClass as programClass.progName for programClass in programClasss">
+											<option value="">{{'pleaseSelect'|translate}}</option>
+										</select>
+									</div>
+
+								</div>
+
+								<div class="form-group col-lg-12" >
+									<label class="col-sm-12">{{'comment' | translate}}</label>
+
+									<div class="col-sm-10">
+										<textarea class="form-control"  rows="4" ng-model="tpComment" maxlength="255"></textarea>
+									</div>
+
+								</div>
+
+								<div class="hr-line-dashed" ng-show="studioDefinedForBooking==1"></div>
+								<div class="form-group col-lg-12" ng-show="studioDefinedForBooking==1">
+									<label class="col-sm-12">{{'definition_studio' |
+										translate}}</label>
+									<div class="col-sm-10">
+										<select class="form-control col-sm-10 " ng-model="studio"
+											ng-options="studio as studio.studioName for studio in studious">
+											<option value="">{{'pleaseSelect'|translate}}</option>
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<a class="pull-left" ng-click="addSelectedStudio()"><i
+											class="pe-7s-plus text-success fa-3x"></i> </a>
+									</div>
+								</div>
+
+								<div class="hr-line-dashed"></div>
+								<div class="col-lg-12">
+									<div class="animated fadeInUp" ng-include="timingPage"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+			<div class="hpanel" ng-show="showUser">
+				<div class="panel-body">
+					<div class="row">
+
+
+
+						<div class="col-lg-3 text-center">
+							<i class="pe-7s-user fa-5x text-muted"></i>
+							<p class="small m-t-md">
+								<strong>{{'member'|translate}}</strong>
+								{{'memberComment'|translate}} <br />
+								<br />{{'memberComment1'|translate}}
+							</p>
+							
+							<!-- <a ng-click="createNewUser()" style="margin-left: 10px"
+								data-toggle="tooltip" data-placement="bottom"
+								title="{{'addNewUser'|translate}}"><i
+								class="pe-7s-add-user fa-3x"></i> </a> -->
+								
+							<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#myModal" 
+								title="{{'addNewUser'|translate}}"><i
+								class="pe-7s-add-user fa-3x"></i> </button>
+						 </div>	
+						
+						
+						<div class="col-lg-9">
+							<div class="row" ng-show="!showCreateUser">
+								<div class="col-lg-12">
+									<a ng-click="closeFindMember()" class="pull-right"><i
+										class="pe-7s-close-circle fa-3x text-danger"></i> </a>
+								</div>
+								<div class="col-lg-12" ng-include="usersPage"></div>
+							</div>
+						
+						
+						
+						    <!-- <div class="row" ng-show="showCreateUser">
+				
+								<div class="col-md-12" >
+									<a ng-click="closeNewUserCreate()"><i
+										class="pe-7s-close-circle fa-2x text-warning pull-right"></i>
+									</a>
+								</div>
+								<div class="hr-line-dashed clearfix"></div>
+								<div class="col-md-12" style="margin-bottom: 10px">
+									<div ng-include="createUserPage"
+										style="margin-left: 10px; margin-right: 10px"></div>
+								</div>-->
+						 </div> 
+					  </div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+		<div class="col-lg-3">
+			<div class="row">
+
+
+				<div class="hpanel hblue contact-panel col-lg-12">
+					<div class="panel-body text-center">
+						<img alt="logo" class="img-circle m-b"
+							ng-src="{{staff.profileUrl==null?(staff.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(staff.urlType==1?'../pt/member/get/profile/'+staff.userId+'/1' :'/beinplanner/homerlib/images/'+staff.profileUrl )   }}">
+						<h5>{{staff.userName}} {{staff.userSurname}}</h5>
+						<br />
+						<h4 class="font-bold m-b-xs text-center">{{staff.userGsm}}</h4>
+						<h4 class="font-bold m-b-xs text-center">{{staff.userEmail}}</h4>
+						<br />
+						<div class="hpanel horange" ng-show="selectionsShow">
+							<div class="panel-body">
+								<div>
+									<h5>{{programClass.progName}}</h5>
+									<br />
+									<h4 class="font-bold m-b-xs text-center">{{'unitPrice'|translate}}:&nbsp;{{programClass.progPrice}}&nbsp;
+										{{ptCurrency}}</h4>
+									<h4 class="font-bold m-b-xs text-center">{{'progCount'|translate}}:&nbsp;{{programClass.progCount}}</h4>
+								</div>
+							</div>
+						</div>
+						<div class="hpanel hyellow" ng-show="selectionsShow">
+							<div class="panel-body">
+								<div class="row projects">
+									<div class="project-info">
+										<div class="project-people text-center">
+											<a class="btn btn-default btn-sm"
+												ng-click="removeMember(member)"
+												ng-repeat="member in selectedMembers"><i
+												class="pe-7s-delete-user"></i> <img class="img-circle"
+												title="{{member.userName}} {{member.userSurname}}"
+												ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+
+												<br /> <code>{{member.userName}}
+													{{member.userSurname}}</code> </a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hpanel hred" ng-show="selectionsShow">
+							<div class="panel-body">
+								<div>
+									<a ng-repeat="studio in selectedStudious"
+										class="btn btn-default btn-sm" ng-click="removeStudio(studio)"><i
+										class="pe-7s-close-circle"></i> <small>{{studio.studioShortName}}</small>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<section ng-show="showResult">
+		<div class="col-lg-12 animated fadeInUp"
+			ng-include="resultOfBookingPage"></div>
+	</section>
+
+
+    <section ng-controller="CreateFastUserController" ng-init="initCFUC()">
+	<div class="col-lg-12">
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+			                        <div class="modal-dialog">
+			                            <div class="modal-content">
+			                                <div class="color-line"></div>
+			                                
+			                                  
+			                                <div class="modal-header text-center">
+			                                    <h4 class="modal-title">{{'newMemberCreate'|translate}}</h4>
+			                                    <small class="font-bold">{{'newMemberCreateComment'|translate}}</small><br>
+			                                </div>
+			                                <div class="modal-body">
+			                                    
+			                                    
+			                                    <form class="form-horizontal">
+
+													<div class="form-group">
+														<label class="col-sm-2 control-label">{{'branchName'|translate}}*</label>
+														<div class="col-sm-10">
+															<select class="form-control" ng-model="firmId"
+																ng-options="firm.firmId as firm.firmName for firm in firms">
+																<option value="0">{{'pleaseSelect'|translate}}</option>
+															</select>
+														</div>
+													</div>
+									
+													<div class="form-group">
+														<label class="col-sm-2 control-label">{{'name'|translate}}*</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control" ng-model="userName"
+																placeholder="{{'enterName'|translate}}">
+														</div>
+													</div>
+									
+													<div class="form-group">
+														<label class="col-sm-2 control-label">{{'surname'|translate}}*</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control" ng-model="userSurname"
+																placeholder="{{'enterSurname'|translate}}">
+														</div>
+									
+													</div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label">{{'gsm'|translate}}*</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control" ng-model="userGsm"
+																ui-mask="{{maskGsm}}" model-view-value="true">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label">{{'gender'|translate}}</label>
+														<div class="col-sm-10">
+															<select class="form-control" ng-model="userGender"
+																ng-change="genderChange()">
+																<option value="0">{{'pleaseSelect'|translate}}</option>
+																<option value="1" selected="selected">{{'women'|translate}}</option>
+																<option value="2">{{'men'|translate}}</option>
+															</select>
+														</div>
+													</div>
+									
+									
+													<div class="form-group">
+														<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+															<button type="button" class="btn btn-success btn-block"
+																ng-click="createMember()">{{'save'|translate}}</button>
+														</div>
+													</div>
+												</form>
+			                                    
+			                                    
+			                                    
+			                                    
+			                                </div>
+			                                <div class="modal-footer">
+			                                    <button type="button" class="btn btn-info pull-left" ng-click="newMemberCreate()" >{{'clear'|translate}}</button>
+			                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'close'|translate}}</button>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+	
+	</div>
+	</section>
+
+
+</div>

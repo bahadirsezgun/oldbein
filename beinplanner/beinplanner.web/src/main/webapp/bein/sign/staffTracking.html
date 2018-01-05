@@ -1,0 +1,95 @@
+<div class="row " ng-controller="StaffTrackingController as picc" ng-init="initPIC()">
+
+
+	<div class="login-container" ng-show="query">
+		<div class="hpanel">
+			<div class="panel-body">
+
+				<div class="form-group">
+					<label class="control-label">{{'branchName'|translate}}*</label> <select
+						class="form-control" ng-model="firmId" ng-change="changeFirm()"
+						ng-options="firm.firmId as firm.firmName for firm in firms">
+						<option ng-value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label">{{'instructor'|translate}}*</label> <select
+						class="form-control" ng-model="staff"
+						ng-options="staff as staff.userName+' '+staff.userSurname for staff in staffs">
+						<option value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+				</div>
+				
+				<div class="form-group" ng-show="!monthly">
+					<label class="control-label">{{'startDate'|translate}}</label>
+					<div class="input-group date">
+						<input type="text" class="form-control" id="startDate"
+							ng-model="startDate"> <span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+
+				<div class="form-group" ng-show="!monthly">
+					<label class="control-label">{{'endDate'|translate}}</label>
+					<div class="input-group date">
+						<input type="text" class="form-control" id="endDate"
+							ng-model="endDate"> <span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+
+			</div>
+			<div class="panel-footer">
+				<button type="button" class="btn btn-success"
+					ng-click="queryPtInCome()">{{'find' | translate}}</button>
+			</div>
+		</div>
+
+
+	</div>
+
+   <div class="ptboss-container" ng-show="!query">
+	<div class="col-md-12" >
+		<div class="row">
+			<a ng-click="query=true"
+				class="pull-right text-big font-light text-danger"><i
+				class="pe-7s-close "></i></a>
+		</div>
+		
+
+		<div class="hpanel panel-group">
+			<div class="panel-header">
+				<div class="text-center m-b-md">
+					<h3>{{'staffInOutResult'|translate}}</h3>
+					<small>{{startDate+" "+endDate}}</small>
+				</div>
+			</div>
+			<div class="panel-body">
+
+				<table class="table table-bordered table-striped ">
+					<thead>
+						<th width="30%" class="text-center">{{'instructor'|translate}}</th>
+						<th width="30%" class="text-center">{{'date'|translate}}</th>
+						<th width="20%" class="text-center hidden-xs">{{'time'|translate}}</th>
+						<th width="20%" class="text-center hidden-xs">{{'inOrOut'|translate}}</th>
+						<th width="20%" class="text-center hidden-xs">{{'execution'|translate}}</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="staffTracking in staffTrackings">
+							<td class="text-center ">{{(staffTracking.userName)+" "+(staffTracking.userSurname)}}</td>
+							<td class="text-center">{{staffTracking.stDateStr}}</td>
+							<td class="text-center">{{staffTracking.stTimeStr}}</td>
+							<td class="text-center">{{staffTracking.inOut==1?('inStudio'|translate):('outStudio'|translate)}}</td>
+							<td class="text-center "><a ng-click="deleteTracking(staffTracking)"><i
+									class="pe-7s-close fa-2x text-danger"></i> </a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

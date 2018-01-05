@@ -1,0 +1,156 @@
+<div class="animate zoomIn" ng-controller="StaffPlanController as ufc"
+	ng-init="initSPC()">
+	<div class="row register-container " ng-show="showQuery">
+		<div class="col-md-12">
+			<div class="text-center m-b-md">
+				<h3>{{'findMember' | translate}}</h3>
+				<small>{{'findMemberComment' | translate}}</small>
+			</div>
+			<div class="hpanel">
+				<div class="panel-body">
+					<form>
+						<div class="row">
+						
+						
+						   <div class="form-group">
+							<div class="checkbox">
+								<input type="checkbox" class="i-checks" id="inQueryCheck" checked
+									ng-click="singleClassCheck()"> {{'monthly' | translate}}
+								<p class="help-block small">{{'monthlyBonusHint' | translate}}</p>
+							</div>
+							</div>
+						
+						
+							<div class="form-group col-lg-6" ng-show="monthly">
+								<label>{{'year' | translate}}</label> <select
+									class="form-control " ng-model="year"
+									ng-options="y as y for y in years">
+									<option ng-value="0">{{'pleaseSelect'|translate}}</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-6" ng-show="monthly">
+								<label>{{'month' | translate}}</label> <select
+									class="form-control " ng-model="month"
+									ng-options="m.value as m.name for m in months">
+									<option ng-value="0">{{'pleaseSelect'|translate}}</option>
+								</select>
+							</div>
+
+                            <div class="form-group col-lg-6" ng-show="!monthly">
+								<label class="control-label">{{'startDate'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="startDate"
+										ng-model="startDate"> <span class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+			
+							<div class="form-group col-lg-6" ng-show="!monthly">
+								<label class="control-label">{{'endDate'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="endDate"
+										ng-model="endDate"> <span class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+
+
+
+							<div class="form-group col-lg-12">
+								<label>{{'instructor' | translate}}</label> <select
+									class="form-control " ng-model="staffId"
+									ng-options="staff.userId as staff.userName+' '+staff.userSurname for staff in staffs">
+									<option ng-model="0">{{'pleaseSelect'|translate}}</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="text-center" ng-show="monthly">
+							<button type="button" class="btn btn-success pull-left"
+								ng-click="queryPersonal()">{{'findPersonalStaffPlan' |
+								translate}}</button>
+							<button type="button" class="btn btn-primary pull-right"
+								ng-click="queryClass()">{{'findClassStaffPlan' |
+								translate}}</button>
+						</div>
+						<div class="text-center" ng-show="!monthly">
+							<button type="button" class="btn btn-success pull-left"
+								ng-click="queryPersonalDate()">{{'findPersonalStaffPlan' |
+								translate}}</button>
+							<button type="button" class="btn btn-primary pull-right"
+								ng-click="queryClassDate()">{{'findClassStaffPlan' |
+								translate}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" ng-show="!showQuery">
+		<div class="col-md-12">
+			<button class="btn " type="button" ng-click="showQuery=true"
+				style="position: fixed; top: 80px; right: 20px; z-index: 600;">
+				<i class="pe-7s-close-circle fa-4x text-danger"></i>
+			</button>
+		</div>
+		<div class="col-md-12">
+			<div class="hpanel panel-group">
+				<div class="panel-header">
+					<div class="text-center m-b-md">
+						<h3>{{staff.userName+" "+staff.userSurname}}</h3>
+						<h4>{{month+"/"+year}}</h4>
+						<h1>{{('totalPlanCount'|translate)+":"+staffPlans.length}}</h1>
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-bordered text-center">
+						<thead>
+							<th width="10%" class="text-center">{{'statu'|translate}}</th>
+							<th width="10%" class="text-center">{{'progName'|translate}}</th>
+							<th width="20%" class="text-center">{{'name'|translate}}</th>
+							<th width="20%" class="text-center">{{'surname'|translate}}</th>
+							<th width="20%" class="text-center">{{'date'|translate}}</th>
+							<th width="20%" class="text-center">{{'time'|translate}}</th>
+							<th width="10%" class="text-center">{{'progDays'|translate}}</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="staffPlan in staffPlans">
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">
+								{{staffPlan.statuTp==0?('regular'|translate):((staffPlan.statuTp==1)?('canceled'|translate):('postponed'|translate))}}
+								</td>
+								
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.progName}}</td>
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.userName}}</td>
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.userSurname}}</td>
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.planStartDateStr}}</td>
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.planStartTimeStr}}</td>
+								<td style="background-color: {{staffPlan.statuTp==0?staffPlan.colorOfLine:((staffPlan.statuTp==1)?'red':'blue')}};color:{{staffPlan.statuTp==0?staffPlan.colorOfLineFont:'white'}}">{{staffPlan.planDay|translate}}</td>
+
+
+							</tr>
+						</tbody>
+
+
+					</table>
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<strong>BEINPlanner</strong> - {{'appNameTitle' | translate}} <br /> 2010
+			Copyright by BEINPlanner
+		</div>
+	</div>
+</div>

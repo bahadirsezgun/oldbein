@@ -1,0 +1,224 @@
+<div class="row" ng-controller="GlobalController as glbc"
+	ng-init="init()">
+
+
+
+	<div class="col-md-8 col-sm-8">
+		<div class="hpanel panel-group">
+
+
+
+			<div class="panel-section tour-4">
+				<form class="form-horizontal">
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'dateFormat'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="ptDateFormat">
+								<option value="%d/%m/%y">{{'timeFormat1'|translate}}</option>
+								<option value="%d.%m.%y">{{'timeFormat2'|translate}}</option>
+								<option value="%m/%d/%y">{{'timeFormat3'|translate}}</option>
+								<option value="%m.%d.%y">{{'timeFormat4'|translate}}</option>
+
+								<option value="%d/%m/%Y">{{'timeFormat5'|translate}}</option>
+								<option value="%d.%m.%Y">{{'timeFormat6'|translate}}</option>
+								<option value="%m/%d/%Y">{{'timeFormat7'|translate}}</option>
+								<option value="%m.%d.%Y">{{'timeFormat8'|translate}}</option>
+
+
+							</select>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'timezone'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="ptTz">
+								<option value="-">{{'pleaseSelect'|translate}}</option>
+								<option value="Asia/Kabul">Afghanistan Standard Time</option>
+								<option value="America/Anchorage">Alaskan Standard Time</option>
+								<option value="Asia/Riyadh">Arab Standard Time</option>
+								<option value="Asia/Dubai">Arabian Standard Time</option>
+								<option value="Asia/Baghdad">Arabic Standard Time</option>
+								<option value="America/Buenos_Aires">Argentina Standard
+									Time</option>
+								<option value="America/Halifax">Atlantic Standard Time</option>
+								<option value="Australia/Darwin">AUS Central Standard
+									Time</option>
+								<option value="Australia/Sydney">AUS Eastern Standard
+									Time</option>
+								<option value="Asia/Baku">Azerbaijan Standard Time</option>
+								<option value="Atlantic/Azores">Azores Standard Time</option>
+								<option value="Asia/Dhaka">Bangladesh Standard Time</option>
+								<option value="America/Regina">Canada Central Standard
+									Time</option>
+								<option value="Atlantic/Cape_Verde">Cape Verde Standard
+									Time</option>
+								<option value="Asia/Yerevan">Caucasus Standard Time</option>
+								<option value="Australia/Adelaide">Cen. Australia
+									Standard Time</option>
+								<option value="America/Guatemala">Central America
+									Standard Time</option>
+								<option value="Asia/Almaty">Central Asia Standard Time</option>
+								<option value="America/Cuiaba">Central Brazilian
+									Standard Time</option>
+								<option value="Europe/Budapest">Central Europe Standard
+									Time</option>
+								<option value="Europe/Warsaw">Central European Standard
+									Time</option>
+								<option value="Pacific/Guadalcanal">Central Pacific
+									Standard Time</option>
+								<option value="America/Mexico_City">Central Standard
+									Time (Mexico)</option>
+								<option value="America/Chicago">Central Standard Time</option>
+								<option value="Asia/Shanghai">China Standard Time</option>
+								<option value="Etc/GMT+12">Dateline Standard Time</option>
+								<option value="Africa/Nairobi">E. Africa Standard Time</option>
+								<option value="Australia/Brisbane">E. Australia
+									Standard Time</option>
+								<option value="Europe/Minsk">E. Europe Standard Time</option>
+								<option value="America/Sao_Paulo">E. South America
+									Standard Time</option>
+								<option value="America/New_York">Eastern Standard Time</option>
+								<option value="Africa/Cairo">Egypt Standard Time</option>
+								<option value="Asia/Yekaterinburg">Ekaterinburg
+									Standard Time</option>
+								<option value="Pacific/Fiji">Fiji Standard Time</option>
+								<option value="Europe/Kiev">FLE Standard Time</option>
+								<option value="Asia/Tbilisi">Georgian Standard Time</option>
+								<option value="Europe/London">GMT Standard Time</option>
+								<option value="America/Godthab">Greenland Standard Time</option>
+								<option value="Atlantic/Reykjavik">Greenwich Standard
+									Time</option>
+								<option value="Europe/Istanbul">Europe Istanbul
+									Standart Time</option>
+								<option value="Pacific/Honolulu">Hawaiian Standard Time</option>
+								<option value="Asia/Calcutta">India Standard Time</option>
+								<option value="Asia/Tehran">Iran Standard Time</option>
+								<option value="Asia/Jerusalem">Israel Standard Time</option>
+								<option value="Asia/Amman">Jordan Standard Time</option>
+								<option value="Asia/Kamchatka">Kamchatka Standard Time</option>
+								<option value="Asia/Seoul">Korea Standard Time</option>
+								<option value="Asia/Magadan">Magadan Standard Time</option>
+								<option value="Indian/Mauritius">Mauritius Standard
+									Time</option>
+								<option value="Etc/GMT+2">Mid-Atlantic Standard Time</option>
+								<option value="Asia/Beirut">Middle East Standard Time</option>
+								<option value="America/Montevideo">Montevideo Standard
+									Time</option>
+								<option value="Africa/Casablanca">Morocco Standard Time</option>
+								<option value="America/Chihuahua">Mountain Standard
+									Time (Mexico)</option>
+								<option value="America/Denver">Mountain Standard Time</option>
+								<option value="Asia/Rangoon">Myanmar Standard Time</option>
+								<option value="Asia/Novosibirsk">N. Central Asia
+									Standard Time</option>
+								<option value="Africa/Windhoek">Namibia Standard Time</option>
+								<option value="Asia/Katmandu">Nepal Standard Time</option>
+								<option value="Pacific/Auckland">New Zealand Standard
+									Time</option>
+								<option value="America/St_Johns">Newfoundland Standard
+									Time</option>
+								<option value="Asia/Irkutsk">North Asia East Standard
+									Time</option>
+								<option value="Asia/Krasnoyarsk">North Asia Standard
+									Time</option>
+								<option value="America/Santiago">Pacific SA Standard
+									Time</option>
+								<option value="America/Tijuana">Pacific Standard Time
+									(Mexico)</option>
+								<option value="America/Los_Angeles">Pacific Standard
+									Time</option>
+								<option value="Asia/Karachi">Pakistan Standard Time</option>
+								<option value="America/Asuncion">Paraguay Standard Time</option>
+								<option value="Europe/Paris">Romance Standard Time</option>
+								<option value="Europe/Moscow">Russian Standard Time</option>
+								<option value="America/Cayenne">SA Eastern Standard
+									Time</option>
+								<option value="America/Bogota">SA Pacific Standard Time</option>
+								<option value="America/La_Paz">SA Western Standard Time</option>
+								<option value="Pacific/Samoa">Samoa Standard Time</option>
+								<option value="Asia/Bangkok">SE Asia Standard Time</option>
+								<option value="Asia/Singapore">Singapore Standard Time</option>
+								<option value="Africa/Johannesburg">South Africa
+									Standard Time</option>
+								<option value="Asia/Colombo">Sri Lanka Standard Time</option>
+								<option value="Asia/Damascus">Syria Standard Time</option>
+								<option value="Asia/Taipei">Taipei Standard Time</option>
+								<option value="Australia/Hobart">Tasmania Standard Time</option>
+								<option value="Asia/Tokyo">Tokyo Standard Time</option>
+								<option value="Pacific/Tongatapu">Tonga Standard Time</option>
+								<option value="Asia/Ulaanbaatar">Ulaanbaatar Standard
+									Time</option>
+								<option value="America/Indianapolis">US Eastern
+									Standard Time</option>
+								<option value="America/Phoenix">US Mountain Standard
+									Time</option>
+								<option value="Etc/GMT">GMT</option>
+								<option value="Etc/GMT-12">GMT +12</option>
+								<option value="Etc/GMT+2">GMT -02</option>
+								<option value="Etc/GMT+11">GMT -11</option>
+								<option value="America/Caracas">Venezuela Standard Time</option>
+								<option value="Asia/Vladivostok">Vladivostok Standard
+									Time</option>
+								<option value="Australia/Perth">W. Australia Standard
+									Time</option>
+								<option value="Africa/Lagos">W. Central Africa Standard
+									Time</option>
+								<option value="Europe/Berlin">W. Europe Standard Time</option>
+								<option value="Asia/Tashkent">West Asia Standard Time</option>
+								<option value="Pacific/Port_Moresby">West Pacific
+									Standard Time</option>
+								<option value="Asia/Yakutsk">Yakutsk Standard Time</option>
+
+							</select>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'language'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="ptLang">
+								<option value="tr_TR">{{'langTR'|translate}}</option>
+								<option value="en_EN">{{'langEN'|translate}}</option>
+								<option value="de_DE">{{'langDE'|translate}}</option>
+								<option value="fr_FR">{{'langFR'|translate}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'currency'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="ptCurrency" placeholder="(TL, $, Euro )">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'staticIp'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="ptStaticIp" placeholder="{{'amazonIpInfo'|translate}}">
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+							<button type="button" class="btn btn-success btn-block"
+								ng-click="createPtGlobal()">{{'save'|translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+
+</div>

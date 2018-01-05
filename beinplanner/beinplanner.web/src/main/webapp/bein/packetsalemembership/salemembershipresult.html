@@ -1,0 +1,123 @@
+
+<div class="row projects"
+	ng-controller="SaleMembershipResultController as ufc" ng-init="init()">
+	<div class="col-lg-3"
+		ng-repeat="packetSale in packetSales | filter:{userSurname : search}"
+		ng-show="saleShow">
+		<div
+			class="hpanel {{(packetSale.leftPrice>0)?(packetSale.packetPrice==packetSale.leftPrice?'hred':'horange'):'hgreen' }} ">
+			<div class="panel-body">
+				<span
+					class="label {{(packetSale.leftPrice>0)?(packetSale.packetPrice==packetSale.leftPrice?'label-danger':'label-warning'):'label-success' }} pull-right">{{(packetSale.leftPrice>0)?mustPay:okPay
+					}}</span>
+				<div class="row">
+					
+					<div class="col-md-12 project-info hidden-xs inline">
+						
+						<div class="project-people pull-left">
+						     <em > {{packetSale.progName}}</em>
+							<img class="img-circle"
+								ng-src="{{packetSale.profileUrl==null?(packetSale.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(packetSale.urlType==1?'../pt/member/get/profile/'+packetSale.userId+'/1' :'/beinplanner/homerlib/images/'+packetSale.profileUrl )   }}">
+						</div>
+						
+						
+					</div>
+					<div class="col-md-12">
+						
+						<div class="project-action m-t-md hidden-xs">
+							<div class="btn-group">
+								<button class="btn btn-xs btn-default"
+									ng-click="makePayment(packetSale)">
+									{{'payment'|translate}}</button>
+								<button class="btn btn-xs btn-default"
+									ng-click="freezePlan(packetSale)">
+									{{'freeze'|translate}}</button>
+								<button class="btn btn-xs btn-default"
+									ng-click="packetDelete(packetSale)">
+									{{'deleteLbl'|translate}}</button>
+							</div>
+						</div>
+
+						<h3
+							class="{{(packetSale.leftPrice>0)?(packetSale.packetPrice==packetSale.leftPrice?'text-danger':'text-warning'):'text-success'}}">
+							{{packetSale.leftPrice+' '+ptCurrency}}</h3>
+
+
+						<p>{{packetSale.progDescription}}</p>
+						<p>{{'membershipStartDate'|translate}} :
+							{{packetSale.smpStartDateStr}}</p>
+						<p>{{'membershipEndDate'|translate}} :
+							{{packetSale.smpEndDateStr}}</p>
+						<div class="row hidden-xs">
+							<div class="col-sm-6">
+								<div class="project-label">{{'name'|translate}}</div>
+								<small>{{packetSale.userName+'
+									'+packetSale.userSurname}}</small>
+							</div>
+							<div class="col-sm-6">
+								<div class="project-label">{{'phone'|translate}}</div>
+								<small>{{packetSale.userGsm}}</small>
+							</div>
+							<div class="col-sm-12">
+								<div class="project-label">{{'progPrice'|translate}}</div>
+								<small>{{packetSale.packetPrice+' '+ptCurrency}}</small>
+							</div>
+						</div>
+						
+						<div class="row visible-xs">
+						 <div class="hpanel hblue">
+						    <div class="panel-body ">
+						      <small>{{packetSale.userName+'
+									'+packetSale.userSurname}}</small>
+							   <small class="pull-right">{{packetSale.userGsm}}</small>
+							   <br/>
+							    <div>
+							    <div class="project-label">{{'progPrice'|translate}}</div><small>{{packetSale.packetPrice+' '+ptCurrency}}</small>
+								<div class="project-people pull-right">
+									<img class="img-circle"
+										ng-src="{{packetSale.profileUrl==null?(packetSale.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(packetSale.urlType==1?'../pt/member/get/profile/'+packetSale.userId+'/1' :'/beinplanner/homerlib/images/'+packetSale.profileUrl )   }}">
+								</div>
+							   </div>
+						    </div>
+						   
+						 
+						 </div>
+						</div>
+						
+						
+					</div>
+					
+					
+					<div class="col-md-12 clearfix">	
+					<label class="btn-group visible-xs pull-right">
+                            <button class="btn btn-md btn-default"
+									ng-click="makePayment(packetSale)">
+									{{'payment'|translate}}</button>
+								<button class="btn btn-md btn-default"
+									ng-click="freezePlan(packetSale)">
+									{{'booking'|translate}}</button>
+								<button class="btn btn-md btn-default"
+									ng-click="packetDelete(packetSale)">
+									{{'deleteLbl'|translate}}</button>
+                	</label>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				{{'salesDate'|translate}}-{{packetSale.salesDateStr}}</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-lg-12" ng-show="paymentShow || freezeShow">
+		<a ng-click="turnBackToSales()"><i
+			class="pe-7s-close-circle fa-3x pull-right text-danger"></i></a>
+	</div>
+	<div class="hr-line-dashed"></div>
+	<div class="col-lg-12 animated fadeInUp"
+		ng-include="userPacketPaymentPage" ng-show="paymentShow"></div>
+	<div class="col-lg-12 animated fadeInUp" ng-include="freezePage"
+		ng-show="freezeShow"></div>
+    
+    </div>
+
+</div>

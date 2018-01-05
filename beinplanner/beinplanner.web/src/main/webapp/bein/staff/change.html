@@ -1,0 +1,54 @@
+<div class="row" ng-controller="ChangepassController as uc" ng-init="init()">
+	<div class="login-container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="text-center m-b-md">
+					<h3>{{'passwordChange'|translate}}</h3>
+					<small>{{'passwordChangeTitle'|translate}}</small>
+				</div>
+				<div class="hpanel">
+					<div class="panel-body">
+						
+							<div class="form-group">
+								<label class="control-label" for="username">Email</label> <input
+									type="text" placeholder="example@gmail.com"
+									title="{{'registeredMail'|translate}}" required="" value="" autocomplete="off"
+									ng-model="userEmail" class="form-control"> <span
+									class="help-block small">{{'registeredMail'|translate}}</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="username">{{'oldPassword'|translate}}</label> <input
+									type="password" placeholder="{{'oldPasswordHint'|translate}}"
+									title="{{'oldPasswordHint'|translate}}" required="" value="" autocomplete="off"
+									ng-model="oldPassword" class="form-control"> 
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="username">{{'newPassword'|translate}}</label> <input
+									type="password" placeholder="{{'newPasswordHint'|translate}}"
+									title="{{'newPasswordHint'|translate}}" required="" value="" autocomplete="off"
+									ng-model="password" class="form-control"> 
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="username">{{'newPasswordRetype'|translate}}</label> <input
+									type="password" placeholder="{{'newPasswordHintRetype'|translate}}"
+									title="{{'newPasswordHintRetype'|translate}}" required="" value="" autocomplete="off"
+									ng-model="passwordControl" class="form-control"> 
+							</div>
+
+
+							<button class="btn btn-success btn-block"
+								ng-click="changePassword()">{{'changePassword'|translate}}</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong>{{'appName' | translate}}</strong> - {{'appNameTitle' |
+				translate}} <br />{{'Version : '+version}}<br /> 2010 Copyright by
+				ABASUS
+			</div>
+		</div>
+	</div>
+</div>

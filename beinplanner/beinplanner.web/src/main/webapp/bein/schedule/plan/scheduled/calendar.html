@@ -1,0 +1,228 @@
+<div class="row" data-ng-controller="CalendarBookingController as spcbc"
+	data-ng-init="initCBC()">
+
+	<div class="btn-group pull-right" ng-show="!week">
+
+		<button class="btn btn-sm btn-default " ng-click="prevDate()">
+			{{'prev'|translate}}</button>
+		<button class="btn btn-sm btn-default" ng-click="nextDate()">
+			{{'next'|translate}}</button>
+
+		<button class="btn btn-sm btn-default " ng-click="showWeek()">
+			{{'weekly'|translate}}</button>
+		<button class="btn btn-sm btn-default" ng-click="showDay()">
+			{{'daily'|translate}}</button>
+
+		<button class="btn btn-sm btn-default" ng-click="showSearch()">
+			{{'close'|translate}}</button>
+
+	</div>
+
+
+	<div class="hr-line-dashed" ng-show="!week && !showDailyPopupDetail"></div>
+
+	<div class="col-md-12" ng-include="weekCalendar" ng-show="week"></div>
+
+	<div class="col-md-12 hpanel hpanel-success" ng-show="!week">
+		<div class="col-md-12 text-center">
+			<h1 class="text-success">{{calendarDateName|translate}}</h1>
+			<h4 class="text-success">{{calendarDate}}</h4>
+		</div>
+	</div>
+
+	<div class="col-md-6 animated fadeInUp"
+		ng-show="!week && !showDailyPopupDetail">
+		<div class="hpanel">
+			<div class="v-timeline vertical-container animate-panel"
+				data-child="vertical-timeline-block">
+				<div class="vertical-timeline-block"
+					ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar |  filter:{userSurname : search}"
+					ng-if="$even" ng-mouseup="showDailyDetail($event,scheduleTimePlan)">
+					<div class="vertical-timeline-icon navy-bg">
+						<i class="fa fa-calendar"></i>
+					</div>
+					<div class="vertical-timeline-content">
+						<div class="p-sm">
+							<div class="row">
+								<div class="col-md-6">
+									<h2>{{scheduleTimePlan.userName+"
+										"+scheduleTimePlan.userSurname}}</h2>
+									<h1 class="text-success">{{scheduleTimePlan.progName}}</h1>
+									<label
+										ng-repeat="scheduleStudio in scheduleTimePlan.scheduleStudios"
+										ng-if="$even">{{scheduleStudio.studioName}}</label> <label
+										ng-repeat="scheduleStudio in scheduleTimePlan.scheduleStudios"
+										ng-if="$odd">{{","+scheduleStudio.studioName}}</label>
+								</div>
+								<div class="col-md-6">
+									<span class="vertical-date pull-right">{{","+scheduleTimePlan.planStartDateStr}}</span>
+									<div class="vertical-date pull-right">
+										{{scheduleTimePlan.planDayName|translate}}</div>
+									<br>
+									<div class="vertical-date pull-right">
+										<h1 class="text-success">{{scheduleTimePlan.planDayTime}}</h1>
+									</div>
+								</div>
+								<div class="col-md-12 projects">
+									<div class="project-info">
+										<div class="project-people">
+											<img ng-repeat="member in scheduleTimePlan.users"
+												class="img-circle"
+												title="{{member.userName}} {{member.userSurname}}"
+												ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<span
+								class=" {{scheduleTimePlan.planStatus==2?'label label-danger':''}}">
+								{{scheduleTimePlan.planStatusComment|translate}} </span>
+							<button class="btn btn-default btn-xs pull-right"
+								ng-click="editTimePlan(scheduleTimePlan)">{{'edit'|translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md-6 animated fadeInUp"
+		ng-show="!week && !showDailyPopupDetail">
+		<div class="hpanel">
+			<div class="v-timeline vertical-container animate-panel"
+				data-child="vertical-timeline-block">
+				<div class="vertical-timeline-block"
+					ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar |  filter:{userSurname : search}"
+					ng-if="$odd" ng-mouseup="showDailyDetail($event,scheduleTimePlan)">
+					<div class="vertical-timeline-icon navy-bg">
+						<i class="fa fa-calendar"></i>
+					</div>
+					<div class="vertical-timeline-content">
+						<div class="p-sm">
+							<div class="row">
+								<div class="col-md-6">
+									<h2>{{scheduleTimePlan.userName+"
+										"+scheduleTimePlan.userSurname}}</h2>
+									<h1 class="text-success">{{scheduleTimePlan.progName}}</h1>
+									<label
+										ng-repeat="scheduleStudio in scheduleTimePlan.scheduleStudios"
+										ng-if="$even">{{scheduleStudio.studioName}}</label> <label
+										ng-repeat="scheduleStudio in scheduleTimePlan.scheduleStudios"
+										ng-if="$odd">{{","+scheduleStudio.studioName}}</label>
+								</div>
+								<div class="col-md-6">
+									<span class="vertical-date pull-right">{{","+scheduleTimePlan.planStartDateStr}}</span>
+									<div class="vertical-date pull-right">
+										{{scheduleTimePlan.planDayName|translate}}</div>
+									<br>
+									<div class="vertical-date pull-right">
+										<h1 class="text-success">{{scheduleTimePlan.planDayTime}}</h1>
+									</div>
+								</div>
+								<div class="col-md-12 projects">
+									<div class="project-info">
+										<div class="project-people">
+											<img ng-repeat="member in scheduleTimePlan.users"
+												class="img-circle"
+												title="{{member.userName}} {{member.userSurname}}"
+												ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<span
+								class=" {{scheduleTimePlan.planStatus==2?'label label-danger':''}}">
+								{{scheduleTimePlan.planStatusComment|translate}} </span>
+							<button class="btn btn-default btn-xs pull-right"
+								ng-click="editTimePlan(scheduleTimePlan)">{{'edit'|translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="ptboss-container" ng-show="showDailyPopupDetail">
+
+		<div class="hpanel hgreen">
+			<div class="panel-body projects" style="background-color: #ffffff">
+				<span class="label label-success pull-right">{{scheduleTimePlan.lastPlan==0?'':('lastClass'|translate)}}</span>
+				<div class="row">
+					<div class="col-sm-12 ">
+						<div class="contact-panel text-center">
+							<img alt="logo" class="img-circle m-b m-t-sm "
+								ng-src="{{schedulePlan.profileUrl==null?(schedulePlan.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schedulePlan.urlType==1?'../pt/member/get/profile/'+schedulePlan.userId+'/1':'/beinplanner/homerlib/images/'+schedulePlan.profileUrl )   }}">
+							<p>{{schedulePlan.userName+" "+schedulePlan.userSurname}}</p>
+							<h4>
+								<a href=""> {{schedulePlan.progName}}</a>
+							</h4>
+						</div>
+						<br>
+						<div class="row">
+
+							<div class="col-sm-12" style="max-height: 400px; overflow: auto;">
+								<table class="table table-stripped">
+									<thead>
+										<th>{{'instructor'|translate}}</th>
+										<th>{{'date'|translate}}</th>
+										<th>{{'time'|translate}}</th>
+										<th>{{'studio'|translate}}</th>
+										<th>{{'attendees'|translate}}</th>
+										<th>{{'execution'|translate}}</th>
+									</thead>
+									<tbody>
+										<tr ng-repeat="schTP in selectedTimePlans">
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.userName+"
+													"+schTP.userSurname}}</small></td>
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.planStartDateStr}}</small></td>
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.planDayTime+'-'+schTP.planEndDayTime}}</small></td>
+											<td><small
+												ng-repeat="scheduleStudio in schTP.scheduleStudios"
+												ng-if="$even">{{scheduleStudio.studioName}}</small> <small
+												ng-repeat="scheduleStudio in schTP.scheduleStudios"
+												ng-if="$odd">{{","+scheduleStudio.studioName}}</small></td>
+											<td>
+												<div class="col-md-12 projects">
+													<div class="project-info">
+														<div class="project-people">
+															<img ng-repeat="member in schTP.users" class="img-circle"
+																title="{{member.userName}} {{member.userSurname}}"
+																ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+														</div>
+													</div>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-xs btn-default"
+													ng-click="editTimePlan(schTP)">
+													{{'edit'|translate}}</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

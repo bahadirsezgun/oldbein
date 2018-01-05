@@ -1,0 +1,33 @@
+<div class="content"
+	data-ng-controller="DashboardClassController as dashcc"
+	data-ng-init="initDC()">
+
+	<div class="row">
+		<div class="col-lg-12 text-center m-t-md">
+			<h2>{{'welcomeKeepInsideOf'|translate}}</h2>
+
+			<p>
+				{{'office'|translate}}, <strong>{{'KeepInsideOfAppWith'|translate}}</strong>
+				{{'KeepInsideOfAppWithComment'|translate}}
+			</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-body">
+					<div class="row" style="padding-top: 40px;">
+						<div class="col-md-12" ng-include="calendar"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</div>

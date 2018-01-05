@@ -1,0 +1,22 @@
+<div class="row" ng-controller="StudioChooseController"
+	ng-init="initSCC()">
+
+	<div class="content animate-panel">
+		<div class="row">
+			<div class="col-lg-3" ng-repeat="studio in studious">
+				<div class="hpanel hblue contact-panel">
+					<div class="panel-body text-center">
+						<div class="m">
+							<i class="pe-7s-cart fa-2x"></i>
+						</div>
+						<small>{{studio.studioName}}</small>
+						<div class="hr-line-dashed"></div>
+						<a ng-click="chooseStudio(studio)"><i
+							class="pe-7s-check fa-2x"></i></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

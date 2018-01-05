@@ -1,0 +1,23 @@
+define(['../lang/module.require',
+        '../bein/objs/module.require',
+        '../bein/common/module.require',
+        '../bein/user/module.require',
+        '../bein/staff/module.require',
+        '../bein/menu/module.require',
+        '../bein/dashboard/module.require',
+        '../bein/upload/module.require',
+        '../bein/definition/module.require',
+        '../bein/settings/module.require',
+        '../bein/packetsale/module.require',
+        '../bein/packetsalepersonal/module.require',
+        '../bein/packetsalemembership/module.require',
+        '../bein/packetsaleclass/module.require',
+        '../bein/packetpayment/module.require',
+        '../bein/programs/module.require',
+        '../bein/schedule/module.require',
+        '../bein/income/module.require',
+        '../bein/bonus/module.require',
+        '../bein/routes/module.require'],
+        function(PTBossApp,routes){	
+	
+});

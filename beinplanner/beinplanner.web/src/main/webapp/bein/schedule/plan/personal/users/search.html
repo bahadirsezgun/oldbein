@@ -1,0 +1,43 @@
+<div class="register-container"
+	ng-controller="UserFindPersonalBookingController" ng-init="init()">
+	<div class="row">
+		 <div class="col-md-12">
+			<div class="text-center m-b-md">
+				<h3>{{'findMember' | translate}}</h3>
+				<small>{{'findMemberComment' | translate}}</small>
+			</div>
+			<div class="hpanel" style="border-top: 1px solid #e4e5e7">
+				<div class="panel-body">
+						<div class="row" >
+							<form>
+								<div class="row">
+									<div class="form-group col-lg-6">
+										<label>{{'name' | translate}}</label> <input type="text"
+											value="" id="" class="form-control" autocomplete="off" name=""
+											ng-model="filterUserName">
+									</div>
+									<div class="form-group col-lg-6">
+										<label>{{'surname' | translate}}</label> <input type="text"
+											value="" id="" class="form-control" autocomplete="off" name=""
+											ng-model="filterUserSurname">
+									</div>
+		
+								</div>
+								<div class="text-center">
+									<button type="button" class="btn btn-success"
+										ng-click="searchUser()">{{'find' | translate}}</button>
+								</div>
+							</form>
+						</div>
+					    
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<strong>BEINPlanner</strong> - {{'appNameTitle' | translate}} <br /> 2010
+			Copyright by BEINPlanner
+		</div>
+	</div>
+</div>

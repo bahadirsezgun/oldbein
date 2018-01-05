@@ -1,0 +1,277 @@
+<div class="row" ng-controller="FamilyProgController as fampc"
+	ng-init="init()">
+	<section ng-show="individualRestriction==1"> 
+		<div class="col-md-6 col-sm-6">
+			<div class="hpanel panel-group">
+			<div class="panel-body">
+				<div class="text-center text-muted font-bold">
+					<div class="col-md-8">
+						<h1 class="text-primary">{{'listProgramTitle'|translate}}</h1>
+					</div>
+					<div class="col-md-4">
+						<a class="btn btn-lg pull-right" ng-click="addNewProgram()"><i
+							class="pe-7s-plus text-success fa-3x"></i> </a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-section tour-2">
+
+				<div class="error-container animated bounceIn" ng-show="noProgram">
+					<i class="pe-7s-way text-success big-icon"></i>
+					<h1>{{'familyProgNotFound'|translate}}</h1>
+					<p>{{'familyProgNotFoundComment'|translate}}</p>
+
+				</div>
+
+			</div>
+
+			<div id="notes" >
+
+				<div class="panel-body note-link " ng-repeat="programFamily in programFamilys">
+					<div class="row" >
+
+						<div class="col-md-2 hidden-xs">
+							<i class="pe-7s-share fa-5x "></i>
+						</div>
+						<div class="col-md-10 col-xs-12">
+							<a data-ng-click="deleteProgram(programFamily.progId)"><i
+								class="pe-7s-close pull-right fa-4x text-danger"></i></a> 
+						    
+						    <a class="text-medium"  href="#" data-toggle="tab" data-ng-click="showProgram(programFamily.progId)"> 
+						       <em	class="{{programFamily.progPrice!='0' ? 'text-success' : 'text-danger'}}">{{programFamily.progName}}</em>
+							</a>
+							
+							
+							
+							<div class="small">
+								<small class="text-info text-muted">{{programFamily.progDescription}}</small>
+							</div>
+							<div class="small">
+								<small
+									class="{{programFamily.progStatus=='1' ? 'text-info text-muted' : 'text-warning text-muted font-bold'}}">{{'bindFirmName'|translate}}{{programFamily.firmName}}{{programFamily.progStatus=="1"
+									? ('activeComment'|translate) : ('passiveComment'|translate) }}</small><br/>
+								<small class="text-muted">{{'createTime'|translate}}:{{programFamily.createTimeStr}}</small>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<a class="btn btn-xs btn-success" ng-click="addNewProgram()">{{'addNewProgram'|translate}}</a>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="col-md-6 col-sm-6" ng-show="willProgramCreate">
+		<div class="hpanel panel-group">
+			<div class="panel-body tour-3">
+				<div class="text-center text-muted font-bold ">
+					{{'addNewProgramTitle'|translate}}</div>
+			</div>
+			<div class="panel-section">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'branchName'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="firmId"
+								ng-options="firm.firmId as firm.firmName for firm in firms">
+								<option value="0">{{'pleaseSelect'|translate}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'progName'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="progName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'progShortName'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="progShortName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'schedulerStaff'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="progUserId">
+								<option value="0" selected="selected">{{'noDefaultProgInstructor'|translate}}</option>
+								<option ng-repeat="progInstructor in programInstructors"
+									value="{{progInstructor.userId }}">{{progInstructor.userName}}{{progInstructor.userSurname}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'progStatu'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="progStatus">
+								<option value="1" selected="selected">{{'active'|translate}}</option>
+								<option value="2">{{'passive'|translate}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group  tour-help-price-1">
+						<div class="col-sm-4 text-right">
+							<label>{{'progCount'|translate}}*</label>
+						</div>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control "
+								id="progCount" ng-model="progCount">
+						</div>
+					</div>
+
+
+					<div class="form-group  tour-help-price-1">
+						<label class="col-sm-4 text-right">{{'progPrice'|translate}}</label>
+						<div class="col-sm-8">
+							<div class="input-group m-b">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary"
+										data-container="body" data-toggle="popover"
+										data-placement="bottom"
+										data-content="{{'program_price_help1_comment'|translate}}">
+										<i class="pe-7s-help1"></i>
+									</button>
+								</span> <input type="number" autocomplete="off" class="form-control"
+									ng-model="progPrice"  >
+							</div>
+						</div>
+					</div>
+					<div class="form-group" ng-show="false">
+						<label class="col-sm-4 text-right"  >{{'progDuration'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								id="progDuration" ng-model="progDuration">
+						</div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<label class="col-sm-4 text-right">{{'thereIsRestriction'|translate}}</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="restFlag">
+								<option value="0" selected="selected">{{'noRestriction'|translate}}</option>
+								<option value="1">{{'haveRestriction'|translate}}</option>
+							</select>
+							<label>{{'thereIsRestrictionComment'|translate}}*</label>
+						</div>
+					</div>
+					
+					<div class="form-group" ng-show="restFlag!=0">
+						<label class="col-sm-4 text-right">{{'restType'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="restType">
+								<option value="0" selected="selected">{{'daily'|translate}}</option>
+								<option value="1">{{'weekly'|translate}}</option>
+								<option value="2">{{'monthly'|translate}}</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group"  ng-show="restFlag!=0">
+						<label class="col-sm-4 text-right"  >{{'restDuration'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="number" class="form-control" ng-model="restDuration">
+							
+						</div>
+					</div>
+					
+					<div class="form-group tour-help-duration-1" ng-show="false">
+						<div class="col-sm-4 text-right">
+							<label>{{'progBeforeDuration'|translate}}*</label>
+						</div>
+						<div class="col-sm-8">
+							<div class="input-group m-b">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary"
+										data-container="body" data-toggle="popover"
+										data-placement="bottom"
+										data-content="{{'program_duration_help1_comment'|translate}}">
+										<i class="pe-7s-help1"></i>
+									</button>
+								</span> <input type="text" autocomplete="off" class="form-control"
+									ng-model="progBeforeDuration">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="form-group tour-help-duration-2" ng-show="false">
+						<div class="col-sm-4 text-right">
+							<label>{{'progAfterDuration'|translate}}*</label>
+						</div>
+						<div class="col-sm-8">
+							<div class="input-group m-b">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary"
+										data-container="body" data-toggle="popover"
+										data-placement="bottom"
+										data-content="{{'program_duration_help2_comment'|translate}}">
+										<i class="pe-7s-help1"></i>
+									</button>
+								</span> <input type="text" autocomplete="off" class="form-control"
+									ng-model="progAfterDuration">
+							</div>
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label class="col-sm-12 ">{{'progDescription'|translate}}*</label>
+						<div class="col-sm-12">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="progDescription">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-12 ">{{'progComment'|translate}}*</label>
+						<div class="col-sm-12">
+							<textarea autocomplete="off" type="text" class="form-control"
+								ng-model="progComment"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-12 col-sm-offset-4 col-md-8 col-md-offset-4">
+							<button type="button" class="btn btn-success btn-block"
+								ng-click="createProgram()">{{'save'|translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+</section>
+<section ng-show="individualRestriction==0"> 
+
+  <div class="login-container">
+  
+      <div class="row">
+      <div class="hpanel rgbblue">
+       <h1>{{'packetInappropriate'|translate}}</h1>
+      
+      </div>
+      </div>
+  
+  
+  </div>
+
+
+</section>
+
+</div>

@@ -1,0 +1,2 @@
+define(['../controller/UploadController'], function() {});
+

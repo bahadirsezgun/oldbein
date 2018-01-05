@@ -1,0 +1,220 @@
+<div class="row " ng-controller="PtExpensesController as ptecc"
+	ng-init="initPEC()">
+
+	<div class="col-md-12" ng-show="query && !newExpense">
+
+		<div class="row login-container">
+			<div class="col-md-12">
+				<div class="text-center m-b-md">
+					<h3>{{'findExpenses' | translate}}</h3>
+					<small>{{'findExpensesComment' | translate}}</small>
+				</div>
+				<div class="hpanel">
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label class="control-label">{{'branchName'|translate}}*</label>
+							<select class="form-control" ng-model="firmIdQuery"
+								ng-options="firm.firmId as firm.firmName for firm in firms">
+								<option ng-value="">{{'pleaseSelect'|translate}}</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<label class="control-label">{{'year'|translate}}*</label> <select
+								class="form-control " ng-model="year"
+								ng-options="y as y for y in years">
+								<option ng-value="0">{{'pleaseSelect'|translate}}</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<label class=" control-label">{{'month'|translate}}*</label> <select
+								class="form-control " ng-model="month"
+								ng-options="m.value as m.name for m in months">
+								<option ng-value="0">{{'pleaseSelect'|translate}}</option>
+							</select>
+
+						</div>
+
+					</div>
+					<div class="panel-footer">
+						<button type="button" class="btn btn-success"
+							ng-click="queryPtExpenses()">{{'find' | translate}}</button>
+						<button type="button" class="btn btn-success pull-right"
+							ng-click="enterExpense()">{{'newExpense' | translate}}</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="col-md-12 " ng-show="!query && newExpense">
+		<div class="register-container">
+			<div class="hpanel panel-group">
+				<div class="panel-header">
+
+					<div class="text-center m-b-md">
+						<h3>{{'incomeAndExpenses' | translate}}</h3>
+						<small>{{'incomeAndExpensesComment' | translate}}</small>
+					</div>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal">
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">{{'branchName'|translate}}*</label>
+							<div class="col-sm-8">
+								<select class="form-control" ng-model="ptExpenses.firmId"
+									ng-options="firm.firmId as firm.firmName for firm in firms">
+									<option ng-value="">{{'pleaseSelect'|translate}}</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">{{'date'|translate}}*</label>
+							<div class="col-sm-8">
+								<input type="text" id="peDateStr" class="form-control"
+									ng-model="ptExpenses.peDateStr">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">{{'inOutProcess'|translate}}*</label>
+							<div class="col-sm-8">
+								<select class="form-control" ng-model="ptExpenses.peInOut">
+									<option value="0">{{'expense'|translate}}</option>
+									<option value="1">{{'income'|translate}}</option>
+								</select>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">{{('amount'|translate)+'
+								('+ptCurrency+')'}}*</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control"
+									ng-model="ptExpenses.peAmount"
+									placeholder="{{'incomePH'|translate}}">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">{{'comment'|translate}}*</label>
+							<div class="col-sm-8">
+								<textarea type="text" class="form-control"
+									ng-model="ptExpenses.peComment"
+									placeholder="{{'commentExpensesPH'|translate}}"></textarea>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="panel-footer">
+					<button type="button" class="btn btn-success btn-md"
+						ng-click="createPtExpenses()">{{'save'|translate}}</button>
+					<button type="button" ng-show="ptExpenses.peId!=0"
+						class="btn btn-primary " ng-click="enterExpense()">{{'newExpense'
+						| translate}}</button>
+					<button type="button" class="btn btn-info btn-md pull-right"
+						ng-click="showQuery()">{{'query'|translate}}</button>
+
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="col-md-4 col-md-offset-2 text-center"
+		ng-show="!query && !newExpense">
+
+		<i class="pe-7s-display1 fa-5x text-success "></i>
+
+		<div class="hpanel hbgblue">
+			<div class="panel-body">
+				<div class="text-center">
+					<h3>{{'totalExpenseAmount'|translate}}</h3>
+					<p class="text-big font-light">{{totalExpenseAmount+'
+						'+ptCurrency}}</p>
+					<h4 class="font-light">{{monthName|translate}}/{{year}}</h4>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="col-md-4 text-center" ng-show="!query && !newExpense">
+
+		<i class="pe-7s-display1 fa-5x text-primary "></i>
+
+		<div class="hpanel hbggreen">
+			<div class="panel-body">
+				<div class="text-center">
+					<h3>{{'totalIncomeAmount'|translate}}</h3>
+					<p class="text-big font-light">{{totalIncomeAmount+'
+						'+ptCurrency}}</p>
+					<h4 class="font-light">{{monthName|translate}}/{{year}}</h4>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+	<div class="col-md-4 col-md-offset-4" ng-show="!query && !newExpense">
+		<button type="button" class="btn btn-success pull-left"
+			ng-click="enterExpense()">{{'newExpense' | translate}}</button>
+		<button type="button" class="btn btn-info pull-right"
+			ng-click="showQuery()">{{'query' | translate}}</button>
+	</div>
+	<div class="hr-line-dashed"></div>
+	<div class="col-md-12" ng-show="!query && !newExpense">
+		<div class="hpanel panel-group">
+			<div class="panel-header">
+				<div class="text-center m-b-md">
+					<h3>{{firmName}}</h3>
+				</div>
+			</div>
+			<div class="panel-body">
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th width="20%" class="text-center">{{'date'|translate}}</th>
+						<th width="20%" class="text-center">{{'expense'|translate}}</th>
+						<th width="40%">{{'comment'|translate}}</th>
+						<th width="20%">{{'execution'|translate}}</th>
+					</thead>
+					<tbody>
+						<tr class="{{expense.peInOut==0?'text-danger':'text-success'}}"
+							ng-repeat="expense in ptExpenseses">
+							<td class="text-center">{{expense.peDateStr|translate}}</td>
+							<td class="text-center">{{expense.peAmount+" "+ptCurrency}}</td>
+							<td>{{expense.peComment}}</td>
+
+							<td class="text-center"><a ng-click="editExpense(expense)"><i
+									class="pe-7s-config fa-2x text-success"></i> </a> <a
+								ng-click="cancelPtExpenses(expense)"><i
+									class="pe-7s-close-circle fa-2x text-danger"></i> </a></td>
+
+						</tr>
+					</tbody>
+
+
+				</table>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>

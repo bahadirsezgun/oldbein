@@ -1,0 +1,244 @@
+<div class="row">
+
+
+
+	<div class="col-sm-12">
+		<div class="hpanel">
+			<div class="panel-body">
+
+				<div class="hpanel hbgblue">
+					<div class="panel-body">
+
+						<div class="text-center">
+							<h3>{{'progressPayment'|translate}}</h3>
+							<h3 class="font-light">{{progressPayment+" "+ptCurrency}}</h3>
+							<p>{{'payConfirmHint'|translate}}</p>
+						</div>
+
+
+					</div>
+				</div>
+
+
+				<table class="table table-stripped">
+
+					<tr ng-repeat="schf in scheduleFactories">
+						<td>
+							<div class="contact-panel text-center">
+								<img alt="logo" class="img-circle m-b m-t-sm "
+									ng-src="{{schf.profileUrl==null?(schf.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schf.urlType==1?'../pt/member/get/profile/'+schf.userId+'/1':'/beinplanner/homerlib/images/'+schf.profileUrl )   }}">
+								<p>{{schf.userName+" "+schf.userSurname}}</p>
+								<p>{{schf.userGsm}}</p>
+
+
+
+							</div>
+						</td>
+						<td>
+							<button
+								class="btn btn-lg btn-circle {{schf.packetPaymentFactory.payConfirm==1?'btn-success':'btn-danger'}}"></button>
+						</td>
+						<td>
+
+							<table class="table table-stripped text-center">
+								<thead>
+									<th width="10%" class="text-center">{{'packetPrice'|translate}}</th>
+									<th width="10%" class="text-center">{{'payAmount'|translate}}</th>
+									<th width="10%" class="text-center">{{'leftPayment'|translate}}</th>
+									<th width="10%" class="text-center">{{'attentionCount'|translate}}</th>
+									<th width="20%" class="text-center">{{'leftPaymentCalcComment'|translate}}</th>
+									<th width="10%" class="text-center">{{rateLabel}}</th>
+									<th width="10%" class="text-center"
+										ng-if="schf.packetPaymentFactory.payType==2">{{'creditCardCommissionRate'|translate}}</th>
+									<th width="10%" class="text-center">{{'progressPayment'|translate}}</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center"><small>{{schf.packetPrice+"
+												"+ptCurrency}}</small></td>
+										<td class="text-center"><small>{{schf.packetPaymentFactory.payAmount+"
+												"+ptCurrency}}</small></td>
+										<td class="text-center"><small>{{(schf.packetPrice-schf.packetPaymentFactory.payAmount)+"
+												"+ptCurrency}}</small></td>
+										<td class="text-center"><small>{{schf.saleCount}}</small></td>
+										<td class="text-center"><small>{{(schf.packetPaymentFactory.payAmount/schf.saleCount)+"
+												"+ptCurrency}}</small></td>
+										<td class="text-center"><small> {{(bonusValue)+'
+												('+rateSuffix+')'}}</small></td>
+										<td class="text-center"
+											ng-if="schf.packetPaymentFactory.payType==2"><small
+											ng-if="creditCardCommissionRule==1">
+												{{(creditCardCommissionRate)+' ('+rateSuffix+')'}}</small></td>
+										<td class="text-center text-danger"><small>
+												{{schf.staffPayment+' ('+ptCurrency+')'}}</small></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+
+						<td>
+							<table class="table table-stripped">
+								<thead>
+									<th width="10%">{{'confirm'|translate}}</th>
+									<th width="10%">{{'payDate'|translate}}</th>
+									<th width="10%">{{'payAmount'|translate}}</th>
+									<th width="70%">{{'payComment'|translate}}</th>
+								</thead>
+								<tbody>
+									<tr
+										ng-repeat="ppdf in schf.packetPaymentFactory.packetPaymentDetailFactories">
+										<td><button
+												class="btn btn-xs btn-circle {{ppdf.payConfirm==1?'btn-success':'btn-danger'}}"></button></td>
+										<td><small>{{ppdf.payDateStr}}</small></td>
+										<td><small>{{ppdf.payAmount+" "+ptCurrency}}</small></td>
+										<td><small>{{ppdf.payComment}}</small></td>
+									</tr>
+								</tbody>
+							</table>
+
+
+						</td>
+
+
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- <div class="col-sm-4" ng-repeat="schf in scheduleFactories">
+  	
+  	   	<div class="hpanel">
+  	   	
+  	   	   <div class="panel-heading">
+  	   	        <div class="contact-panel text-center">
+                   	<img alt="logo" class="img-circle m-b m-t-sm " ng-src="{{schf.profileUrl==null?(schf.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schf.urlType==1?'../pt/member/get/profile/'+schf.userId+'/1':'/beinplanner/homerlib/images/'+schf.profileUrl )   }}">
+   					<p>
+                     	{{schf.userName+" "+schf.userSurname}}
+                 	</p>
+                 	<p>
+                     	{{schf.userGsm}}
+                 	</p>
+                  </div> 
+  	   	   </div>
+  	   	   <div class="panel-body">
+  	   	           <div class="row">
+	  	   	   			<div class="col-sm-4">
+					           <div class="hpanel hbgblue hmc-150">
+				                    <div class="panel-body">
+				                        <div class="text-center">
+				                            <p>{{'packetPrice'|translate}}</p>
+				                            <p class="font-light">
+				                                {{schf.packetPaymentFactory.packetPrice+" "+ptCurrency}}
+				                            </p>
+				                        </div>
+				                    </div>
+				                </div>
+		                </div>
+		                <div class="col-sm-4">
+					           <div class="hpanel hbgblue hmc-150">
+				                    <div class="panel-body">
+				                        <div class="text-center">
+				                            <p>{{'payAmount'|translate}}</p>
+				                            <p class="  font-light">
+				                                {{schf.packetPaymentFactory.payAmount+" "+ptCurrency}}
+				                            </p>
+				                        </div>
+				                    </div>
+				                </div>
+		                </div>	
+		                <div class="col-sm-4">
+					           <div class="hpanel hbggreen hmc-150">
+				                    <div class="panel-body">
+				                        <div class="text-center">
+				                            <p>{{'leftPayment'|translate}}</p>
+				                            <p class="  font-light">
+				                                {{(schf.packetPaymentFactory.packetPrice-schf.packetPaymentFactory.payAmount)+" "+ptCurrency}}
+				                            </p>
+				                        </div>
+				                    </div>
+				                </div>
+		                </div>		
+  	   	   
+  	   	   			</div>
+  	   	   
+  	   	           <div class="row">
+  	   	           			<div class="col-sm-4">
+					           <div class="hpanel hbgyellow hmc-150">
+				                    <div class="panel-body">
+				                        <div class="text-center">
+				                            <p>{{'attentionCount'|translate}}</p>
+				                            <p class="text-medium  font-light">
+				                                {{schf.saleCount}}
+				                            </p>
+				                        </div>
+				                    </div>
+				                </div>
+		                    </div>
+		                    <div class="col-sm-4">
+					           <div class="hpanel hbggreen hmc-150">
+				                    <div class="panel-body">
+				                        <div class="text-center">
+				                            <p>{{'unitPrice'|translate}}</p>
+				                            <p class="text-medium  font-light">
+				                                {{(schf.packetPaymentFactory.payAmount/schf.saleCount)+" "+ptCurrency}}
+				                            </p>
+				                        </div>
+				                    </div>
+				                </div>
+		                    </div>
+  	   	           
+  	   	           
+  	   	           </div>
+  	   	   
+  	   	   
+  	   	    	<div class="row">
+  	   	   			<table class="table table-stripped">
+                    <thead>
+                     <th width="10%">{{'payDate'|translate}}</th>
+                     <th width="10%">{{'payAmount'|translate}}</th>
+                     <th width="70%">{{'payComment'|translate}}</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ppdf in schf.packetPaymentFactory.packetPaymentDetailFactories" >
+                      <td><small>{{ppdf.payDateStr}}</small></td>
+                      <td><small>{{ppdf.payAmount+" "+ptCurrency}}</small></td>
+                      <td><small>{{ppdf.payComment}}</small></td>
+                    </tr>
+                    </tbody>
+                   </table>
+  	   	         </div>
+  	   	   
+  	   	   </div>
+  	   	
+  	   	
+  	   	
+  	   	</div>
+  	
+  	
+  	
+  	
+  	
+  	
+  	</div> -->
+
+
+
+</div>

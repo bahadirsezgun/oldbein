@@ -1,0 +1,105 @@
+<div class="row" data-ng-controller="RulesController as romec"
+	data-ng-init="init()">
+	<div class="col-lg-12">
+		<div class="hpanel">
+			<div class="tab-content">
+				<div class="hpanel">
+					<div class="panel-heading hbuilt">
+
+						{{'rulesDefined'|translate}}</div>
+					<div class="panel-body no-padding">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks"
+										id="ruleNoSaleToPlanning">
+								</div>
+								<h4 class="font-light">{{'noSaleToPlanning'|translate}}</h4>
+							</li>
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks"
+										id="ruleNoClassBeforePayment">
+								</div>
+								<h4 class="font-light">{{'noClassBeforePayment'|translate}}</h4>
+							</li>
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks pull-right"
+										id="ruleNoChangeAfterBonusPayment">
+								</div>
+								<h4 class="font-light">{{'noChangeAfterBonusPayment'|translate}}</h4>
+							</li>
+
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks pull-right"
+										id="rulePayBonusForConfirmedPayment">
+								</div>
+								<h4 class="font-light">{{'payBonusForConfirmedPayment'|translate}}</h4>
+							</li>
+
+							
+
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks pull-right"
+										id="ruleLocation">
+								</div>
+								<h4 class="font-light">{{'locationRule'|translate}}</h4>
+							</li>
+
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks pull-right"
+										id="noticeRule">
+								</div>
+								<h4 class="font-light">{{'noticeRule'|translate}}</h4>
+							</li>
+
+							<li class="list-group-item">
+								<div class="checkbox pull-right">
+									<input type="checkbox" class="i-checks pull-right"
+										id="creditCardCommissionRule">
+								</div>
+								<h4 class="font-light">{{'creditCardCommission'|translate}}</h4>
+							</li>
+
+							<li class="list-group-item" ng-show="isCreditCardCommission">
+								<div class="row">
+									<div class="col-sm-8">
+										<h4>{{('creditCardCommissionRate'|translate)+' (%)'}}</h4>
+									</div>
+									<div class="col-sm-2">
+										<div class="input-group m-b">
+											<input type="text" class="form-control"
+												ng-model="creditCardCommissionRate"> <span
+												class="input-group-addon">%</span>
+										</div>
+
+
+									</div>
+									<div class="col-sm-2">
+										<button class="btn button-success"
+											ng-click="saveCreditCardCommissionRate()">
+											<i class="fa fa-save"></i><span> {{'save'|translate}}</span>
+										</button>
+									</div>
+								</div>
+
+							</li>
+
+
+						</ul>
+					</div>
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

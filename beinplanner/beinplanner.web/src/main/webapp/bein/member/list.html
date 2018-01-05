@@ -1,0 +1,65 @@
+
+<div class="row" ng-controller="UserFindController as ufc"
+	ng-init="initFind()">
+
+	<div class="col-lg-3"
+		ng-repeat="member in members | filter:{userSurname : search}"
+		ng-show="!makePayment">
+		<div class="hpanel hblue contact-panel h-300">
+			<div class="panel-body">
+				<img alt="logo" class="img-circle m-b"
+					ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+				
+				<a ng-click="deleteUser(member)" class="pull-right"><i class="pe-7s-close pull-right  fa-4x text-danger"></i></a>
+				
+				<h3>
+					<a href="" ng-click="getMember(member)">{{member.userName}}
+						{{member.userSurname}}</a>
+				</h3>
+				<div class="text-muted font-bold m-b-xs">{{member.userGsm}}</div>
+				<p>
+					<small>{{member.userComment==''?'-':member.userComment}}</small>
+				</p>
+			</div>
+			<div class="panel-footer contact-footer">
+				<div class="row">
+					<div class="col-md-4 col-xs-4 border-right">
+						<div class="contact-stat">
+							<a ng-click="showPackets(member)" class="btn-link"><span
+								style="color: red"> {{'saledPacket' | translate}} </span></a> <strong>{{member.packetCount}}</strong>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-4 border-right">
+						<div class="contact-stat">
+							<span>{{'pay' | translate}} </span> <strong>{{member.payAmount}}</strong>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-4">
+						<div class="contact-stat">
+							<span>{{'left' | translate}} </span> <strong>{{member.leftPayment}}</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12" ng-show="makePayment">
+		<a ng-click="hidePackets()"><i
+			class="fa fa-angle-double-up fa-3x"></i></a>
+	</div>
+	<div class="col-md-12" ng-include="packetPaymentPage"
+		ng-show="makePayment"></div>
+
+
+     <div class="error-container animated bounceIn" ng-show="noMember">
+					<i class="pe-7s-way text-success big-icon"></i>
+					<h1>{{'memberNotFound'|translate}}</h1>
+					<p>{{'memberNotFoundComment'|translate}}</p>
+					
+					<a class="btn btn-success" ng-click="research()" >{{'research'|translate}}</a>
+					
+	</div>
+
+
+</div>
+

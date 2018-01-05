@@ -1,0 +1,57 @@
+<div class="row " ng-controller="PacketSaleController as psc"
+	ng-init="init()">
+	<div class="ptboss-container">
+		<div class="row container-fluid">
+			<div class="col-md-4" ng-show="individualRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'personalProgram'|translate}}</h2>
+							<p class="font-bold text-success">{{'sale'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-science fa-5x"></i>
+							</div>
+							<p class="small">{{'personalProgramComment'|translate}}</p>
+							<a href="#/packetsale/salepersonal"
+								class="btn btn-success btn-sm">{{'startToSale'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" ng-show="groupRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'classProgram'|translate}}</h2>
+							<p class="font-bold text-info">{{'sale'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-global fa-5x"></i>
+							</div>
+							<p class="small">{{'classProgramComment'|translate}}</p>
+							<a href="#/packetsale/saleclass" class="btn btn-info btn-sm">{{'startToSale'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" ng-show="membershipRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'membershipProgram'|translate}}</h2>
+							<p class="font-bold text-warning">{{'sale'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-display1 fa-5x"></i>
+							</div>
+							<p class="small">{{'membershipProgramComment'|translate}}</p>
+							<a href="#/packetsale/salemembership"
+								class="btn btn-warning btn-sm">{{'startToSale'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+</div>

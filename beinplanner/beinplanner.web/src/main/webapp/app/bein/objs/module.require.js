@@ -1,0 +1,1 @@
+define(['./result/HmiResultObj','./result/UserInPage']);

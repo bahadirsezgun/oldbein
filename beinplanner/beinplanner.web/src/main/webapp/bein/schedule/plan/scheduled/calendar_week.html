@@ -1,0 +1,257 @@
+<div class="row"
+	data-ng-controller="CalendarWeekBookingController as cwbc"
+	data-ng-init="initCBC()">
+
+	<div class="btn-group pull-right">
+
+		<button class="btn btn-sm btn-default " ng-click="prevDate()">
+			{{'prev'|translate}}</button>
+		<button class="btn btn-sm btn-default" ng-click="nextDate()">
+			{{'next'|translate}}</button>
+
+		<button class="btn btn-sm btn-default " ng-click="showWeek()">
+			{{'weekly'|translate}}</button>
+		<button class="btn btn-sm btn-default" ng-click="showDay()">
+			{{'daily'|translate}}</button>
+		<button class="btn btn-sm btn-default" ng-click="showSearch()">
+			{{'close'|translate}}</button>
+	</div>
+
+	<div class="hr-line-dashed"></div>
+
+	<div class="col-md-12" ng-show="!showPopupDetail">
+		<div class="col-md-3 text-center">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="hpanel text-center">
+						<div class="panel-body vertical-container hm-100">
+							<i class="pe-7s-stopwatch fa-2x"></i>
+							<h5 class="text-primary">
+								{{calendarDateName1|translate}},{{calendarDate1}}</h5>
+						</div>
+						<div class="color-line"></div>
+					</div>
+				</div>
+				<div class="col-md-12 ">
+					<div
+						class="hpanel {{scheduleTimePlan.lastPlan==0?'hgreen':'hred'}} text-center"
+						ng-mouseup="showDetail($event,scheduleTimePlan)"
+						ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar1 |  filter:{userSurname : search}">
+						<div class="panel-body h-100" style="cursor: pointer">
+							<i
+								class="pe-7s-timer fa-2x {{scheduleTimePlan.lastPlan==0?'text-success':'text-danger'}} "></i>
+
+							<h3 class="m-xs">{{scheduleTimePlan.planDayTime}}</h3>
+							<h4 class="m-xs">{{scheduleTimePlan.progName}}</h4>
+							<h5 class="font-extra-bold no-margins text-success">
+								{{scheduleTimePlan.userName+" "+scheduleTimePlan.userSurname}}</h5>
+
+							<small ng-if="$even">{{scheduleStudio.studioShortName}}</small> <small
+								ng-if="$odd">{{","+scheduleStudio.studioShortName}}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-3 text-center">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="hpanel ">
+						<div class="panel-body vertical-container hm-100">
+							<i class="pe-7s-stopwatch fa-2x"></i>
+							<h5 class="text-primary">
+								{{calendarDateName2|translate}},{{calendarDate2}}</h5>
+						</div>
+						<div class="color-line"></div>
+					</div>
+				</div>
+				<div class="col-md-12 ">
+					<div
+						class="hpanel {{scheduleTimePlan.lastPlan==0?'hgreen':'hred'}} text-center"
+						ng-mouseup="showDetail($event,scheduleTimePlan)"
+						ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar2 |  filter:{userSurname : search}">
+						<div class="panel-body h-100 " style="cursor: pointer">
+							<i
+								class="pe-7s-timer fa-2x {{scheduleTimePlan.lastPlan==0?'text-success':'text-danger'}} "></i>
+
+							<h3 class="m-xs">{{scheduleTimePlan.planDayTime}}</h3>
+							<h4 class="m-xs">{{scheduleTimePlan.progName}}</h4>
+							<h5 class="font-extra-bold no-margins text-success">
+								{{scheduleTimePlan.userName+" "+scheduleTimePlan.userSurname}}</h5>
+
+							<small ng-if="$even">{{scheduleStudio.studioShortName}}</small> <small
+								ng-if="$odd">{{","+scheduleStudio.studioShortName}}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-3 text-center">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="hpanel text-center">
+						<div class="panel-body vertical-container hm-100">
+							<i class="pe-7s-stopwatch fa-2x"></i>
+							<h5 class="text-primary">
+								{{calendarDateName3|translate}},{{calendarDate3}}</h5>
+						</div>
+						<div class="color-line"></div>
+					</div>
+				</div>
+				<div class="col-md-12 ">
+					<div
+						class="hpanel {{scheduleTimePlan.lastPlan==0?'hgreen':'hred'}} text-center"
+						ng-mouseup="showDetail($event,scheduleTimePlan)"
+						ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar3 |  filter:{userSurname : search}">
+						<div class="panel-body h-100" style="cursor: pointer">
+							<i
+								class="pe-7s-timer fa-2x {{scheduleTimePlan.lastPlan==0?'text-success':'text-danger'}} "></i>
+
+							<h3 class="m-xs">{{scheduleTimePlan.planDayTime}}</h3>
+							<h4 class="m-xs">{{scheduleTimePlan.progName}}</h4>
+							<h5 class="font-extra-bold no-margins text-success">
+								{{scheduleTimePlan.userName+" "+scheduleTimePlan.userSurname}}</h5>
+
+							<small ng-if="$even">{{scheduleStudio.studioShortName}}</small> <small
+								ng-if="$odd">{{","+scheduleStudio.studioShortName}}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-3 text-center">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="hpanel text-center">
+						<div class="panel-body vertical-container hm-100">
+							<i class="pe-7s-stopwatch fa-2x"></i>
+							<h5 class="text-primary">
+								{{calendarDateName4|translate}},{{calendarDate4}}</h5>
+						</div>
+						<div class="color-line"></div>
+					</div>
+				</div>
+				<div class="col-md-12 ">
+					<div
+						class="hpanel {{scheduleTimePlan.lastPlan==0?'hgreen':'hred'}} text-center"
+						ng-mouseup="showDetail($event,scheduleTimePlan)"
+						ng-repeat="scheduleTimePlan in scheduleTimePlansForCalendar4 |  filter:{userSurname : search}">
+						<div class="panel-body h-100" style="cursor: pointer">
+							<i
+								class="pe-7s-timer fa-2x {{scheduleTimePlan.lastPlan==0?'text-success':'text-danger'}} "></i>
+
+							<h3 class="m-xs">{{scheduleTimePlan.planDayTime}}</h3>
+							<h4 class="m-xs">{{scheduleTimePlan.progName}}</h4>
+							<h5 class="font-extra-bold no-margins text-success">
+								{{scheduleTimePlan.userName+" "+scheduleTimePlan.userSurname}}</h5>
+
+							<small ng-if="$even">{{scheduleStudio.studioShortName}}</small> <small
+								ng-if="$odd">{{","+scheduleStudio.studioShortName}}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="ptboss-container" ng-show="showPopupDetail">
+
+		<div class="hpanel hgreen">
+			<div class="panel-body projects" style="background-color: #ffffff">
+				<span class="label label-success pull-right">{{scheduleTimePlan.lastPlan==0?'':('lastClass'|translate)}}</span>
+				<div class="row">
+					<div class="col-sm-12 ">
+						<div class="contact-panel text-center">
+							<a ng-click="hideDetail()"><i
+								class="pe-7s-close-circle fa-4x text-danger pull-right"></i> </a> <img
+								alt="logo" class="img-circle m-b m-t-sm "
+								ng-src="{{schedulePlan.profileUrl==null?(schedulePlan.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schedulePlan.urlType==1?'../pt/member/get/profile/'+schedulePlan.userId+'/1':'/beinplanner/homerlib/images/'+schedulePlan.profileUrl )   }}">
+							<p>{{schedulePlan.userName+" "+schedulePlan.userSurname}}</p>
+							<h4>
+								<a href=""> {{schedulePlan.progName}}</a>
+							</h4>
+
+						</div>
+						<br>
+						<div class="row">
+
+							<div class="col-sm-12" style="max-height: 400px; overflow: auto;">
+								<table class="table table-stripped">
+									<thead>
+										<th>{{'instructor'|translate}}</th>
+										<th>{{'date'|translate}}</th>
+										<th>{{'time'|translate}}</th>
+										<th>{{'studio'|translate}}</th>
+										<th>{{'attendees'|translate}}</th>
+										<th>{{'execution'|translate}}</th>
+									</thead>
+									<tbody>
+										<tr ng-repeat="schTP in selectedTimePlans">
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.userName+"
+													"+schTP.userSurname}}</small></td>
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.planStartDateStr}}</small></td>
+											<td
+												ng-class="schTP.schtId==scheduleTimePlan.schtId?'text-danger':''"><small>{{schTP.planDayTime+'-'+schTP.planEndDayTime}}</small></td>
+											<td><small
+												ng-repeat="scheduleStudio in schTP.scheduleStudios"
+												ng-if="$even">{{scheduleStudio.studioName}}</small> <small
+												ng-repeat="scheduleStudio in schTP.scheduleStudios"
+												ng-if="$odd">{{","+scheduleStudio.studioName}}</small></td>
+											<td>
+												<div class="col-md-12 projects">
+													<div class="project-info">
+														<div class="project-people">
+															<img ng-repeat="member in schTP.users" class="img-circle"
+																title="{{member.userName}} {{member.userSurname}}"
+																ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+														</div>
+													</div>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-xs btn-default"
+													ng-click="editTimePlan(schTP)">
+													{{'edit'|translate}}</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+</div>

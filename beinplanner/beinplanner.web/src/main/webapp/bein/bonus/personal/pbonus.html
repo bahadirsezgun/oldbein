@@ -1,0 +1,362 @@
+<div class="row" ng-controller="BonusPersonalController as bpc"
+	ng-init="init()">
+
+
+	<section class="ptboss-container-small {{filterClass}}"
+		ng-show="filter">
+		<div class="hpanel">
+			<div class="panel-body">
+				<div class="m-b-md text-center">
+					<h4>{{'bonusFilter'|translate}}</h4>
+					<small> {{'bonusFilterComment'|translate}} </small>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">{{'branchName'|translate}}*</label> <select
+						class="form-control" ng-model="firmId"
+						ng-options="firm.firmId as firm.firmName for firm in firms">
+						<option ng-value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label">{{'instructor'|translate}}*</label> <select
+						class="form-control" ng-model="staff"
+						ng-options="staff as staff.userName+' '+staff.userSurname for staff in staffs">
+						<option value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<div class="checkbox">
+						<input type="checkbox" class="i-checks" id="inQueryCheck" checked
+							ng-click="singleClassCheck()"> {{'monthly' | translate}}
+						<p class="help-block small">{{'monthlyBonusHint' | translate}}</p>
+					</div>
+				</div>
+
+
+				<div class="form-group" ng-show="monthly">
+					<label class="control-label">{{'year'|translate}}*</label> <select
+						class="form-control " ng-model="year"
+						ng-options="y as y for y in years">
+						<option ng-value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+				</div>
+				<div class="form-group" ng-show="monthly">
+					<label class=" control-label">{{'month'|translate}}*</label> <select
+						class="form-control " ng-model="month"
+						ng-options="m.value as m.name for m in months">
+						<option ng-value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+				</div>
+
+
+
+
+				<div class="form-group" ng-show="!monthly">
+					<label class="control-label">{{'startDate'|translate}}</label>
+					<div class="input-group date">
+						<input type="text" class="form-control" id="startDate"
+							ng-model="startDate"> <span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+
+				<div class="form-group" ng-show="!monthly">
+					<label class="control-label">{{'endDate'|translate}}</label>
+					<div class="input-group date">
+						<input type="text" class="form-control" id="endDate"
+							ng-model="endDate"> <span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+
+
+
+				<button class="btn btn-success btn-block"
+					ng-click="queryBonusPayment()">{{'query'|translate}}</button>
+
+			</div>
+
+		</div>
+
+
+	</section>
+	<section ng-show="!filter">
+		<div class="row">
+			<div class="col-lg-12">
+				<a ng-click="showFilter()" class="pull-right"><i
+					class="pe-7s-close-circle fa-3x text-danger"></i> </a>
+			</div>
+		</div>
+	</section>
+	<section class="animated fadeInUp" ng-show="!filter">
+
+
+		<section class="animated fadeInUp" ng-show="payment">
+			<div class="row">
+				<div class="col-sm-4">
+
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="m-b-md text-center">
+								<h4>{{'makePayment'|translate}}</h4>
+								<small> {{'makePaymentComment'|translate}} </small>
+							</div>
+							<div class="form-group">
+								<label class="control-label">{{'instructor'|translate}}*</label>
+								<select class="form-control" ng-model="bonusPayment.userId"
+									ng-options="staff.userId as staff.userName+' '+staff.userSurname for staff in staffs">
+									<option value="">{{'pleaseSelect'|translate}}</option>
+								</select>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label">{{'startDate'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="bonPaymentDate"
+										ng-model="bonusPayment.bonPaymentDateStr"> <span
+										class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">{{'payAmount'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control"
+										ng-model="bonusPayment.bonAmount"> <span
+										class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="checkbox">
+									<input type="checkbox" class="i-checks" id="inPaymentCheck"
+										checked ng-click="singleClassCheck()"> {{'monthly' |
+									translate}}
+									<p class="help-block small">{{'monthlyBonusHint' |
+										translate}}</p>
+								</div>
+							</div>
+							<div class="form-group" ng-show="monthlyPayment">
+								<label class="control-label">{{'year'|translate}}*</label> <select
+									class="form-control " ng-model="bonusPayment.bonYear"
+									ng-options="y as y for y in years">
+									<option ng-value="">{{'pleaseSelect'|translate}}</option>
+								</select>
+
+							</div>
+							<div class="form-group" ng-show="monthlyPayment">
+								<label class=" control-label">{{'month'|translate}}*</label> <select
+									class="form-control " ng-model="bonusPayment.bonMonth"
+									ng-options="m.value as m.name for m in months">
+									<option ng-value="">{{'pleaseSelect'|translate}}</option>
+								</select>
+
+							</div>
+							<div class="form-group" ng-show="!monthlyPayment">
+								<label class="control-label">{{'startDate'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="bonStartDate"
+										ng-model="bonusPayment.bonStartDateStr"> <span
+										class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+
+							<div class="form-group" ng-show="!monthlyPayment">
+								<label class="control-label">{{'endDate'|translate}}</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="bonEndDate"
+										ng-model="bonusPayment.bonEndDateStr"> <span
+										class="input-group-addon"><i
+										class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">{{'payComment'|translate}}</label>
+								<textarea rows="5" class="form-control"
+									ng-model="bonusPayment.bonComment"></textarea>
+
+							</div>
+
+
+							<button class="btn btn-success btn-block"
+								ng-click="saveBonusPayment()">{{'save'|translate}}</button>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="col-sm-8">
+					<div class="row">
+
+						<div class="col-sm-4">
+							<div class="hpanel hbgyellow">
+								<div class="panel-body">
+									<div class="text-center">
+										<h3>{{'willPayBonus'|translate}}</h3>
+										<p class="text-medium  font-light">
+											{{userBonusObj.willPayAmount+" "+ptCurrency}}</p>
+										<small> {{userBonusObj.monthName}} </small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="hpanel hbgblue">
+								<div class="panel-body">
+									<div class="text-center">
+										<h3>{{'totalBonusPayment'|translate}}</h3>
+										<p class="text-medium  font-light">{{payedAmount+"
+											"+ptCurrency}}</p>
+										<small> {{userBonusObj.monthName}} </small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="hpanel {{leftPaymentClass}}">
+								<div class="panel-body">
+									<div class="text-center">
+										<h3>{{'leftPayment'|translate}}</h3>
+										<p class="text-medium  font-light">{{leftPayment+"
+											"+ptCurrency}}</p>
+										<small> {{userBonusObj.monthName}} </small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-12">
+							<div class="hpanel panel-group">
+								<div class="panel-body">
+									<table class="table table-stripped">
+										<thead>
+											<th width="10%">{{'payDate'|translate}}</th>
+											<th width="10%">{{'payAmount'|translate}}</th>
+											<th width="70%">{{'payComment'|translate}}</th>
+											<th width="10%">{{'execution'|translate}}</th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="bonusPayment in bonusPayments">
+												<td><small>{{bonusPayment.bonPaymentDateStr}}</small></td>
+												<td><small>{{bonusPayment.bonAmount}}</small></td>
+												<td><small>{{bonusPayment.bonComment}}</small></td>
+												<td>
+													<button class="btn btn-xs btn-default"
+														ng-click="deleteBonusPayment(bonusPayment)">
+														<i class="pe-7s-trash fa-3x text-danger"></i>
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="hpanel">
+								<div class="panel-body text-center">
+									<button class="btn btn-outline btn-success"
+										ng-click="searchBonusPayment()">
+										<i class="pe-7s-search fa-4x"></i><br />
+										<h3 class="font-light">{{'detail'|translate}}</h3>
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+		</section>
+
+
+
+
+		<section class="animated fadeInUp" data-ng-show="!payment">
+			<div class="col-lg-12">
+				<a ng-click="showPayment()" class="pull-left"><i
+					class="pe-7s-doubleup fa-3x text-danger"></i> </a>
+			</div>
+			<div class="hpanel panel-group" ng-show="!paymentDetail">
+				<div class="panel-header">
+					<div class="text-center m-b-md">
+						<div class="contact-panel">
+							<img alt="logo" class="img-circle m-b m-t-sm "
+								ng-src="{{staff.profileUrl==null?(staff.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(staff.urlType==1?'../pt/member/get/profile/'+staff.userId+'/1':'/beinplanner/homerlib/images/'+staff.profileUrl )   }}">
+						</div>
+						<br />
+						<h3>{{staff.userName+" "+staff.userSurname}}</h3>
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-stripped">
+								<thead>
+									<th width="5%">{{'No'|translate}}</th>
+									<th width="5%">{{'progCount'|translate}}</th>
+									<th width="15%">{{'progName'|translate}}</th>
+									<th width="10%">{{'classDate'|translate}}</th>
+									<th width="10%">{{'unitPrice'|translate}}</th>
+									<th width="10%">{{rateLabel}}</th>
+									<th width="10%">{{'progressPayment'|translate}}</th>
+									<th width="25%">{{'members'|translate}}</th>
+									<th width="10%">{{'detail'|translate}}</th>
+								</thead>
+								<tbody>
+									<tr
+										ng-repeat="userBonusDetailObj in userBonusObj.userBonusDetailObjs">
+										<td><small>{{userBonusDetailObj.classCount}}</small></td>
+										<td><small>{{userBonusDetailObj.schCount}}</small></td>
+										<td><small>{{userBonusDetailObj.progName}}</small></td>
+										<td><small>{{userBonusDetailObj.planStartDateStr}}</small></td>
+										<td><small>{{userBonusDetailObj.packetUnitPrice+'
+												'+ptCurrency}}</small></td>
+										<td><small>{{userBonusDetailObj.bonusValue+'
+												('+rateSuffix+')'}}</small></td>
+										<td><small>{{userBonusDetailObj.staffPaymentAmount
+												+' '+ptCurrency}}</small></td>
+										<td><small
+											ng-repeat="member in userBonusDetailObj.scheduleFactories">
+												<code>{{member.userName}} {{member.userSurname}}</code>
+										</small></td>
+										<td>
+											<button class="btn btn-xs btn-default"
+												ng-click="editBonusDetail(userBonusDetailObj)">
+												{{'detail'|translate}}</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div ng-show="paymentDetail" ng-include="paymentDetailPage"></div>
+
+
+
+		</section>
+
+
+
+
+	</section>
+
+</div>

@@ -1,0 +1,17 @@
+var user=new Object();
+user.userId;
+user.userSsn;
+user.userName;
+user.userSurname;
+user.password;
+user.userBirthday;
+user.userBirthdayStr;
+user.firmId;
+user.stateId;
+user.cityId;
+user.userAddress;
+user.userPhone;
+user.userGsm;
+user.userEmail;
+user.profileUrl;
+user.userType;

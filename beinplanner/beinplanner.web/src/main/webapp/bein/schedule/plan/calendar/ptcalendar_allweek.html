@@ -1,0 +1,158 @@
+<div class="row" data-ng-controller="PtCalendarAllWeekController as ptcc"
+	data-ng-init="initPTWC()">
+	<section ng-show="!showClassDetailWeek">
+
+     <section ng-show="holderShow">
+      <div class="row">
+		<div class="col-md-12 hpanel hpanel-success">
+
+			<div class="col-md-2 text-center ">
+
+				<div class="hpanel pull-left hm-50">
+					<div class="panel-body" id="holdTime" name='holdTime'>
+						<span style='display: none'>0</span>
+						<div class="m-t-md m-b-md text-center" ng-show="!holdTime">
+							<i class="fa fa-hand-o-up fa-2x"></i>
+							<div class="m-t ">{{'holdPlanBox'|translate}}</div>
+						</div>
+
+
+						<div ng-show="holdTime" id="holdBox" name="tokenHoldTimeWeek"
+							class='hpanel text-center'>
+							<div class='panel-body hm-50' style='cursor: pointer'>
+								<i class='pe-7s-timer fa-2x text-danger'></i>
+								<p></p>
+								<span style='display: none'></span> <span style='display: none'></span>
+								<span style='display: none'></span> <span style='display: none'></span>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-2 text-center contact-panel"></div>
+			<div class="col-md-4 text-center contact-panel">
+				
+			</div>
+
+
+			<div class="col-md-4 text-center">
+				<div class="btn-group pull-right">
+
+					<select class="form-control form-md" ng-model="staffIdWeek"
+						ng-change="changeStaff()"
+						ng-options="staff.userId as staff.userName+' '+staff.userSurname for staff in staffs">
+						<option value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+					<button class="btn btn-sm btn-default " ng-click="prevDateWeek()">
+						{{'prev'|translate}}</button>
+					<button class="btn btn-sm btn-default" ng-click="nextDateWeek()">
+						{{'next'|translate}}</button>
+					<a class="btn btn-sm btn-default" href="#/schedule/plan/calendar">
+						{{'close'|translate}}</a>
+				</div>
+			</div>
+		</div>
+
+     </div>
+     </section>
+     <section>
+    
+	     <div class="row">
+	        
+			<div class="col-md-12 hpanel hpanel-success">
+			
+			<button class="btn btn-default pull-right" ng-click="viewHolder()"><i class="pe-7s-star fa-4x"></i></button>
+			    <form>
+
+				<div class="text-center m-b-md" id="wizardControl">
+					<a class="btn {{activePage=='morning'?'btn-primary':''}}"
+						href="#morning" data-toggle="tab" ng-click="activate('morning')">{{'morningPlan'|translate}}</a>
+					<a class="btn {{activePage=='night'?'btn-primary':''}}"
+						href="#night" data-toggle="tab" ng-click="activate('night')">{{'nightPlan'|translate}}</a>
+				</div>
+			
+			
+				
+					<div id="morning" ng-show="activePage=='morning'" >
+						<table id="weekTBM" class="table table-striped table-bordered "
+							style="table-layout: fixed;">
+							<tbody id="calendarForWeekMorning">
+							</tbody>
+						</table>
+					 </div>
+					 <div id="night" ng-show="activePage=='night'" >
+						
+						<table id="weekTBN" class="table table-striped table-bordered "
+							style="table-layout: fixed;">
+							<tbody id="calendarForWeekNight">
+							</tbody>
+						</table>
+					 </div>
+	           
+	
+	           </form>
+	
+	  
+	              
+	
+	
+			</div>
+	     </div>
+     </section>
+	</section>
+
+	<section ng-show="showClassDetailWeek">
+		<button class="btn " type="button" ng-click="closeDetailWeek()"
+			style="position: fixed; top: 80px; right: 20px; z-index: 600;">
+			<i class="pe-7s-close-circle fa-4x text-danger"></i>
+		</button>
+		<div ng-include="classDetailPageWeek" ng-show="goDirectWeek"></div>
+
+		<div class="register-container row" ng-show="!goDirectWeek">
+
+			<div class="col-md-6 " ng-show="individualRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'personalSchedule'|translate}}</h2>
+							<p class="font-bold text-success">{{'booking'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-science fa-5x"></i>
+							</div>
+							<p class="small">{{'personalScheduleComment'|translate}}</p>
+							<a ng-click="personalBookingWeek()"
+								class="btn btn-success btn-sm">{{'startToBooking'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" ng-show="groupRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'classSchedule'|translate}}</h2>
+							<p class="font-bold text-info">{{'booking'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-global fa-5x"></i>
+							</div>
+							<p class="small">{{'classScheduleComment'|translate}}</p>
+							<a ng-click="classBookingWeek()" class="btn btn-info btn-sm">{{'startToBooking'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+
+	</section>
+
+
+    <div id="infoDiv" class="hpanel hbgblue" style="display:none;color:white;z-index:5000"></div>
+
+</div>

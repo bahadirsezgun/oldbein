@@ -1,0 +1,341 @@
+
+<div class="row" ng-controller="SalePersonalController as ufc"
+	ng-init="init()">
+	<div class="content animate-panel" data-child="row"
+		ng-show="showChooseProgram">
+		<div class="row">
+			<div class="col-lg-2 col-xs-6"
+				ng-repeat="programPersonal in programPersonals | filter:{progName : search}">
+				<div class="hpanel hblue contact-panel">
+
+					<div class="panel-body text-center">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="m">
+									<i class="pe-7s-cart fa-5x"></i>
+								</div>
+								<button type="button" class="btn btn-default btn-sm"
+									ng-click="chooseProgram(programPersonal)">{{programPersonal.progName}}</button>
+							</div>
+							<div class="col-sm-12">
+								<p class="text-success">
+									<strong>{{'unitPrice'|translate}}:&nbsp;{{programPersonal.progPrice}}&nbsp;
+										{{ptCurrency}}</strong>
+								</p>
+								<p class="text-primary1">
+									{{'totalPrice'|translate}}:&nbsp;{{programPersonal.progPrice*programPersonal.progCount}}&nbsp;
+										{{ptCurrency}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="content" data-child="row" ng-show="!showChooseProgram">
+		<div class="row">
+
+
+
+			<div class="col-md-9">
+
+				<div class="hpanel">
+				   <div class="panel-body">
+					<a ng-click="backToProgramFind()"><i
+						class="pe-7s-close-circle fa-2x text-danger pull-right"></i> </a>
+
+					<ul class="nav nav-tabs">
+						<li class="{{userProp?'active':''}}"><a data-toggle="tab"
+							href="#tab-1" ng-click="activate('user')">{{'userTitle'|translate}}</a></li>
+						<li class="{{!userProp?'active':''}}"><a data-toggle="tab"
+							href="#tab-2" ng-click="activate('sale')">{{'salePacket'|translate}}</a></li>
+
+					</ul>
+
+					<div class="tab-content">
+						<div id="tab-1" class="tab-pane {{userProp?'active':''}}">
+
+							<div class="row" >
+								<div class="col-lg-3 text-center">
+									<i class="pe-7s-user fa-5x text-muted hidden-xs"></i>
+									<p class="small m-t-md hidden-xs">
+										<strong>{{'saleFindProfile'|translate}}</strong>
+										{{'saleFindProfileComment'|translate}}
+									</p>
+									<p class="hidden-xs">{{'saleFindProfileComment1'|translate}}</p>
+
+									<a ng-click="createNewUser()" style="margin-left: 10px"
+										data-toggle="tooltip" data-placement="bottom"
+										title="{{'addNewUser'|translate}}"><i
+										class="pe-7s-add-user fa-3x"></i> </a>
+
+									<div class="hr-line-dashed hidden-xs"></div>
+									<p class="hidden-xs">
+										<strong>{{'warning'|translate}}</strong>
+									</p>
+									<p class="hidden-xs">{{'saleFindProfileComment2'|translate}}</p>
+								</div>
+								<div class="col-lg-9">
+									<div class="row" ng-show="showFindUser">
+										<div class="col-md-12  animate bounceIn">
+											<div class="text-center m-b-md">
+												<h3>{{'findMember' | translate}}</h3>
+												<small>{{'findMemberComment' | translate}}</small>
+											</div>
+											<div class="hpanel hblue">
+												<div class="panel-body " >
+													<form>
+														<div class="row">
+															<div class="form-group col-lg-6">
+																<label>{{'name' | translate}}</label> <input type="text"
+																	value="" id="" class="form-control" autocomplete="off"
+																	name="" ng-model="filterName">
+															</div>
+															<div class="form-group col-lg-6">
+																<label>{{'surname' | translate}}</label> <input
+																	type="text" value="" id="" class="form-control"
+																	autocomplete="off" name="" ng-model="filterSurname">
+															</div>
+
+														</div>
+														<div class="text-center">
+															<button type="button" class="btn btn-success"
+																ng-click="findUser()">{{'find' | translate}}</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row" ng-show="showAddUser" >
+										<div class="col-md-12" >
+											<a ng-click="addNewUserToProgram()"><i
+												class="pe-7s-close-circle fa-2x text-warning pull-right"></i>
+											</a>
+										</div>
+										<div class="hr-line-dashed clearfix"></div>
+										<div class="col-md-4"
+											ng-repeat="member in members | filter:{userSurname : search}">
+											<div
+												class="hpanel {{member.userGender==1?'hblue':'horange'}} ">
+												<div class="panel-body text-center">
+													<img alt="logo" class="img-circle img-small"
+														ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+													<div class="m-t-sm">
+														<strong>{{member.userName}}
+															{{member.userSurname}}</strong>
+														<p class="small">{{member.userGsm==''?'-':member.userGsm}}</p>
+													</div>
+												</div>
+												<div class="panel-footer contact-footer">
+													<div class="row">
+														<div class="col-md-12">
+															<div class="contact-stat">
+																<a ng-click="saleProgramToUser(member)"><i
+																	class="pe-7s-add-user fa-2x"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="row" ng-show="showCreateUser">
+
+										<div class="col-md-12" >
+											<a ng-click="addNewUserToProgram()"><i
+												class="pe-7s-close-circle fa-2x text-warning pull-right"></i>
+											</a>
+										</div>
+										<div class="hr-line-dashed clearfix"></div>
+										<div class="col-md-12" style="margin-bottom: 10px">
+											<div ng-include="createUserPage"
+												style="margin-left: 10px; margin-right: 10px"></div>
+										</div>
+									 </div>
+
+								<button type="button" class="btn btn-primary" ng-show="saledMembers.length>0" ng-click="activate('sale')">{{'controlAndSalePacket'|translate}}</button>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="tab-2" class="tab-pane {{!userProp?'active':''}}">
+							<div class="row" style="margin-top: 20px">
+
+								<div class="col-md-3 hidden-xs">
+									<div class="hpanel text-center">
+
+
+										<i class="pe-7s-cart fa-5x text-muted"></i>
+										<p class="small m-t-md">
+											<strong>{{'saleTitle'|translate}}</strong> <br />
+											<br />{{'saleTitleComment'|translate}} <br />
+											<br /> <strong>{{'warning'|translate}}</strong> <br />
+											<br />{{'saleTitleComment1'|translate}}
+										</p>
+
+									</div>
+								</div>
+								<div class="col-md-3 visible-xs">
+								<div class="hpanel text-center">
+								    <i class="pe-7s-cart fa-5x text-muted"></i>
+								     <p class="small m-t-md">
+											{{'saleTitle'|translate}}
+									 </p>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="hpanel">
+										<form class="form-horizontal">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">{{'progCountComment'|translate}}</label>
+												<div class="col-sm-8">
+
+													<div class="input-group m-b">
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary"
+																data-container="body" data-toggle="popover"
+																data-placement="bottom"
+																data-content="{{'whatIsProgCountInPersonalSale'|translate}}">
+																<i class="pe-7s-help1"></i>
+															</button>
+														</span> <input type="text" class="form-control"
+															ng-model="progCount" id="progCount"
+															ng-change="progCountChange()">
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">{{'progPrice'|translate}}*
+													{{' '+ptCurrency}}</label>
+												<div class="col-sm-8">
+												  <div class="form-inline">
+													<input type="text" ng-disabled="disabled" class="form-control"
+														ng-model="packetPrice">
+														<button type="button" class="btn btn-sm btn-success" ng-show="userType==6" ng-click="setEnabled()"><i class="pe-7s-tools"></i></button>
+												   </div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">{{'salesDate'|translate}}</label>
+												<div class="col-sm-8">
+													<input type="text" id="salesDate"
+														placeholder="{{'enterSalesDate'|translate}}"
+														ng-model="salesDateStr" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">{{'salesComment'|translate}}*</label>
+												<div class="col-sm-8">
+													<textarea class="form-control"
+														placeholder="{{'userCommentPlh'|translate}}"
+														ng-model="salesComment"></textarea>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">{{'staffTokenName'|translate}}*</label>
+												<div class="col-sm-8">
+													<select class="form-control" ng-model="staffId">
+														<option value="0">{{'pleaseSelect'|translate}}</option>
+
+														<option ng-repeat="staff in staffs"
+															value="{{staff.userId}}">{{staff.userName +'
+															'+staff.userSurname}}</option>
+
+													</select>
+												</div>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<a class="btn btn-success pull-right"
+										ng-click="salePersonalProg()" style="margin-left: 10px"
+										data-toggle="tooltip" data-placement="bottom"><i
+										class="pe-7s-check"></i><span style="padding-left: 5px">{{'confirmAndSale'|translate}}</span>
+									</a>
+								</div>
+							</div>
+
+						</div>
+
+                      </div>
+					</div>
+				</div>
+				<!-- TAB CONTENT -->
+
+
+			</div>
+			<!-- col-md-10 -->
+
+			<div class="col-md-3 animate bounceIn border-left"
+				ng-show="showSalesAttributes">
+                <div class="color-line visible-xs"></div>
+				<div class="text-center m-b-md">
+					<h3>{{'salesAttributes' | translate}}</h3>
+					<small>{{'salesAttributesComment' | translate}}</small>
+				</div>
+				<div class="hpanel hblue contact-panel">
+					<div class="panel-body text-center">
+						<div class="m">
+							<i class="pe-7s-cart fa-5x"></i>
+						</div>
+						<h3>
+							<a href="">{{programPersonal.progName}}</a>
+						</h3>
+						<div class="text-muted font-bold m-b-xs">{{programPersonal.progDescription}}</div>
+						<p>{{'unitPrice'|translate}}:&nbsp;{{programPersonal.progPrice}}&nbsp;
+							{{ptCurrency}}</p>
+						<p>{{'totalPrice'|translate}}:&nbsp;{{programPersonal.progPrice*programPersonal.progCount}}&nbsp;
+							{{ptCurrency}}</p>
+						<p>{{programPersonal.progComment}}</p>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-md-6" ng-repeat="saledMember in saledMembers">
+						<div class="hpanel ">
+							<div class="panel-body text-center contact-panel">
+								<img alt="logo" class="img-circle img-small"
+									ng-src="{{saledMember.profileUrl==null?(saledMember.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(saledMember.urlType==1?'../pt/member/get/profile/'+saledMember.userId+'/1' :'/beinplanner/homerlib/images/'+saledMember.profileUrl )   }}">
+								<div class="m-t-sm">
+									<strong>{{saledMember.userName}}
+										{{saledMember.userSurname}}</strong>
+									<p class="small">{{saledMember.userGsm}}</p>
+								</div>
+							</div>
+							<div class="panel-footer contact-footer">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="contact-stat">
+											<a ng-click="removeProgramToUser(saledMember)"><i
+												class="pe-7s-delete-user fa-2x"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>

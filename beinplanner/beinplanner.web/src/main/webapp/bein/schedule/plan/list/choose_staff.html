@@ -1,0 +1,27 @@
+<div class="row projects" ng-controller="StaffChooseController as sfc"
+	ng-init="initSCC()">
+
+	<div class="col-lg-3"
+		ng-repeat="staff in staffs | filter:{userSurname : search}"
+		ng-show="staffId==0 || staff.userId==staffId">
+		<div class="hpanel hblue project-people">
+			<div class="panel-body text-center">
+				<img alt="logo" class="img-circle m-b"
+					ng-src="{{staff.profileUrl==null?(staff.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(staff.urlType==1?'../pt/member/get/profile/'+staff.userId+'/1' :'/beinplanner/homerlib/images/'+staff.profileUrl )   }}">
+				<small>{{staff.userName}} {{staff.userSurname}}</small>
+
+			</div>
+			<div class="panel-footer contact-footer">
+				<div class="row">
+					<div class="col-md-12 border-right text-center">
+						<a data-ng-click="chooseStaff(staff)" ng-show="!staffChoosed"><i
+							class="pe-7s-add-user fa-3x"></i> </a> <a
+							data-ng-click="releaseStaff()"
+							ng-show="staffChoosed && staff.userId==staffId"><i
+							class="pe-7s-close-circle fa-3x"></i> </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

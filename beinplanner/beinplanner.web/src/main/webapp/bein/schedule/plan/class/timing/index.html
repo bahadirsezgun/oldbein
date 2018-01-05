@@ -1,0 +1,112 @@
+<div class="row" ng-controller="TimingClassBookingController"
+	ng-init="initTCB()">
+	<div class="form">
+		<div class="form-group col-md-12">
+			<label class="col-md-12 ">{{'planStartDate'|translate}}*</label>
+			<div class="col-md-4">
+				<input autocomplete="off" type="text" class="form-control"
+					ng-model="planDateStr" id="planDateStr">
+			</div>
+			<div class="col-md-3" ng-show="!period">
+				<select class="form-control input-md font-light"
+					ng-model="timeOfPlan">
+					<option value="">{{'timeSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+			<div class="col-md-5" ng-show="!editFlag">
+				<div class="checkbox">
+					<input type="checkbox" class="i-checks" checked
+						ng-click="singleClassCheck()"> {{'singleClass' |
+					translate}}
+					<p class="help-block small">{{'singleClassHint' | translate}}</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="form-group" ng-show="!period">
+		<a class="btn btn-success" ng-click="letsPlanOne()"
+			ng-show="!editFlag">{{'scheduleIt'|translate}}</a> <a
+			class="btn btn-success" ng-click="letsPlanOne()" ng-show="editFlag">{{'scheduleEditIt'|translate}}</a>
+		<a class="btn btn-warning pull-right" ng-click="newPlan()"
+			ng-show="editFlag">{{'newScheduleIt'|translate}}</a>
+
+	</div>
+
+	<div class="form-group" ng-show="period">
+		<div class="form-group">
+			<label class="col-sm-12">{{'progCount'|translate}}*</label>
+			<div class="col-sm-4">
+				<input autocomplete="off" type="text" class="form-control"
+					ng-model="periodCount">
+			</div>
+		</div>
+
+		<a class="btn btn-success" ng-click="letsPlanMore()">{{'scheduleIt'|translate}}</a>
+
+		<div class="row">
+			<div class="hr-line-dashed"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<label>{{'monday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="monday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+
+
+			</div>
+			<div class="col-sm-3">
+				<label>{{'tuesday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="tuesday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+
+			</div>
+			<div class="col-sm-3">
+				<label>{{'wednesday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="wednesday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<label>{{'thursday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="thursday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<label>{{'friday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="friday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+
+			<div class="col-sm-3">
+				<label>{{'saturday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="saturday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+
+
+			<div class="col-sm-3">
+				<label>{{'sunday'|translate}}*</label> <select
+					class="form-control input-md font-light" ng-model="sunday">
+					<option value="0">{{'pleaseSelect'|translate}}</option>
+					<option ng-repeat="time in times">{{time}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>

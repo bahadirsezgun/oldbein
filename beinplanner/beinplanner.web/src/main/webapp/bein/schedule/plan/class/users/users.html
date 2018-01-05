@@ -1,0 +1,38 @@
+
+<div class="row" ng-controller="UserClassBookingController">
+
+	<div class="col-lg-12" ng-include="searchUserView" ng-show="searchUser"></div>
+
+	<div class="col-lg-12" ng-show="resultUser">
+		<a ng-click="addMoreUser()"><i
+			class="fa fa-angle-double-up fa-3x"></i></a>
+	</div>
+
+	<div class="col-lg-12" ng-show="resultUser">
+		<div class="col-lg-4 text-nowrap"
+			ng-repeat="member in members | filter:{userSurname : search}">
+			<div class="hpanel hblue contact-panel ">
+				<div class="panel-body text-center">
+					<img alt="logo" class="img-circle m-b"
+						ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+					<h4>
+						<a href="" ng-click="selectMember(member)">{{member.userName}}
+							{{member.userSurname}}</a>
+					</h4>
+					<div class="text-muted font-bold m-b-xs">{{member.userGsm}}</div>
+					<div class="text-muted font-bold m-b-xs">{{member.progName==null?('noSaleFound'|translate):member.progName}}</div>
+				</div>
+				<div class="panel-footer contact-footer">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							 <a class="btn btn-default btn-sm" ng-click="selectMember(member)">
+							   {{member.saleStatu==1?('newSale'|translate):
+								  (member.saleStatu==2?('oldSale'|translate):
+								      (member.saleStatu==3?('addSale'|translate):(member.saleStatu==5?('addSale'|translate):('noSaleAdd'|translate))))}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

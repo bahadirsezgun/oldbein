@@ -1,0 +1,95 @@
+<div class="row" data-ng-controller="RoleMenuController as romec"
+	data-ng-init="init()">
+	<div class="col-lg-12">
+		<div class="hpanel">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab"
+					ng-click="changeUserType(USER_TYPE_SUPER_MANAGER)">{{'superManager'|translate}}</a></li>
+				<li class=""><a data-toggle="tab"
+					ng-click="changeUserType(USER_TYPE_MANAGER)">{{'manager'|translate}}</a></li>
+				<li class=""><a data-toggle="tab"
+					ng-click="changeUserType(USER_TYPE_STAFF)">{{'staff'|translate}}</a></li>
+				<li class=""><a data-toggle="tab"
+					ng-click="changeUserType(USER_TYPE_SCHEDULAR_STAFF)">{{'schedulerStaff'|translate}}</a></li>
+			</ul>
+			<div class="tab-content">
+				
+				<div class="row">
+				
+					<div class="col-sm-5">
+						<div class="hpanel">
+							<div class="panel-heading hbuilt">
+								{{'roleMenuList'|translate}}</div>
+							<div class="panel-body no-padding">
+								<ul class="list-group">
+									<li class="list-group-item" ng-repeat="menu in menus"><a
+										class="btn btn-lg"
+										ng-click="changeMenuAuth(menu.menuId,menu.authority,menu.menuName)"><i
+											ng-class="menu.authority==1 ? 'pull-right pe-7s-close-circle ' : 'pull-right pe-7s-plus'"></i></a>
+										<span
+										ng-class="menu.authority==1 ? 'font-bold text-success' : 'font-bold text-danger' ">
+											{{menu.menuName|translate}}</span>
+		
+										<ul class="list-group"
+											ng-show="menu.authority==1 ? true : false">
+											<li class="list-group-item"
+												ng-repeat="menuLevel2 in menu.menuLevel2s"><a
+												class="btn btn-lg "
+												ng-click="changeMenuAuth(menuLevel2.menuId,menuLevel2.authority,menuLevel2.menuName)"><i
+													ng-class="menuLevel2.authority==1 ? 'pull-right pe-7s-close-circle ' : 'pull-right pe-7s-plus'"></i></a>
+												<span
+												ng-class="menuLevel2.authority==1 ? 'font-light text-success' : 'font-light text-danger' ">
+													{{menuLevel2.menuName|translate}}</span></li>
+										</ul></li>
+		
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="hpanel">
+								<div class="panel-heading hbuilt">
+									{{'roleTopMenuList'|translate}}</div>
+								<div class="panel-body no-padding">
+									<ul class="list-group">
+										<li class="list-group-item" ng-repeat="menu in topmenus"><a
+											class="btn btn-lg"
+											ng-click="changeMenuAuth(menu.menuId,menu.authority,menu.menuName)"><i
+												ng-class="menu.authority==1 ? 'pull-right pe-7s-close-circle ' : 'pull-right pe-7s-plus'"></i></a>
+											<span
+											ng-class="menu.authority==1 ? 'font-bold text-success' : 'font-bold text-danger' ">
+												{{menu.menuName|translate}}</span>
+										</li>
+									</ul>
+								</div>
+						</div>
+					
+					
+					</div>
+					
+					<div class="col-sm-3">
+						<div class="hpanel">
+								<div class="panel-heading hbuilt">
+									{{'dashboardPage'|translate}}</div>
+								<div class="panel-body no-padding">
+									<ul class="list-group">
+										<li class="list-group-item" ng-repeat="dp in dashboardPages"><a
+											class="btn btn-lg"
+											ng-click="changeDashboard(dp.value)"><i
+												ng-class="dp.value==dashmenu.menuId ? 'pull-right pe-7s-close-circle ' : 'pull-right pe-7s-plus'"></i></a>
+											<span
+											ng-class="dp.value==dashmenu.menuId ? 'font-bold text-success' : 'font-bold text-danger' ">
+												{{dp.name}}</span>
+										</li>
+									</ul>
+								</div>
+						</div>
+					
+					
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

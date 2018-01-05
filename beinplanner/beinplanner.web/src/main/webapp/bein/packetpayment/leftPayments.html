@@ -1,0 +1,59 @@
+<div class="row " ng-controller="LeftPaymentController as lpc" ng-init="initLPC()">
+
+		<div class="hpanel panel-group" ng-show="!paymentShow">
+			<div class="panel-header">
+				<div class="text-center m-b-md">
+					<h3>{{shortChangeTile|translate}}</h3>
+				</div>
+			</div>
+			<div class="panel-body">
+                 
+                 <div class="row">
+	                 <div class="col-sm-6 form-inline">
+	                  <label class="form-control">{{'searchByProgName'|translate}}</label>
+	                  <input type="text" class="form-control" ng-model="progName"/>
+	                 </div>
+                 </div>
+
+				<table class="table table-bordered table-striped ">
+					<thead>
+						<th width="15%"  >{{'name'|translate}}</th>
+						<th width="20%" class="hidden-xs">{{'progName'|translate}}</th>
+						<th width="10%" class="text-center hidden-xs" >{{'salesDate'|translate}}</th>
+						<th width="10%" class="text-center hidden-xs" >{{'email'|translate}}</th>
+						<th width="10%" class="text-center hidden-xs" >{{'phone'|translate}}</th>
+						<th width="10%" class="text-center hidden-xs"  >{{'payAmount'|translate}}</th>
+						<th width="10%" class="text-center hidden-xs" >{{'packetPrice'|translate}}</th>
+						<th width="10%" class="text-center">{{'arrear'|translate}}</th>
+						<th width="5%" class="text-center">{{'detail'|translate}}</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="lpp in leftPacketPayment |filter:{'progName':progName} | orderBy:'salesDate'">
+							<td>{{lpp.userName+" "+lpp.userSurname}}</td>
+							<td class="hidden-xs">{{lpp.progName}}</td>
+							<td class="text-center hidden-xs">{{lpp.salesDateStr}}</td>
+							<td class="text-center hidden-xs">{{lpp.userEmail}}</td>
+							<td class="text-center hidden-xs">{{lpp.userGsm}}</td>
+							<td class="text-center hidden-xs">{{(lpp.payAmount| currency :'':1 )+" "+ptCurrency}}</td>
+							<td class="text-center hidden-xs">{{(lpp.packetPrice| currency :'':1 )+" "+ptCurrency}}</td>
+							<td class="text-center">{{((lpp.packetPrice-lpp.payAmount)| currency :'':1 )+" "+ptCurrency}}</td>
+							<td class="text-center"><a ng-click="editPayment(lpp)"><i
+									class="pe-7s-config fa-2x text-success"></i> </a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+    <section ng-show="paymentShow">
+     <div class="row">
+			<a ng-click="leftPaymentDetail()"
+				class="pull-right text-big font-light text-success"><i
+				class="pe-7s-close "></i></a>
+		</div>
+	<div class="col-lg-12 animated fadeInUp"
+		ng-include="userPacketPaymentPage"
+		></div>
+	</section>
+</div>

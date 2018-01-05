@@ -1,0 +1,113 @@
+<div class="row" ng-controller="StudioController as sutc"
+	ng-init="init()">
+	<div class="col-md-6 col-sm-6">
+		<div class="hpanel panel-group">
+			<div class="panel-body">
+				<div class="text-center text-muted font-bold">
+					{{'listStudioTitle'|translate}} <a class="btn btn-lg pull-right"
+						ng-click="addNewStudio()"><i class="pe-7s-plus text-success fa-3x"></i> </a>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'branchName'|translate}}*</label>
+					<div class="col-sm-8">
+						<select class="form-control" ng-model="firmId"
+							ng-change="changeFirm()"
+							ng-options="firm.firmId as firm.firmName for firm in firms">
+							<option value="0">{{'pleaseSelect'|translate}}</option>
+
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="panel-section ">
+
+				<div class="error-container animated bounceIn" ng-show="noStudio">
+					<i class="pe-7s-way text-success big-icon"></i>
+					<h1>{{'studioNotFound'|translate}}</h1>
+					<p>{{'studioNotFoundComment'|translate}}</p>
+
+				</div>
+
+			</div>
+
+			<div id="notes" >
+
+				<div class="panel-body note-link " ng-repeat="studio in studios">
+					<a href="#" data-toggle="tab"
+						ng-click="showStudio(studio.studioId)"> <small
+						class="pull-right text-muted">{{studio.createTimeStr}}</small>
+
+						<h5 class="{{studio.studioStatus=='1' ? 'text-success' : 'text-danger'}}">
+							<u>{{studio.studioName}}</u>
+						</h5>
+					</a>
+					<div class="small">
+						<small
+							class="{{studio.studioStatus=='1' ? 'text-info text-muted' : 'text-warning text-muted font-bold'}}">{{'bindFirmName'|translate}}{{studio.firmName}}{{studio.studioStatus=="1"
+							? ('activeComment'|translate) : ('passiveComment'|translate) }}</small> <a
+							ng-click="deleteStudio(studio.studioId)"><i
+							class="pe-7s-close pull-right text-danger fa-3x "></i></a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<a class="btn btn-xs btn-success" ng-click="addNewStudio()">{{'addNewStudio'|translate}}</a>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="col-md-6 col-sm-6" ng-show="willStudioCreate">
+		<div class="hpanel panel-group">
+			<div class="panel-body tour-3">
+				<div class="text-center text-muted font-bold ">
+					{{'addNewStudioTitle'|translate}}</div>
+			</div>
+			<div class="panel-section">
+				<form class="form-horizontal">
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'studioName'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="studioName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'studioShortName'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="studioShortName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'studioStatu'|translate}}*</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="studioStatus">
+								<option value="1">{{'active'|translate}}</option>
+								<option value="2">{{'passive'|translate}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+							<button type="button" class="btn btn-success btn-block"
+								ng-click="createStudio()">{{'save'|translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+
+</div>

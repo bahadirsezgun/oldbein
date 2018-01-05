@@ -1,0 +1,66 @@
+<div class=" animate zoomIn"
+	ng-controller="SpecialDatesUserFindController as sdufc"
+	ng-init="init()">
+	<div class="hpanel ptboss-container hidden-xs" ng-show="!mailSend">
+		<div class="panel-body">
+			<div class="text-center m-b-md">
+				<h3>{{'specialDates' | translate}}</h3>
+				<small>{{'specialDatesComment' | translate}}</small>
+			</div>
+			<table class="table table-stripped table-bordered">
+				<thead>
+					<th>{{'name'|translate}}</th>
+					<th>{{'phone'|translate}}</th>
+					<th>{{'email'|translate}}</th>
+					<th>{{'birthday'|translate}}</th>
+					<th>{{'sendMail'|translate}}</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pu in users">
+						<td>{{pu.userName+" "+pu.userSurname}}</td>
+						<td>{{pu.userGsm}}</td>
+						<td>{{pu.userEmail}}</td>
+						<td>{{pu.userBirthdayStr}}</td>
+						<td><a ng-click="openMail(pu)"><i
+								class="pe-7s-mail fa-2x text-success"></i> </a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="hpanel visible-xs" ng-show="!mailSend">
+		<div class="panel-body">
+			<div class="text-center m-b-md">
+				<h3>{{'specialDates' | translate}}</h3>
+				<small>{{'specialDatesComment' | translate}}</small>
+			</div>
+			
+			<table class="table table-hover container-fluid">
+			  <tr ng-repeat="pu in users">
+			  <td width="40%">{{pu.userName+" "+pu.userSurname}}</td>
+			  <td width="40%">{{pu.userBirthdayStr}}</td>
+			  <td width="20%" ><a ng-click="openMail(pu)"><i class="pe-7s-mail fa-2x text-success"></i> </a></td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+	
+	<section class="animated bounceIn" ng-show="mailSend">
+		<div class="hpanel register-container">
+			<div class="panel-body">
+				<label class="text-succes">{{sendMailPerson}}</label>
+				<textarea rows="10" class="form-control" ng-model="mailContent"></textarea>
+			</div>
+			<div class="panel-footer">
+				<button class="btn btn-sm btn-success" ng-click="sendMail()">
+					<i class="pe-7s-paper-plane fa-3x "></i>
+				</button>
+					<a  class="btn btn-sm btn-danger pull-right" ng-click="closeMail()"><i class="pe-7s-close fa-2x"></i> </a>
+				
+			</div>
+		</div>
+	</section>
+
+
+</div>

@@ -1,0 +1,442 @@
+<div class="content"
+	data-ng-controller="DashboardSpecialController as dashsc"
+	data-ng-init="initDFC()">
+  <section ng-show="showMain">
+	<div class="row">
+		<div class="col-lg-12 text-center m-t-md">
+			<h2>{{'welcomeKeepInsideOf'|translate}}</h2>
+
+			<p>
+				{{'office'|translate}}, <strong>{{'KeepInsideOfAppWith'|translate}}</strong>
+				{{'KeepInsideOfAppWithComment'|translate}}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading">
+					<div class="panel-tools">
+						<a class="showhide"><i class="fa fa-chevron-up"></i></a> <a
+							class="closebox"><i class="fa fa-times"></i></a>
+					</div>
+					{{'dashInfoAndStatistics'|translate}}
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 text-center">
+							<div class="small">
+								<i class="fa fa-bolt"></i> {{'activeMemberCount'|translate}}
+							</div>
+							<div>
+								<h1 class="font-extra-bold m-t-xl m-b-xs">
+									{{activeMemberCount}}</h1>
+								<small>{{'activeMemberCountComment'|translate}}</small>
+							</div>
+							
+							<div class="small m-t-xl">
+								<i class="pe-7s-star fa-3x"></i> 
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="text-center small">
+								<i class="fa fa-laptop"></i> {{'financeGraphComment'|translate}}
+							</div>
+							<div class="flot-chart" style="height: 160px">
+								<div class="flot-chart-content" id="flot-line-chart"></div>
+							</div>
+						</div>
+						<div class="col-md-3 text-center">
+							<div class="small">
+								<i class="fa fa-clock-o"></i> {{'activeDuration'|translate}}
+							</div>
+							<div>
+								<h1 class="font-extra-bold m-t-xl m-b-xs">{{12+'
+									'+('monthly'|translate)}}</h1>
+								<small> {{36+' '+('week'|translate)}}</small>
+							</div>
+							<div class="small m-t-xl">
+								<i class="fa fa-clock-o"></i> {{('lastUpdate'|translate)+":"+activateDate}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<span class="pull-right"> {{'visitUs'|translate}} <a
+						href="www.abasus.com.tr"> ABASUS</a>
+					</span> {{('version'|translate)+":"+updateVersion}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="hpanel ">
+				<div class="panel-body text-center hmc-200">
+					<i class="pe-7s-graph1 fa-4x"></i>
+
+					<h1 class="m-xs text-danger">{{((leftPaymentInfo.leftPayment+leftPaymentInfo.noPayment) | currency :'':1 )+" "+ptCurrency}}</h1>
+
+					
+					<div class="m-t-xs">
+
+						<div class="row">
+							<div class="col-xs-6">
+								<small>{{('shortChange'|translate)}}</small>
+							</div>
+							<div class="col-xs-6">
+								<small>{{('noPayment'|translate)}}</small>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-xs-6">
+								<div class="panel-title">{{((leftPaymentInfo.leftPayment) | currency :'':1 )+" "+ptCurrency}}<i class="fa fa-level-up text-success"></i></div>
+							</div>
+							<div class="col-xs-6">
+								<div class="panel-title">
+									{{((leftPaymentInfo.noPayment) | currency :'':1 )+" "+ptCurrency}}<i class="fa fa-level-down text-danger"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+				</div>
+				<div class="panel-footer">
+				<a><small class="text-danger" ng-click="showLeftPaymentDetail()"><i class="pe-7s-look" style="margin-right:5px"></i> {{'details'|translate}}</small></a> 
+				
+				<small class="pull-right">{{('totalMember'|translate)+" "+(leftPaymentInfo.noPaymentCount+leftPaymentInfo.leftPaymentCount)}}</small>
+				
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+					<div class="hpanel stats ">
+						<div class="panel-body hmc-200">
+						    <div class="stats-title pull-left">
+								<h4>{{'endOfMembership'|translate}}</h4>
+							</div>
+						
+							<div class="stats-icon pull-right">
+								<i class="pe-7s-speaker fa-4x pull-right"></i>
+							</div>
+							
+							<div class="m-t-xl">
+								<h1 class="text-danger text-center">{{totalOfLastCount+" "+('person'|translate)}}</h1>
+							    <div class="row text-center">
+									<div class="col-xs-6">
+									   <h5 class="stat-label text-danger">{{'thisWeek'|translate}}</h5>
+									</div>
+									<div class="col-xs-6">
+									    <h5 class="stat-label text-warning">{{'nextWeek'|translate}}</h5>
+									</div>
+								</div>	
+								<div class="row text-center">	
+									<div class="col-xs-6">
+										<h4 class=" text-danger">{{lastOfCountThisWeek}}</h4>
+									</div>
+									<div class="col-xs-6">
+										<h4 class=" text-warning">
+											{{lastOfCountNextWeek}} 
+										</h4>
+									</div>
+								</div>
+							</div>
+						  </div>
+						
+						<div class="panel-footer">
+						<a><small class="text-danger" ng-click="showLastClassDetail()"><i class="pe-7s-look" style="margin-right:5px"></i> {{'details'|translate}}</small></a> 
+						</div>
+					</div>
+			</div>
+		<div class="col-lg-3">
+			<div class="hpanel stats">
+				<div class="panel-body hmc-200">
+					<div class="stats-title pull-left">
+						<h4>{{lastMonthName|translate}}</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-share fa-4x"></i>
+					</div>
+					<div class="m-t-xl">
+						<div class="panel-title">{{'statisticalMonth'|translate}} </div>
+						<small class="font-bold no-margins"> {{'statisticalMonthComment'|translate}} </small>
+
+						<div class="progress m-t-xs full progress-small">
+							<div style="width: {{lastMonthRate}}%" aria-valuemax="100" aria-valuemin="0"
+								aria-valuenow="{{lastMonthRate}}" role="progressbar"
+								class=" progress-bar progress-bar-success">
+								
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-6">
+								<small class="stats-label text-success">{{prevYear}}</small>
+							</div>
+
+							<div class="col-xs-6">
+								<small class="stats-label text-primary">{{year}}</small>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-6 text-success">
+								<h4>{{lastMonthCount1}}</h4>
+							</div>
+
+							<div class="col-xs-6 text-primary">
+								<h4>{{lastMonthCount2}}</h4>
+							</div>
+						</div>
+						
+						
+						
+					</div>
+				</div>
+				<div class="panel-footer">
+				<small >{{('differenceOfClassCount'|translate)+" "+lastMonthCount1+" --> "+lastMonthCount2}} </small>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="hpanel stats">
+				<div class="panel-body hmc-200">
+					<div class="stats-title pull-left">
+						<h4>{{year}}</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-monitor fa-4x"></i>
+					</div>
+					<div class="m-t-xl">
+						<div class="panel-title">{{'statisticalYear'|translate}} </div>
+						<small class="font-bold no-margins"> {{'statisticalYearComment'|translate}} </small>
+
+						<div class="progress m-t-xs full progress-small">
+							<div style="width: {{lastYearRate}}%" aria-valuemax="100" aria-valuemin="0"
+								aria-valuenow="{{lastYearRate}}" role="progressbar"
+								class=" progress-bar progress-bar-success">
+								
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-6">
+								<small class="stats-label">{{prevYear}}</small>
+								<h4>{{lastYearCount1}}</h4>
+							</div>
+
+							<div class="col-xs-6">
+								<small class="stats-label">{{year}}</small>
+								<h4>{{lastYearCount2}}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+				<small >{{('differenceOfClassCount'|translate)+" "+lastYearCount1+" --> "+lastYearCount2}} </small>
+				
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+	<div class="col-lg-12">
+	         <div class="hpanel stats">
+				<div class="panel-body hmc-200">
+					<div class="stats-title pull-left">
+						<h4>{{year}}</h4>
+					</div>
+					<div class="m-t-xl">
+					
+					 <table class="table table-bordered table-stripted">
+					 <tr class="text-success">
+					   <td></td>
+					   <td ng-repeat="inc in plannedClassInfos"><small>{{inc.monthName|translate}}</small></td>
+					 </tr>
+					 <tr class="text-primary">
+					   <td>{{year}}</td>
+					   <td class="text-center" ng-repeat="inc in plannedClassInfos"><small><strong>{{inc.classCount}}</strong></small></td>
+					 </tr>
+					 <tr class="text-warning">
+					   <td>{{prevYear}}</td>
+					   <td class="text-center" ng-repeat="inc in prevPlannedClassInfos"><small><strong>{{inc.classCount}}</strong></small></td>
+					 </tr>
+					 
+					 </table>
+					</div>
+				</div>
+			    <div class="panel-footer">
+				<small >{{('classCountYearByMonth'|translate)}} </small>
+				</div>
+			  </div>
+	       
+	    
+	    
+	    </div>
+	
+	</div>
+	
+	<div class="row">
+		
+		<div class="col-lg-8">
+			<div class="hpanel">
+				
+				<div class="panel-body list">
+					<div class="table-responsive project-list">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+
+									<th colspan="2">{{'packetSale'|translate}}</th>
+									<th>{{'whomSalePacket'|translate}}</th>
+									<th>{{'date'|translate}}</th>
+									<th>{{'payment'|translate}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="ps in packetSales | orderBy : 'salesDate':true">
+									<td>{{ps.progName}}</td>
+									<td>{{ps.progType=='psp'?('packetSalePersonal'|translate):(ps.progType=='psc'?('packetSaleClass'|translate):('packetSaleMembership'|translate) )}} <br /> <small><i
+											class="fa fa-clock-o"></i> {{('createdDate'|translate)+" "+ps.changeDateStr}}</small>
+									</td>
+									<td><span class="pie">{{ps.userName+" "+ps.userSurname}}</span></td>
+									<td><strong>{{ps.salesDateStr}}</strong></td>
+									<td><a href=""><i class="fa fa-check {{ps.complete==1?'text-success':'text-danger'}} "></i></a></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="hpanel">
+				
+				<div class="panel-body list">
+
+					<div class="panel-title">{{'specialDates'|translate}}</div>
+					<small class="fo">{{'specialDatesComment'|translate}}</small>
+					<div class="hr-line-dashed"></div>
+					<div class="list-item-container-fluid">
+						<div class="list-item" ng-repeat="pu in specialUsers">
+							<h3 class="no-margins font-extra-bold text-success">{{pu.userName+" "+pu.userSurname}}</h3>
+							<small>{{pu.userGsm}}</small>
+							<div class="pull-right font-bold">
+								{{pu.userBirthdayStr}} <i class="fa fa-clock text-success"></i>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+	</section>
+	
+	<section ng-show="!showMain && showDetailPage">
+	   <div class="row">
+			<a ng-click="turnBackToMain()"
+				class="pull-left text-big font-light text-success"><i
+				class="pe-7s-close "></i></a>
+		</div>
+	   <div ng-include="detailPage"></div>
+	</section>
+	
+	
+	<section ng-show="!showMain && showLastClass">
+	     <div class="row">
+			<a ng-click="turnBackToMain()"
+				class="pull-left text-big font-light text-success"><i
+				class="pe-7s-close "></i></a>
+		</div>
+		<div class="row">
+		   <div class="hpanel">
+				
+				<div class="panel-body list">
+
+					<div class="panel-title">{{'lastClassesOfThisWeek'|translate}}</div>
+					
+					<table class="table table-stripped">
+					<thead>
+					 <th>{{'name'|translate}}</th>
+					 <th>{{'phone'|translate}}</th>
+					 <th>{{'progName'|translate}}</th>
+					 <th>{{'date'|translate}}</th>
+					</thead>
+					
+					<tbody>
+					<tr ng-repeat="lc in lastOfClasses.stpTW">
+					  <td>{{lc.userName+" "+lc.userSurname}}</td>
+					  <td>{{lc.userGsm}}</td>
+					  <td>{{lc.progName}}</td>
+					  <td>{{lc.planStartDateStr}}</td>
+					</tr>
+					
+					<tr ng-repeat="lc in lastOfClasses.stpMW">
+					  <td>{{lc.userName+" "+lc.userSurname}}</td>
+					  <td>{{lc.userGsm}}</td>
+					  <td>{{lc.progName}}</td>
+					  <td>{{lc.smpEndDateStr}}</td>
+					</tr>
+					</tbody>
+					
+					</table>
+					
+					
+			   </div>
+			   
+			   
+			   
+			   <div class="panel-body list">
+
+					<div class="panel-title">{{'lastClassesOfNextWeek'|translate}}</div>
+					
+					<table class="table table-stripped">
+					<thead>
+					 <th>{{'name'|translate}}</th>
+					 <th>{{'phone'|translate}}</th>
+					 <th>{{'progName'|translate}}</th>
+					 <th>{{'date'|translate}}</th>
+					</thead>
+					
+					<tbody>
+					<tr ng-repeat="lc in lastOfClasses.stpNW">
+					  <td>{{lc.userName+" "+lc.userSurname}}</td>
+					  <td>{{lc.userGsm}}</td>
+					  <td>{{lc.progName}}</td>
+					  <td>{{lc.planStartDateStr}}</td>
+					</tr>
+					
+					<tr ng-repeat="lc in lastOfClasses.stpMNW">
+					  <td>{{lc.userName+" "+lc.userSurname}}</td>
+					  <td>{{lc.userGsm}}</td>
+					  <td>{{lc.progName}}</td>
+					  <td>{{lc.smpEndDateStr}}</td>
+					</tr>
+					</tbody>
+					
+					</table>
+					
+					
+			   </div>
+			   
+			   
+		    </div>
+		
+		
+		</div>
+	    
+	    
+	    
+	</section>
+</div>
+

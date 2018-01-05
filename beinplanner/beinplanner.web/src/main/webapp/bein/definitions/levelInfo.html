@@ -1,0 +1,87 @@
+<div class="row" ng-controller="DefinitionLevelInfoController as dlic"
+	ng-init="init()">
+	<div class="col-md-5 col-sm-5">
+		<div class="hpanel panel-group">
+			<div class="panel-body">
+				<div class="text-center text-muted font-bold">{{'levelInfoTitle'|translate}}</div>
+
+			</div>
+			<div class="panel-section">
+
+				<div class="input-group">
+					<input type="text" class="form-control"
+						placeholder="{{'addNewLevelInfoPH'|translate}}"
+						ng-model="addLevelInfoName"> <span class="input-group-btn">
+						<button class="btn btn-default" type="button"
+							ng-click="createLevelInfo()">
+							<i class="glyphicon glyphicon-plus small"></i>
+						</button>
+					</span>
+				</div>
+
+			</div>
+
+			<div id="notes" >
+
+				<div class="panel-body note-link "
+					ng-repeat="levelInfo in levelInfos">
+					<a href="#" data-toggle="tab"
+						ng-click="showLevelInfo(levelInfo.levelId)"> <small
+						class="pull-right text-muted">{{levelInfo.createTimeStr}}</small>
+						<h5 class="text-success">
+							<u>{{levelInfo.levelName}}</u>
+						</h5>
+					</a>
+					<div class="small">
+						{{'levelInfoComment'|translate}} <a
+							ng-click="deleteLevelInfo(levelInfo.levelId)"><i
+							class="pe-7s-close pull-right fa-2x text-danger"></i></a>
+					</div>
+
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+	<div class="col-md-7 col-sm-7" ng-show="levelDetail">
+		<div class="hpanel panel-group">
+			<div class="panel-body">
+				<div class="text-center text-muted font-bold">{{'defLevelInfoTitle'|translate}}</div>
+
+			</div>
+			<div class="panel-section tour-4">
+				<form class="form-horizontal">
+
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">{{'levelName'|translate}}*</label>
+						<div class="col-sm-8">
+							<input autocomplete="off" type="text" class="form-control"
+								ng-model="levelName">
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+							<button type="button" class="btn btn-success btn-block"
+								ng-click="updateLevelInfo()">{{'save'|translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+
+</div>

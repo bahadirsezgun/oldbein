@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BEINPlanner">
+
+
+<!-- Page title -->
+<title> BEINPlanner</title>
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="icon" type="image/png" href="/beinplanner/jslib/img/logos/abasus-ico.png" />
+
+<!-- Vendor styles -->
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/fontawesome/css/font-awesome.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/metisMenu/dist/metisMenu.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/animate.css/animate.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/bootstrap-star-rating/css/star-rating.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/sweetalert/lib/sweet-alert.css" />
+<link rel="stylesheet" href="/beinplanner/homerlib/vendor/toastr/build/toastr.min.css" />
+
+
+<!-- App styles -->
+<link rel="stylesheet"
+	href="homerlib/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+<link rel="stylesheet"
+	href="homerlib/fonts/pe-icon-7-stroke/css/helper.css" />
+<link rel="stylesheet" href="homerlib/styles/style.css">
+<link rel="stylesheet" href="homerlib/styles/static_custom.css">
+
+</head>
+<body class="blank" data-ng-module="PTBossLoginApp as ptlapp">
+
+	<!-- Simple splash screen-->
+	<div class="splash">
+		<div class="color-line"></div>
+		<div class="splash-title">
+			<h1>ABASUS - BEINPlanner</h1>
+			<p>You will be 10x productive than before by this app</p>
+			<div class="spinner">
+				<div class="rect1"></div>
+				<div class="rect2"></div>
+				<div class="rect3"></div>
+				<div class="rect4"></div>
+				<div class="rect5"></div>
+			</div>
+		</div>
+	</div>
+	<!--[if lt IE 7]>
+<p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+	<div class="color-line"></div>
+
+    
+
+	<div class="container-fluid" data-ng-controller="LoginController as lc"
+		data-ng-init="init()" >
+		
+		
+		
+		
+		<div class="row animate-panel">
+		
+		  
+		    <div class="col-md-4">
+			    	<div class="row">
+	       				<a href="{{lg.url}}"  ng-repeat="lg in logosLeft" class="pull-left">	
+	       					<img title="{{lg.title}}"  ng-src="{{lg.src}}" style="max-height: 50px;opacity:0.3">
+	       				</a>
+	       				
+	       		  </div>
+		    </div>
+		
+			<div class="col-md-4">
+				<br/>
+				<br/>
+				<br/>
+				
+				
+				<div class="hpanel" >
+					<div class="panel-body">
+ 						<div class="text-center m-b-md">
+							<h3>{{'title' | translate}}</h3>
+							<small>{{'titlehint' | translate}}</small>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group tooltip-demo">
+							<label class="control-label" for="username">{{'username'
+								| translate}}</label> <input type="text"
+								placeholder="{{ userName_PlaceHolder | translate }}"
+								data-toggle="tooltip" data-placement="bottom"
+								title="{{'usernamehint' | translate}}"
+								data-ng-model="user.userName" class="form-control"> <span
+								class="help-block small">{{'usernamehint' | translate}}</span>
+						</div>
+						<div class="form-group tooltip-demo">
+							<label class="control-label" for="password">{{'password'
+								| translate}}</label> <input type="password" placeholder="******" ng-keypress="loginKey($event)"
+								data-ng-model="user.password" class="form-control"
+								data-toggle="tooltip" data-placement="bottom"
+								title="{{'passwordhint' | translate}}"> <span
+								class="help-block small">{{'passwordhint' | translate}}</span>
+						</div>
+						<div class="checkbox">
+							<input type="checkbox" class="i-checks" checked>
+							{{'rememberlogin' | translate}}
+							<p class="help-block small">{{'rememberLoginHint' |
+								translate}}</p>
+						</div>
+						<a href="#" ng-click="login()" class="btn btn-success btn-block">{{'login'| translate}}</a>
+					    <a class="btn btn-danger btn-block" ng-click="reset()">{{'resetPassword'|translate}}</a>
+
+					</div>
+					
+					
+					<div class="form-group tooltip-demo">
+							<label class="control-label" for="username">{{'campainCode'
+								| translate}}</label> 
+								
+								<input type="text"
+								placeholder="{{ 'campainCode_PlaceHolder' | translate }}"
+								data-toggle="tooltip" 
+								data-ng-model="campainCode" class="form-control"> 
+								<a href="#" ng-click="campain()" class="btn btn-success btn-block">{{'confirm'| translate}}</a>
+					    
+						</div>
+					
+				</div>
+				<div class="text-center">
+					<h2 class="font-light">{{'mantra'|translate}}</h2>
+				</div>
+			</div>
+
+             <div class="col-md-4">
+		    	<div class="row">
+	       				<a href="{{lg.url}}" class="pull-right" ng-repeat="lg in logosRight">	
+	       					<img title="{{lg.title}}"  ng-src="{{lg.src}}" style="max-height: 50px;opacity:0.3">
+	       				</a>
+	       				
+	       		  </div>
+		    </div>
+
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center animated fadeInDown">
+				<strong>{{'appName' | translate}}</strong> - {{'appNameTitle' |translate}} 
+				<br />{{'Version : '+version}}<br /> 2010 Copyright by BEINPlanner
+			</div>
+		</div>
+	</div>
+
+    
+
+	<!-- Vendor scripts -->
+	<script src="/beinplanner/homerlib/vendor/jquery/dist/jquery.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/jquery-ui/jquery-ui.min.js"></script>
+
+
+
+	<script src="/beinplanner/homerlib/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/metisMenu/dist/metisMenu.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/iCheck/icheck.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/sparkline/index.js"></script>
+	<script src="/beinplanner/homerlib/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+
+	<script src="/beinplanner/homerlib/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+	<script src="/beinplanner/homerlib/vendor/toastr/build/toastr.min.js"></script>
+
+
+	<script src="/beinplanner/homerlib/scripts/homer.js"></script>
+
+	<script data-main="./app/login/main.js?v=70"
+		src="/beinplanner/jslib/lib/require/require.js"></script>
+
+
+
+
+</body>
+</html>

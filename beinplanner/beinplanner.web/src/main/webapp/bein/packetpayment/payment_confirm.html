@@ -1,0 +1,209 @@
+<div class=" animate zoomIn"
+	ng-controller="PaymentConfirmController as sdufc" ng-init="init()">
+	<section ng-show="showQuery">
+		<div class="row register-container">
+			<div class="col-md-12">
+				<div class="text-center m-b-md">
+					<h3>{{'paymentConfirm' | translate}}</h3>
+					<small>{{'paymentConfirmComment' | translate}}</small>
+				</div>
+				<div class="hpanel">
+					<div class="panel-body">
+						<form>
+							<div class="row">
+								<div class="form-group col-lg-6">
+									<label>{{'name' | translate}}</label> <input type="text"
+										value="" id="" class="form-control" autocomplete="off" name=""
+										ng-model="filterName">
+								</div>
+								<div class="form-group col-lg-6">
+									<label>{{'surname' | translate}}</label> <input type="text"
+										value="" id="" class="form-control" autocomplete="off" name=""
+										ng-model="filterSurname">
+								</div>
+								<div class="form-group col-lg-6">
+									<label class="checkbox-inline"> <input type="checkbox"
+										class="i-checks" id="confirmChk">
+										{{'confirmed'|translate}}
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										class="i-checks" id="unConfirmChk">
+										{{'unConfirmed'|translate}}
+									</label>
+								</div>
+							</div>
+							<div class="text-center">
+								<button type="button" class="btn btn-success" ng-click="find()">{{'find'
+									| translate}}</button>
+								
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section ng-show="!showQuery">
+		<div class="col-md-12">
+			<button class="btn " type="button" ng-click="query()"
+				style="position: fixed; top: 80px; right: 20px; z-index: 600;">
+				<i class="pe-7s-close-circle fa-4x text-danger"></i>
+			</button>
+		</div>
+
+		<div class="row" ng-show="!showDetail">
+			<div class="col-md-12 ">
+				<div class="text-center m-b-md">
+					<h3>{{'paymentConfirm' | translate}}</h3>
+					<small>{{'paymentConfirmComment' | translate}}</small>
+				</div>
+			</div>
+
+
+			<div class="col-md-12 hidden-xs">
+				<div class="hpanel ">
+					<div class="panel-body">
+
+						<table class="table table-stripped table-bordered">
+							<thead>
+								<th width="5%" class="text-center">{{'confirm'|translate}}</th>
+								<th width="10%">{{'branchName'|translate}}</th>
+								<th width="15%">{{'progName'|translate}}</th>
+								<th width="10%">{{'salesDate'|translate}}</th>
+								<th width="15%">{{'name'|translate}}</th>
+								<th width="10%">{{'phone'|translate}}</th>
+								<th width="10%">{{'email'|translate}}</th>
+								<th width="10%">{{'payDate'|translate}}</th>
+								<th width="5%">{{'payAmount'|translate}}</th>
+								<th width="5%">{{'arrear'|translate}}</th>
+								<th width="5%">{{'detail'|translate}}</th>
+
+							</thead>
+							<tbody>
+
+								<tr ng-repeat="puc in confirms">
+									<td><button type="button"
+											class="btn btn-xs btn-circle {{puc.payConfirm==1?'btn-success':'btn-danger'}}"
+											ng-click="payConfirm(puc)"></button></td>
+									<td>{{puc.firmName}}</td>
+									<td>{{puc.progName}}</td>
+									<td>{{puc.salesDateStr}}</td>
+									<td class="projects">
+										<div class="project-people">
+											<img alt="logo" class="img-circle m-b"
+												ng-src="{{puc.profileUrl==null?(puc.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(puc.urlType==1?'../pt/member/get/profile/'+puc.userId+'/1' :'/beinplanner/homerlib/images/'+puc.profileUrl )   }}">
+											<small><code>{{puc.userName+"
+													"+puc.userSurname}}</code></small>
+										</div>
+									</td>
+									<td>{{puc.userGsm}}</td>
+									<td>{{puc.userEmail}}</td>
+									<td>{{puc.payDateStr}}</td>
+									<td class="{{(puc.packetPrice-puc.payAmount)!=0?'text-danger':'text-success'}}  ">{{puc.payAmount+'
+										'+ptCurrency}}</td>
+									<td>{{(puc.packetPrice-puc.payAmount)+' '+ptCurrency}}</td>
+
+
+									<td><a ng-click="findDetail(puc)"><i
+											class="pe-7s-cash text-info fa-3x"></i> </a></td>
+								</tr>
+
+							</tbody>
+
+
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-12 visible-xs">
+			   <div class="hpanel hblue" ng-repeat="puc in confirms">
+				   <div class="panel-body">
+				    <div class="row">
+				    
+					     <div class="col-xs-8">
+					         <label class="text-medium">{{puc.userName+" "+puc.userSurname}}</label>
+					     </div>
+					     <div class="col-xs-4">
+					     	<button type="button" class="btn btn-lg btn-circle {{puc.payConfirm==1?'btn-success':'btn-danger'}} pull-right" ng-click="payConfirm(puc)"></button>
+					    </div>
+				</div> 
+				 <div class="row">      
+					     <div class="col-xs-8">
+					         <label class="text-medium" >{{puc.payDateStr}}</label>
+					     </div>
+				   
+					    
+					     <div class="col-xs-4">
+					     	<label class="pull-right text-medium">{{puc.payAmount+" "+ptCurrency}}</label>
+					    </div>
+				</div> 
+				 <div class="row">  	    
+					     <div class="col-xs-8">
+					         <label>{{puc.progName}}</label>
+					     </div>
+			
+					     <div class="col-xs-4">
+					     	<a class="pull-right" ng-click="findDetail(puc)"><i class="pe-7s-cash text-info fa-3x"></i> </a>
+					    </div>
+				    </div>
+				   </div>
+			 	</div>
+			</div>
+			
+			
+			
+		</div>
+		<div class="row register-container animated bounceIn"
+			ng-show="showDetail">
+			<div class="hpanel">
+
+				<div class="panel-heading text-center">
+					<div class="contact-panel text-center">
+						<img alt="logo" class="img-circle m-b m-t-sm "
+							ng-src="{{packetPayment.profileUrl==null?(packetPayment.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(packetPayment.urlType==1?'../pt/member/get/profile/'+packetPayment.userId+'/1':'/beinplanner/homerlib/images/'+packetPayment.profileUrl )   }}">
+						<p>{{packetPayment.userName+" "+packetPayment.userSurname}}</p>
+						<h4>
+							<a href=""> {{packetPayment.progName}}</a>
+						</h4>
+						<h3>{{'arrear'|translate}}:
+							{{((packetPayment.packetPrice-packetPayment.payAmount))+'
+							'+ptCurrency}}</h3>
+
+					</div>
+
+				</div>
+
+				<div class="panel-body">
+					<p>
+						<strong>{{'packetPaymentComment1'|translate}}</strong>
+						{{'packetPaymentComment2'|translate}}<strong>{{'packetPaymentComment3'|translate}}</strong>{{'packetPaymentComment4'|translate}}
+					</p>
+					<div class="table-responsive">
+						<table class="table table-hover table-striped">
+							<tbody>
+								<tr ng-repeat="packetPaymentDetail in packetPaymentDetails">
+									<td>
+										<button type="button"
+											class="btn btn-xs btn-circle {{packetPaymentDetail.payConfirm==1?'btn-success':'btn-danger'}}"></button>
+									</td>
+									<td>{{packetPaymentDetail.payAmount+' '+ptCurrency}}</td>
+									<td>{{packetPaymentDetail.payDateStr}}</td>
+									<td class="issue-info">{{packetPaymentDetail.payComment}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</section>
+
+</div>

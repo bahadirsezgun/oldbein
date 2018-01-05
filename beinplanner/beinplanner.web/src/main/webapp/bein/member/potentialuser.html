@@ -1,0 +1,114 @@
+<div class="row register-container"
+	ng-controller="PotentialUserController as puc" ng-init="initPUC()">
+
+
+
+	<div class="hpanel panel-group">
+		<div class="panel-header">
+
+			<div class="text-center m-b-md">
+				<h3>{{'potentialMember' | translate}}</h3>
+				<small>{{'findMemberComment' | translate}}</small>
+			</div>
+		</div>
+		<div class="panel-section">
+			<form class="form-horizontal">
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'branchName'|translate}}*</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="firmId">
+							<option value="0">{{'pleaseSelect'|translate}}</option>
+							<option ng-repeat="firm in firms" value="{{firm.firmId}}">
+								{{firm.firmName}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'name'|translate}}*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="userName"
+							placeholder="{{'enterName'|translate}}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'surname'|translate}}*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="userSurname"
+							placeholder="{{'enterSurname'|translate}}">
+					</div>
+
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'gsm'|translate}}*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="userGsm"
+							ui-mask="{{maskGsm}}" model-view-value="true">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'email'|translate}}*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="userEmail"
+							placeholder="{{'enterEmail'|translate}}">
+					</div>
+
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'gender'|translate}}</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="userGender"
+							ng-change="genderChange()">
+							<option value="0">{{'pleaseSelect'|translate}}</option>
+							<option value="1" selected="selected">{{'women'|translate}}</option>
+							<option value="2">{{'men'|translate}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'staffTokenName'|translate}}*</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="staffId">
+							<option value="0">{{'pleaseSelect'|translate}}</option>
+
+							<option ng-repeat="staff in staffs" value="{{staff.userId}}">
+								{{staff.userName +' '+staff.userSurname}}</option>
+
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'pStatu'|translate}}</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="pStatu"
+							ng-change="pStatuChange()">
+							<option value="0" selected="selected">{{'newPotential'|translate}}</option>
+							<option value="1">{{'called'|translate}}</option>
+							<option value="2">{{'noWantToMember'|translate}}</option>
+							<option value="3">{{'beMember'|translate}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{'comment'|translate}}*</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" ng-model="pComment"></textarea>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+						<button type="button" class="btn btn-success btn-block"
+							ng-click="createPotentialMember()">{{'save'|translate}}</button>
+						<button type="button" class="btn btn-warning btn-block"
+							ng-click="createMember()">{{'createMember'|translate}}</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

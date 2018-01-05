@@ -1,0 +1,446 @@
+<div class="row" ng-controller="StaffController as uc" ng-init="init()">
+	<div class="col-lg-2" ng-show="userId!=0">
+		<div class="hpanel hgreen">
+			<div class="panel-body contact-panel text-center">
+				<img alt="logo" class="img-circle m-b m-t-md" src="{{profileUrl}}">
+				<h5 style="word-wrap: break-word;">
+					<span style="margin-right: 5px">{{userName}}</span><span>{{userSurname}}</span>
+				</h5>
+				<div class="text-muted font-bold m-b-xs">{{userGsm}}</div>
+				<p>{{userComment}}</p>
+				<a ng-click="deleteStaff()" ng-show="userId!=0"><i
+					class="pe-7s-close-circle fa-3x"></i> </a>
+				<div class="progress m-t-xs full progress-small">
+					<div style="width: 65%" aria-valuemax="100" aria-valuemin="0"
+						aria-valuenow="{{userCompletePercent}} " role="progressbar"
+						class=" progress-bar progress-bar-success">
+						<span class="sr-only">%{{userCompletePercent}} {{'complete'
+							| translate}}</span>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+			<div class="panel-body" ng-show="userId!=0">
+				<dl>
+					<dt>{{'staffCreateTime'|translate}}</dt>
+					<dd>{{createTimeStr}}{{'createTimeComment'|translate}}</dd>
+					<dd>
+						<div class="hr-line-dashed"></div>
+					</dd>
+					<dt>{{'birthday'|translate}}</dt>
+					<dd>{{userBirthdayStr}}</dd>
+
+				</dl>
+			</div>
+
+
+		</div>
+	</div>
+	<div class="{{userId!=0?'col-lg-10':'col-lg-12'}}">
+		<div class="hpanel">
+
+			<ul class="nav nav-tabs">
+				<li class="{{(newUser!=0 && userType=='3')?'active':''}}"
+					ng-show="userId!=0 && userType=='3'"><a data-toggle="tab"
+					href="#tab-1">{{'classInfoTitle'|translate}}</a></li>
+				<li class="{{(newUser==0 ||  userType!='3')?'active':''}}"><a
+					data-toggle="tab" href="#tab-2">{{'generalInfo'|translate}}</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-3">{{'contactInfo'|translate}}</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-4"
+					ng-show="userId!=0">{{'profileImage'|translate}}</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-5"
+					ng-show="showBonus!=0 && userId!=0">{{'bonusPayment'|translate}}</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-6"
+					ng-show="showBonus!=0 && userId!=0" ng-click="bonusPTapShow()">{{'bonusPersonalDef'|translate}}</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-7"
+					ng-show="showBonus!=0 && userId!=0" ng-click="bonusCTapShow()">{{'bonusClassDef'|translate}}</a></li>
+
+
+
+			</ul>
+			<div class="tab-content">
+				<div id="tab-1"
+					class="tab-pane {{(newUser!=0 && userType=='3')?'active':''}}">
+					<div class="panel-body">
+
+						<div class="error-container animated bounceIn"
+							ng-show="packetSaled">
+							<i class="pe-7s-way text-success big-icon"></i>
+							<h1>{{'classNotFound'|translate}}</h1>
+							<p>{{'classNotFoundComment'|translate}}</p>
+						</div>
+
+
+					</div>
+				</div>
+				<div id="tab-2"
+					class="tab-pane {{(newUser==0 ||  userType!='3') ?'active':''}}">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-3 text-center">
+								<i class="pe-7s-user fa-5x text-muted"></i>
+								<p class="small m-t-md">
+									<strong>{{'createStaffProfile'|translate}}</strong>
+									{{'createStaffProfileComment'|translate}} <br />
+									<br />{{'createStaffProfileComment1'|translate}} <br />
+									<br /> <strong>{{'warning'|translate}}</strong> <br />
+									<br />{{'createStaffProfileComment2'|translate}}
+								</p>
+							</div>
+							<div class="col-lg-9">
+								<strong>{{'personalInfo'|translate}}</strong>
+								<div class="hr-line-dashed"></div>
+								<form class="form-horizontal">
+									
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'branchName'|translate}}*</label>
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="firmId"
+												ng-options="firm.firmId as firm.firmName for firm in firms">
+												<option value="0">{{'pleaseSelect'|translate}}</option>
+											</select>
+										</div>
+									</div>
+
+
+									
+
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'name'|translate}}*</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" ng-model="userName"
+												placeholder="{{'enterName'|translate}}">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'surname'|translate}}*</label>
+
+										<div class="col-sm-10">
+											<input type="text" class="form-control"
+												ng-model="userSurname"
+												placeholder="{{'enterSurname'|translate}}">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'email'|translate}}*</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" ng-model="userEmail">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'role'|translate}}</label>
+
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="userType"
+												ng-change="userTypeChange()">
+												<option value='3' selected="selected">{{'schedulerStaff'|translate}}</option>
+												<option value='2'>{{'staff'|translate}}</option>
+												<option value='4'>{{'manager'|translate}}</option>
+												<option value='5'>{{'superManager'|translate}}</option>
+											</select>
+										</div>
+									</div>
+
+									
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'gender'|translate}}</label>
+
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="userGender"
+												ng-change="genderChange()">
+												<option value="0">{{'pleaseSelect'|translate}}</option>
+												<option value="1" selected="selected">{{'women'|translate}}</option>
+												<option value="2">{{'men'|translate}}</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'gsm'|translate}}*</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" ng-model="userGsm"
+												ui-mask="{{maskGsm}}" model-view-value="true">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'birthday'|translate}}</label>
+										<div class="col-sm-10">
+											<input type="text" id="birthday"
+												placeholder="{{'enterBirthday'|translate}}"
+												ng-model="userBirthdayStr" class="form-control">
+										</div>
+									</div>
+
+
+
+									<div class="form-group">
+										<div class="col-sm-8 col-sm-offset-2">
+											<button class="btn btn-primary" type="button"
+												ng-click="createStaff()" >{{'confirm'|translate}}</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="tab-3" class="tab-pane">
+					<div class="panel-body">
+
+						<div class="row">
+							<div class="col-lg-3 text-center">
+								<i class="pe-7s-phone fa-5x text-muted"></i>
+								<p class="small m-t-md">
+									<strong>{{'createContactInfo'|translate}}</strong>
+									{{'createContactInfoComment'|translate}} <br />
+									<br />{{'createContactInfoComment1'|translate}}
+								</p>
+							</div>
+
+							<div class="col-lg-9">
+								<strong>{{'contactInfoTitle'|translate}}</strong>
+								<div class="hr-line-dashed"></div>
+								<form class="form-horizontal">
+									
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'phone'|translate}}*</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control"
+												ui-mask="{{maskWorkPhone}}" ng-model="userPhone"
+												model-view-value="true">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'status'|translate}}</label>
+
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="staffStatu"
+												ng-change="statuChange()">
+												<option value="0" selected="selected">{{'active'|translate}}</option>
+												<option value="1">{{'passive'|translate}}</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'state'|translate}}*</label>
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="stateId"
+												ng-change="stateChange()"
+												ng-options="state.stateId as state.stateName for state in states">
+												<option value="0">{{'pleaseSelect'|translate}}</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'city'|translate}}*</label>
+										<div class="col-sm-10">
+											<select class="form-control" ng-model="cityId"
+												ng-options="city.cityId as city.cityName for city in cities">
+												<option value="0">{{'pleaseSelect'|translate}}</option>
+											</select>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'staffComment'|translate}}*</label>
+										<div class="col-sm-10">
+											<textarea class="form-control"
+												placeholder="{{'userCommentPlh'|translate}}"
+												ng-model="userComment"></textarea>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">{{'address'|translate}}*</label>
+										<div class="col-sm-10">
+											<textarea class="form-control"
+												placeholder="{{'enterAddress'|translate}}"
+												ng-model="userAddres"></textarea>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-8 col-sm-offset-2">
+											<button class="btn btn-primary" type="button"
+												ng-click="createStaff()">{{'confirm'|translate}}</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="tab-4" class="tab-pane">
+					<div class="panel-body">
+						<strong>{{'profileImageTitle'|translate}}</strong>
+
+
+
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+								<form>
+									<div class="row text-center">
+										<div class="form-group ">
+											<label>{{'profile_upload_file' | translate}}</label>
+
+
+											<div class="input-group">
+												<input type="text" class="form-control" ng-model="fileName">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-primary"
+														ng-click="fileOpen()">{{'chooseLbl'|translate}}</button>
+												</span>
+											</div>
+
+											<input type="file" id="fileUploadUrl" class="form-control"
+												autocomplete="off" name="" style="display: none">
+										</div>
+
+									</div>
+									<div class="text-center">
+										<button type="button" class="btn btn-success"
+											ng-click="sendFile('fileUploadUrl')">{{'upload' |
+											translate}}</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+
+
+						<div>
+							<div class="hr-line-dashed"></div>
+							<div class="row">
+								<div class="col-md-4" ng-repeat="avatar in avatars">
+									<div class="hpanel contact-panel">
+										<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+											<div class="text-center">
+												<div class="row">
+													<img ng-src="{{avatar.url}}" class="img-circle m-b">
+													</h2>
+													<div class="col-md-12 col-sm-12">
+														<input type="radio" class="i-checks" name="avatarUrl"
+															value="{{avatar.value}}">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div id="tab-5" class="tab-pane">
+					<div class="panel-body">
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="tab-6" class="tab-pane">
+					<div class="panel-body">
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+
+								<div class="row">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">{{'bonusType'|translate}}</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" ng-model="bonusTypeP"
+													ng-change="bonusPTypeChange()">
+													<option value="0" selected="selected">{{'pleaseSelect'|translate}}</option>
+													<option value="1">{{'rateBonus'|translate}}</option>
+													<option value="2">{{'staticBonus'|translate}}</option>
+													<option value="3">{{'classRateBonus'|translate}}</option>
+												</select>
+											</div>
+										</div>
+									</form>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+								<div ng-include="bonusPage"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div id="tab-7" class="tab-pane">
+					<div class="panel-body">
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+
+								<div class="row">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">{{'bonusType'|translate}}</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" ng-model="bonusTypeC"
+													ng-change="bonusCTypeChange()">
+													<option value="0" selected="selected">{{'pleaseSelect'|translate}}</option>
+													<option value="1">{{'rateBonus'|translate}}</option>
+													<option value="2">{{'staticBonus'|translate}}</option>
+													<option value="3">{{'classRateBonus'|translate}}</option>
+												</select>
+											</div>
+										</div>
+									</form>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="hpanel">
+							<div class="panel-body" style="border-top: 1px solid #e4e5e7">
+								<div ng-include="bonusClassPage"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+</div>

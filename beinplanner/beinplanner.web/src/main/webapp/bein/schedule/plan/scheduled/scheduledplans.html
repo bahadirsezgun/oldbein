@@ -1,0 +1,90 @@
+<div class="row"
+	data-ng-controller="ScheduledPlansBookingController as spcbc"
+	data-ng-init="initSPCB()">
+
+	<div class="col-lg-12">
+		<div class="hpanel">
+			<div class="panel-heading">
+				<div class="panel-tools">
+					<a class="showhide"><i class="fa fa-chevron-up"></i></a> <a
+						class="closebox" ng-click="backBtn()"><i class="fa fa-times"></i></a>
+				</div>
+				{{'tokenPlans'|translate}}
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table cellpadding="1" cellspacing="1"
+						class="table table-condensed table-striped">
+						<thead>
+							<tr>
+								<th>{{'progName'|translate}}</th>
+								<th>{{'instructor'|translate}}</th>
+								<th>{{'execution'|translate}}</th>
+								<th colspan="2">{{'details'|translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="schedulePlanSearch in scheduledPlansForSearch"
+								class="projects">
+								<td rowspan="{{schedulePlanSearch.scheduleTimePlans.length}}">{{schedulePlanSearch.progName}}</td>
+
+
+								<td rowspan="{{schedulePlanSearch.scheduleTimePlans.length}}"
+									class="project-people"><img class="img-circle "
+									data-ng-src="{{schedulePlanSearch.profileUrl==null?(schedulePlanSearch.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schedulePlanSearch.urlType==1?'../pt/member/get/profile/'+schedulePlanSearch.schStaffId+'/1' :'/beinplanner/homerlib/images/'+schedulePlanSearch.profileUrl )   }}">
+									{{schedulePlanSearch.userName+"
+									"+schedulePlanSearch.userSurname}}</td>
+
+								<td rowspan="{{schedulePlanSearch.scheduleTimePlans.length}}">
+
+									<button type="button" class="btn btn-default btn-sm"
+										ng-if="schedulePlanSearch.scheduleTimePlans.schtStaffId==user.userId || userType!=3">{{'deleteLbl'|translate}}</button>
+									<button type="button" class="btn btn-default btn-sm"
+										ng-if="schedulePlanSearch.scheduleTimePlans.schtStaffId==user.userId || userType!=3">{{'edit'|translate}}</button>
+
+								</td>
+
+
+								<td colspan="3" class="projects">
+									<table cellpadding="1" cellspacing="1"
+										class="table table-condensed table-striped">
+
+										<thead>
+											<tr>
+												<th>{{'time'|translate}}</th>
+												<th colspan="2">{{'definition_studio'|translate}}</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												data-ng-repeat="scheduleTimePlanSearch in schedulePlanSearch.scheduleTimePlans">
+												<td><code class="font-bold m-b-xs text-center">{{scheduleTimePlanSearch.planDayTime}}</code></td>
+												<td><code class="font-bold m-b-xs text-center"
+														data-ng-repeat="studios in scheduleTimePlanSearch.scheduleStudios"
+														data-ng-if="$even"> {{studios.studioName}} </code> <code
+														class="font-bold m-b-xs text-center"
+														data-ng-repeat="studios in scheduleTimePlanSearch.scheduleStudios"
+														data-ng-if="$odd"> {{','+studios.studioName}} </code></td>
+												<td class="project-people"><img
+													ng-repeat="member in scheduleTimePlanSearch.users"
+													class="img-circle project project-info project-people"
+													title="{{member.userName}} {{member.userSurname}}"
+													ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<div class="panel-footer"></div>
+		</div>
+	</div>
+
+
+</div>

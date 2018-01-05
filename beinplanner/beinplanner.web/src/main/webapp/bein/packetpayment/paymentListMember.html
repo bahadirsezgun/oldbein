@@ -1,0 +1,22 @@
+
+<div class="row"
+	ng-controller="FindUserPacketPaymentController as fupppcl"
+	ng-init="list()">
+
+	<div class="col-lg-3"
+		ng-repeat="member in members | filter:{userSurname : search}">
+		<div class="hpanel hblue contact-panel">
+			<div class="panel-body">
+				<img alt="logo" class="img-circle m-b"
+					ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+				<h3>
+					<a href="" ng-click="getMember(member)">{{member.userName}}
+						{{member.userSurname}}</a>
+				</h3>
+				<div class="text-muted font-bold m-b-xs">{{member.userGsm}}</div>
+				<p>{{member.userComment}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+

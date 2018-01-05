@@ -1,0 +1,84 @@
+<div class="row projects" ng-controller="UserTokenTimesController"
+	ng-init="initTT()">
+
+
+	<div class="hpanel hgreen">
+		<div class="panel-body projects" style="background-color: #ffffff">
+
+			<div class="row">
+				<div class="col-sm-12 ">
+					<div class="contact-panel text-center">
+						<a ng-click="turnToUp()"><i
+							class="pe-7s-close-circle fa-4x text-danger pull-right"></i> </a>
+						<h4>
+							<a href=""> {{schedulePlan.progName}}</a>
+						</h4>
+						<p>{{schedulePlan.userName+" "+schedulePlan.userSurname}}</p>
+
+						<img alt="logo" class="img-circle m-b m-t-sm "
+							ng-src="{{schedulePlan.profileUrl==null?(schedulePlan.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schedulePlan.urlType==1?'../pt/member/get/profile/'+schedulePlan.userId+'/1':'/beinplanner/homerlib/images/'+schedulePlan.profileUrl )   }}">
+					</div>
+
+
+
+					<br>
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-stripped">
+								<thead>
+									<th>{{'instructor'|translate}}</th>
+									<th>{{'date'|translate}}</th>
+									<th>{{'time'|translate}}</th>
+									<th>{{'studio'|translate}}</th>
+									<th>{{'attendees'|translate}}</th>
+									<th>{{'execution'|translate}}</th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="schTP in scheduleTimePlans">
+										<td><small>{{schTP.userName+"
+												"+schTP.userSurname}}</small></td>
+										<td><small>{{schTP.planStartDateStr}}</small></td>
+										<td><small>{{schTP.planDayTime+'-'+schTP.planEndDayTime}}</small></td>
+										<td><small
+											ng-repeat="scheduleStudio in schTP.scheduleStudios"
+											ng-if="$even">{{scheduleStudio.studioName}}</small> <small
+											ng-repeat="scheduleStudio in schTP.scheduleStudios"
+											ng-if="$odd">{{","+scheduleStudio.studioName}}</small></td>
+										<td>
+											<div class="col-md-12 projects">
+												<div class="project-info">
+													<div class="project-people">
+														<img ng-repeat="member in schTP.users" class="img-circle"
+															title="{{member.userName}} {{member.userSurname}}"
+															ng-src="{{member.profileUrl==null?'/beinplanner/homerlib/images/profile.png':(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+													</div>
+												</div>
+											</div>
+										</td>
+
+
+										<td>
+											<button class="btn btn-xs btn-default"
+												ng-click="editTimePlan(schTP)">
+												{{'edit'|translate}}</button>
+											<button class="btn btn-xs btn-danger"
+												ng-click="deleteTimePlan(schTP)">
+												{{'cancel'|translate}}</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</div>

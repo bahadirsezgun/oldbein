@@ -1,0 +1,203 @@
+<div class="row" data-ng-controller="ResultPersonalBookingController"
+	data-ng-init="initResCB()">
+	<div class="col-md-3 text-center" >
+		<!-- <a ng-click="hideGeneralInfo()"><i class="{{generalInfo?'pe-7s-exapnd2':'pe-7s-expand1'  }} fa-2x text-danger pull-right"></i> </a> -->
+
+		<div
+			class="col-md-12 contact-panel animated {{generalInfo?'fadeInDown':'fadeOutUp'}}"
+			ng-show="generalInfo">
+			<img alt="logo" class="img-circle m-b"
+				ng-src="{{schedulePlan.profileUrl==null?(schedulePlan.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(schedulePlan.urlType==1?'../pt/member/get/profile/'+schedulePlan.schStaffId+'/1' :'/beinplanner/homerlib/images/'+schedulePlan.profileUrl )   }}">
+			<h4 class="text-success">{{schedulePlan.userName}}
+				{{schedulePlan.userSurname}}</h4>
+			<h2 class="text-primary">{{schedulePlan.progName}}</h2>
+		</div>
+
+
+		<div
+			class="col-md-12  animated {{generalInfo?'fadeInDown':'bounceIn'}}"
+			ng-show="generalInfo">
+			<h2>{{'resultPlan'|translate}}</h2>
+			<p>{{'resultPlanComment'|translate}}</p>
+			<p>{{'resultPlanComment1'|translate}}</p>
+			<div class="hr-line-dashed"></div>
+			<a class="btn btn-success btn-sm"
+				ng_show="schedulePlan.finishedPlan!=1" ng-click="continuePersonal()">{{'continueClass'|translate}}</a>
+			<a class="btn btn-warning btn-sm" ng-if="deleteAuth"
+				ng-click="deletePersonals()">{{'deleteAllClass'|translate}}</a>
+		</div>
+		<div
+			class="col-md-12 animated {{generalInfo?'fadeInDown':'fadeOutUp'}}"
+			ng-show="generalInfo">
+			<h4 class="text-success">{{'attendees'|translate}}</h4>
+			<div class="projects">
+				<div class="project-info">
+					<div class="project-people text-center">
+						<img ng-repeat="member in attendies" class="img-circle"
+							title="{{member.userName}} {{member.userSurname}}"
+							ng-src="{{member.profileUrl==null?(member.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(member.urlType==1?'../pt/member/get/profile/'+member.userId+'/1' :'/beinplanner/homerlib/images/'+member.profileUrl )   }}">
+					</div>
+					<div class="hmc-100 text-center">
+						<p ng-repeat="member in attendies"
+							style="margin-bottom: 1px; padding-bottom: 1px">
+							<small><code>{{member.userName}}
+									{{member.userSurname}}</code></small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+
+	
+   </div>
+   <div class="col-md-9 text-center" >
+   					
+							<div class="row" >
+
+								<div class="col-md-12 animated fadeInUp" ng-show="showMainResult">
+
+									<div class="hpanel hgreen ">
+										<div class="hpanel hgreen">
+											<div class="panel-body ">
+												<div class="row">
+													<div class="col-sm-12 ">
+							
+														<div class="row">
+															<div class="col-sm-4 text-center">
+							
+																<div class="hpanel hbgred " style="overflow: hidden;">
+																	<div class="panel-body">
+																		<div class="text-center">
+																			<small>{{'plannedClassCount'|translate}}</small>
+																			<h4 class="font-light">{{plannedClassCount}}</h4>
+																			<small class="text-nowrap" style="overflow: hidden;">{{'plannedClassCountComment'|translate}}</small>
+																		</div>
+																	</div>
+																</div>
+							
+															</div>
+															<div class="col-sm-4 text-center">
+
+																<div class="hpanel hbggreen" style="overflow: hidden;">
+																	<div class="panel-body">
+																		<div class="text-center">
+																			<small>{{'programClassLeftCount'|translate}}</small>
+																			<h4 class=" font-light">{{willPlanClassCount}}</h4>
+																			<small class="text-nowrap" > {{'programClassLeftCountComment'|translate}} </small>
+																		</div>
+																	</div>
+																</div>
+							
+							
+															</div>
+															<div class="col-sm-4 text-center">
+							
+																<div class="hpanel hbgyellow" style="overflow: hidden;">
+																	<div class="panel-body">
+																		<div class="text-center">
+																			<small>{{'programClassCount'|translate}}</small>
+																			<h4 class=" font-light">{{programClassCount}}</h4>
+																			<small class="text-nowrap" >{{'programClassCountComment'|translate}}</small>
+																		</div>
+																	</div>
+																</div>
+							
+							
+															</div>
+							
+							
+														</div>
+							         				</div>
+								      			</div>
+											</div>
+								   		</div>	
+								   </div>
+							   </div>
+                             
+								<div class="col-sm-12">
+								 <div class="hpanel">
+								   <div class="panel-body">
+									<table class="table table-stripped">
+										<thead>
+											<th>{{'comment'|translate}}</th>
+											<th>{{'instructor'|translate}}</th>
+											<th>{{'date'|translate}}</th>
+											<th>{{'time'|translate}}</th>
+											<th>{{'studio'|translate}}</th>
+											<th>{{'comment'|translate}}</th>
+											<th>{{'attendees'|translate}}</th>
+											<th>{{'execution'|translate}}</th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="schTP in scheduleTimePlans" style="color:{{schTP.statuTp==0?'black':((schTP.statuTp==1)?'red':'blue')}}">
+												<td ng-class="schTP.planStatus!=1?'text-danger font-extra-bold ':''">
+												
+												   <small class="pull-left">{{schTP.planStatusComment|translate}}</small>
+												</td>
+												<td
+													ng-class="schTP.schtId==scheduleTimePlanForUpdate.schtId?'text-danger text-nowrap':'text-nowrap'"><small>{{schTP.userName+"
+														"+schTP.userSurname}}</small></td>
+												<td
+													ng-class="schTP.schtId==scheduleTimePlanForUpdate.schtId?'text-danger':''"><small>{{schTP.planStartDateStr}}</small></td>
+												<td
+													ng-class="schTP.schtId==scheduleTimePlanForUpdate.schtId?'text-danger':''"><small>{{schTP.planDayTime+'-'+schTP.planEndDayTime}}</small></td>
+												<td><small
+													ng-repeat="scheduleStudio in schTP.scheduleStudios"
+													ng-if="$even">{{scheduleStudio.studioName}}</small> 
+												   <small
+													ng-repeat="scheduleStudio in schTP.scheduleStudios"
+													ng-if="$odd">{{","+scheduleStudio.studioName}}</small></td>
+												
+												<td ng-class="schTP.schtId==scheduleTimePlanForUpdate.schtId?'text-danger':''">
+												<small>{{schTP.tpComment}}</small>
+												</td>
+												
+												<td >
+												<small  ng-repeat="member in schTP.users">
+												      <span ng-if="$even" class="text-success pull-left">{{member.userName}}</span>
+												      <span ng-if="$odd" class="text-warning pull-left">{{","+member.userName}}</span>
+												</small>
+												
+												</td>
+												<td class="text-nowrap">
+													<button class="btn btn-xs btn-default"
+														ng-click="editScheduleTimePlan(schTP)">
+														{{'edit'|translate}}</button>
+													<button ng-show="schTP.planStatus==1"
+														class="btn btn-xs btn-danger"
+														ng-click="deleteTimePlan(schTP)">
+														{{'cancel'|translate}}</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
+					</div>
+			</div>
+	</div>
+				
+				
+				
+
+
+
+
+	<div class="col-md-12 ptboss-container" ng-show="deletePlanOk">
+
+		<div class="panel-body">
+
+			<div class="error-container animated bounceIn" ng-show="packetSaled">
+				<i class="pe-7s-way text-success big-icon"></i>
+				<h1>{{'allPlanDeleted'|translate}}</h1>
+				<p>{{'allPlanDeletedComment'|translate}}</p>
+			</div>
+
+
+		</div>
+
+	</div>
+
+</div>

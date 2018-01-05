@@ -1,0 +1,179 @@
+<div class="row register-container"
+	ng-controller="MailHostingController as dbhc" ng-init="init()">
+
+
+	<div class="hpanel panel-group ">
+		<div class="panel-section">
+			<div class="text-center">
+				<i class="pe-7s-mail big-icon text-success"></i> <br />
+				<h4>
+					<span class="text-success">{{settings_dbMailTitle|
+						translate}}</span>
+				</h4>
+				<p>{{'settings_dbMailComment' | translate}}</p>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="hpanel panel-group">
+		<div class="panel-section">
+
+
+			<form class="form-horizontal">
+				
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'firmMail'|translate}}*</label>
+
+
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'fromName_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="fromName">
+						</div>
+					</div>
+
+				</div>
+
+			<div class="form-group">
+					<label class="col-sm-4 control-label">{{'hostMail'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'mailUsername_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="mailUsername" placeholder="xxxxxx@yandex.com">
+						</div>
+					</div>
+
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'password'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'mailPassword_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="password" autocomplete="off" class="form-control"
+								ng-model="mailPassword" placeholder="{{'password'|translate}}">
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'hostName'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'hostName_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="hostName" placeholder="smtp.yandex.com.tr">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">SMTP Port</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'smtpPort_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="smtpPort" placeholder="465,587">
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label">SMTP Auth</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'smtpAuth_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <select class="form-control" ng-model="smtpAuth">
+								<option value="0">{{'yes'|translate}}</option>
+								<option value="1">{{'no'|translate}}</option>
+							</select>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'useSSL'|translate}}</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'useSSL_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <select class="form-control" ng-model="useSsl">
+								<option value="0">{{'yes'|translate}}</option>
+								<option value="1">{{'no'|translate}}</option>
+							</select>
+						</div>
+					</div>
+
+
+				</div>
+
+				
+
+				<div class="form-group">
+					<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+						<button type="button" class="btn btn-success btn-block"
+							ng-click="createDbMail()">{{'save'|translate}}</button>
+						<div class="hr-line-dashed"></div>
+						<div class="input-group">
+							<input type="text" ng-model="toWhom" class="form-control"
+								placeholder="{{'enterTestMailTo'|translate}}"> <span
+								class="input-group-btn">
+								<button type="button" ng-click="sendTestMail()"
+									class="btn btn-primary">{{'testIt'|translate}}</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,182 @@
+<div class="row" data-ng-controller="PtCalendarController as ptcc"
+	data-ng-init="initPTC()">
+	<section ng-show="!week && !showClassDetail">
+		<div class="col-md-12 hpanel hpanel-success ">
+			<div class="col-md-2 text-center ">
+				<div class="hpanel pull-left hmc-50 " ng-show="holderShow">
+					<div class="panel-body hmc-50" id="holdTime" name='holdTime'>
+						<span style='display: none;'>0</span>
+						<div class="m-t-md m-b-md text-center" ng-show="!holdTime">
+							<i class="fa fa-hand-o-up fa-2x"></i>
+							<div class="m-t ">{{'holdPlanBox'|translate}}</div>
+						</div>
+						<div ng-show="holdTime" id="holdBox" name="tokenHoldTime"
+							style='padding: 0px; margin: 0px; z-index: 500;hmc-50'
+							class='hpanel text-center hmc-50'>
+							<div class='panel-body hmc-50' style='cursor: pointer'>
+								<i class='pe-7s-timer fa-2x text-danger'></i>
+								<p></p>
+								<span style='display: none'></span> <span style='display: none'></span>
+								<span style='display: none'></span> <span style='display: none'></span>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-2 text-center contact-panel"></div>
+			<div class="col-md-4 text-center">
+				<h4 class="text-success">{{calendarDateNameStr|translate}}</h4>
+				<h5 class="text-success">{{calendarDateStr}}</h5>
+				
+				
+				
+			</div>
+			<div class="col-md-4 text-center" >
+				<div class="btn-group pull-right" ng-show="holderShow">
+					<button class="btn btn-sm btn-default " ng-click="prevDate()">
+						{{'prev'|translate}}</button>
+					<button class="btn btn-sm btn-default" ng-click="nextDate()">
+						{{'next'|translate}}</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 hpanel hpanel-success" style="margin:0px">
+
+			<form>
+                  <button class="btn btn-default pull-right" ng-click="viewHolder()"><i class="pe-7s-star fa-4x"></i></button>
+				<div class="text-center m-b-md" id="wizardControl">
+					<a class="btn {{activePage=='morning'?'btn-primary':''}}"
+						href="#morning" data-toggle="tab" ng-click="activate('morning')">{{'morningPlan'|translate}}</a>
+					<a class="btn {{activePage=='afternoon'?'btn-primary':''}}"
+						href="#afternoon" data-toggle="tab"
+						ng-click="activate('afternoon')">{{'afternoonPlan'|translate}}</a>
+					<a class="btn {{activePage=='night'?'btn-primary':''}}"
+						href="#night" data-toggle="tab" ng-click="activate('night')">{{'nightPlan'|translate}}</a>
+					<a href="./#/schedule/plan/calendar/all" class="btn btn-sm btn-success">{{'allTrainerBooking'|translate}}</a>
+				</div>
+
+				<div class="tab-content">
+					<div id="morning" class="p-m tab-pane active">
+						<table class="table table-striped table-bordered text-center" style="border-width: 3px;">
+							<thead>
+								<tr role="row">
+									<th style='width: 10%;border-width:2px' tkey="teacher">{{'instructor'|translate}}</th>
+									<th style='width: 7%;border-width:2px' ng-repeat="morningTime in morningTimes">{{morningTime}}</th>
+								
+								</tr>
+							</thead>
+							<tbody id="calendarForMorning">
+
+							</tbody>
+						</table>
+
+
+					</div>
+					<div id="afternoon" class="p-m tab-pane">
+
+						<table class="table table-striped table-bordered text-center" style="border-width:3px">
+							<thead>
+								<tr role="row">
+									<th style='width: 10%;border-width:2px' tkey="teacher">{{'instructor'|translate}}</th>
+									<th style='width: 7%;border-width:2px' ng-repeat="afternoonTime in afternoonTimes">{{afternoonTime}}</th>
+								
+								</tr>
+							</thead>
+							<tbody id="calendarForAfternoon">
+
+							</tbody>
+						</table>
+
+
+
+					</div>
+					<div id="night" class="p-m tab-pane">
+
+
+						<table class="table table-striped table-bordered text-center" style="border-width:3px">
+							<thead>
+								<tr role="row">
+									<th style='width: 10%;border-width:2px' tkey="teacher">{{'instructor'|translate}}</th>
+									<th style='width: 7%;border-width:2px' ng-repeat="nightTime in nightTimes">{{nightTime}}</th>
+								
+								</tr>
+							</thead>
+							<tbody id="calendarForNight">
+
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</form>
+
+
+		</div>
+
+
+
+
+	</section>
+
+	<section ng-show="week && !showClassDetail">
+
+		<div ng-include="weekPage"></div>
+
+	</section>
+
+	<section ng-show="showClassDetail && !week">
+		<button class="btn " type="button" ng-click="closeDetail()"
+			style="position: fixed; top: 80px; right: 20px; z-index: 600;">
+			<i class="pe-7s-close-circle fa-4x text-danger"></i>
+		</button>
+		<div ng-include="classDetailPage" ng-show="goDirect"></div>
+
+		<div class="register-container row" ng-show="!goDirect">
+
+			<div class="col-md-6 " ng-show="individualRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'personalSchedule'|translate}}</h2>
+							<p class="font-bold text-success">{{'booking'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-science fa-5x"></i>
+							</div>
+							<p class="small">{{'personalScheduleComment'|translate}}</p>
+							<a ng-click="personalBooking()" class="btn btn-success btn-sm">{{'startToBooking'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" ng-show="groupRestriction==1">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h2 class="m-b-xs">{{'classSchedule'|translate}}</h2>
+							<p class="font-bold text-info">{{'booking'|translate}}</p>
+							<div class="m">
+								<i class="pe-7s-global fa-5x"></i>
+							</div>
+							<p class="small">{{'classScheduleComment'|translate}}</p>
+							<a ng-click="classBooking()" class="btn btn-info btn-sm">{{'startToBooking'|translate}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+
+
+
+
+
+	</section>
+
+    <div id="infoDiv" class="hpanel hbgblue" style="display:none;color:white;z-index:5000"></div>
+</div>

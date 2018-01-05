@@ -1,0 +1,25 @@
+<div class="lock-container" ng-controller="BonusLockController as blc"
+	ng-init="init()">
+
+	<div class="hpanel">
+		<div class="panel-body text-center">
+
+			<i class="{{lockClass}} big-icon"></i> <br />
+			<h4>
+				<span class="text-success">{{time}}</span> <strong>{{date}}</strong>
+			</h4>
+			<p>{{'bonus_lock_message' | translate}}</p>
+			<form action="#" role="form" class="m-t">
+				<div class="form-group">
+					<span class="help-block small">{{'passwordLockhint' |
+						translate}}</span> <br /> <span class="help-block small">{{'passwordLockhint1'
+						| translate}}</span>
+				</div>
+				<button data-ng-click="saveLock()"
+					class="btn btn-primary block full-width" type="button">{{lockBtn}}</button>
+			</form>
+		</div>
+	</div>
+
+
+</div>

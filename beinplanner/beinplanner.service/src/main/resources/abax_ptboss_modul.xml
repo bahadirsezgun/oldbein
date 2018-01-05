@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+
+	<!-- ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓ SERVICES ▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+
+
+
+
+
+	<bean name="memberService" class="tr.com.abasus.ptboss.user.service.MemberServiceImpl">
+		<property name="processUserDao" ref="processUserDao"></property>
+	</bean>
+	<bean name="processUserService"
+		class="tr.com.abasus.ptboss.ptuser.service.ProcessUserServiceImpl">
+		<property name="processUserDao" ref="processUserDao"></property>
+	</bean>
+
+
+	<bean name="definitionService"
+		class="tr.com.abasus.ptboss.definition.service.DefinitionServiceImpl">
+		<property name="definitionDao" ref="definitionDao"></property>
+	</bean>
+
+
+	<bean name="programService"
+		class="tr.com.abasus.ptboss.program.service.ProgramServiceImpl">
+		<property name="programDao" ref="programDao"></property>
+		<property name="packetSaleDao" ref="packetSaleDao"></property>
+	</bean>
+
+	<bean name="packetPaymentService"
+		class="tr.com.abasus.ptboss.packetpayment.service.PacketPaymentServiceImpl">
+		<property name="packetPaymentDao" ref="packetPaymentDao"></property>
+	</bean>
+	<bean name="packetSaleService"
+		class="tr.com.abasus.ptboss.packetsale.service.PacketSaleServiceImpl">
+		<property name="packetSaleDao" ref="packetSaleDao"></property>
+	</bean>
+
+
+	<bean name="menuService" class="tr.com.abasus.ptboss.menu.service.MenuServiceImpl">
+		<property name="menuDao" ref="menuDao"></property>
+	</bean>
+
+	<bean name="settingService"
+		class="tr.com.abasus.ptboss.settings.service.SettingServiceImpl">
+		<property name="settingDao" ref="settingDao"></property>
+	</bean>
+
+	<bean name="personalBonusService"
+		class="tr.com.abasus.ptboss.definition.service.PersonalBonusServiceImpl">
+		<property name="personalBonusDao" ref="personalBonusDao"></property>
+	</bean>
+
+	<bean name="classBonusService"
+		class="tr.com.abasus.ptboss.definition.service.ClassBonusServiceImpl">
+		<property name="classBonusDao" ref="classBonusDao"></property>
+	</bean>
+
+	<bean name="scheduleService"
+		class="tr.com.abasus.ptboss.schedule.service.ScheduleServiceImpl">
+		<property name="scheduleDao" ref="scheduleDao"></property>
+	</bean>
+	<bean name="scheduleMembershipService"
+		class="tr.com.abasus.ptboss.schedule.service.ScheduleMembershipServiceImpl">
+		<property name="scheduleMembershipDao" ref="scheduleMembershipDao"></property>
+	</bean>
+	<bean name="scheduleClassService"
+		class="tr.com.abasus.ptboss.schedule.service.ScheduleClassServiceImpl">
+		<property name="scheduleClassDao" ref="scheduleClassDao"></property>
+	</bean>
+	<bean name="schedulePersonalService"
+		class="tr.com.abasus.ptboss.schedule.service.SchedulePersonalServiceImpl">
+		<property name="schedulePersonalDao" ref="schedulePersonalDao"></property>
+	</bean>
+
+	<bean name="dashboardService"
+		class="tr.com.abasus.ptboss.dashboard.service.DashboardServiceImpl">
+		<property name="dashboardDao" ref="dashboardDao"></property>
+	</bean>
+
+	<bean name="pastIncomeService"
+		class="tr.com.abasus.ptboss.income.service.PastIncomeServiceImpl">
+		<property name="pastIncomeDao" ref="pastIncomeDao"></property>
+	</bean>
+
+	<bean name="bonusPersonalService"
+		class="tr.com.abasus.ptboss.bonus.service.BonusPersonalServiceImpl">
+		<property name="bonusPersonalDao" ref="bonusPersonalDao"></property>
+	</bean>
+
+	<bean name="bonusClassService"
+		class="tr.com.abasus.ptboss.bonus.service.BonusClassServiceImpl">
+		<property name="bonusClassDao" ref="bonusClassDao"></property>
+	</bean>
+
+	<bean name="ptUpdateService"
+		class="tr.com.abasus.ptboss.update.service.PtUpdateServiceImpl">
+		<property name="ptUpdateDao" ref="ptUpdateDao"></property>
+	</bean>
+	
+	<bean name="globalLocalService" class="tr.com.abasus.ptboss.local.service.GlobalLocalServiceImpl">
+		<property name="globalLocalDao" ref="globalLocalDao"></property>
+	</bean>
+
+	<!-- ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓ DAOs ▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+
+
+
+	<bean name="globalLocalDao" class="tr.com.abasus.ptboss.local.dao.GlobalLocalDaoMySQL">
+		<property name="dataSource" ref="mysqlLocal"></property>
+		<property name="sqlDaoLocal" ref="sqlDaoLocal"></property>
+	</bean>
+
+	<bean name="processUserDao" class="tr.com.abasus.ptboss.ptuser.dao.ProcessUserDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+
+
+	<bean name="menuDao" class="tr.com.abasus.ptboss.menu.dao.MenuDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="settingDao" class="tr.com.abasus.ptboss.settings.dao.SettingDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+
+	<bean name="definitionDao"
+		class="tr.com.abasus.ptboss.definition.dao.DefinitionDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+		<property name="globalLocalDao" ref="globalLocalDao"></property>
+	</bean>
+
+	<bean name="personalBonusDao"
+		class="tr.com.abasus.ptboss.definition.dao.PersonalBonusDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="classBonusDao"
+		class="tr.com.abasus.ptboss.definition.dao.ClassBonusDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="programDao" class="tr.com.abasus.ptboss.program.dao.ProgramDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="packetSaleDao"
+		class="tr.com.abasus.ptboss.packetsale.dao.PacketSaleDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+		<property name="packetPaymentService" ref="packetPaymentService"></property>
+	</bean>
+	<bean name="packetPaymentDao"
+		class="tr.com.abasus.ptboss.packetpayment.dao.PacketPaymentDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+
+	<bean name="scheduleDao" class="tr.com.abasus.ptboss.schedule.dao.ScheduleDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="scheduleMembershipDao"
+		class="tr.com.abasus.ptboss.schedule.dao.ScheduleMembershipDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="scheduleClassDao"
+		class="tr.com.abasus.ptboss.schedule.dao.ScheduleClassDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="schedulePersonalDao"
+		class="tr.com.abasus.ptboss.schedule.dao.SchedulePersonalDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="programFacadeDao" class="tr.com.abasus.ptboss.facade.dao.ProgramFacadeDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="saleFacadeDao" class="tr.com.abasus.ptboss.facade.dao.SaleFacadeDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+		<property name="paymentFacadeDao" ref="paymentFacadeDao"></property>
+		<property name="schedulerFacadeDao" ref="schedulerFacadeDao"></property>
+	</bean>
+
+
+
+	<bean name="paymentFacadeDao" class="tr.com.abasus.ptboss.facade.dao.PaymentFacadeDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="schedulerFacadeDao"
+		class="tr.com.abasus.ptboss.facade.dao.SchedulerFacadeDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="dashboardDao" class="tr.com.abasus.ptboss.dashboard.dao.DashboardDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="pastIncomeDao" class="tr.com.abasus.ptboss.income.dao.PastIncomeDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="bonusPersonalDao" class="tr.com.abasus.ptboss.bonus.dao.BonusPersonalDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="bonusClassDao" class="tr.com.abasus.ptboss.bonus.dao.BonusClassDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+	<bean name="ptUpdateDao" class="tr.com.abasus.ptboss.update.dao.PtUpdateDaoMySQL">
+		<property name="dataSource" ref="mysql"></property>
+		<property name="sqlDao" ref="sqlDao"></property>
+	</bean>
+
+</beans>

@@ -1,0 +1,102 @@
+
+<div class="row projects"
+	ng-controller="UserTokenMembershipController as ufc"
+	ng-init="initUTMC()">
+	<div class="col-lg-6" ng-show="saleShow">
+		<div class="hpanel hgreen">
+			<div class="panel-body">
+				<span
+					class="label {{(packetSale.leftPrice>0)?'label-danger':'label-success' }} pull-right">{{(packetSaleforBooking.leftPrice>0)?mustPay:okPay
+					}}</span>
+				<div class="row">
+					<div class="col-sm-8">
+						<h4>
+							<a href=""> {{packetSaleforBooking.progName}}</a>
+						</h4>
+						<p class="hm-50">{{packetSaleforBooking.progComment}}</p>
+						<p>{{packetSaleforBooking.progDescription}}</p>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="project-label">{{'name'|translate}}</div>
+								<small>{{packetSaleforBooking.userName+'
+									'+packetSaleforBooking.userSurname}}</small>
+							</div>
+							<div class="col-sm-4">
+								<div class="project-label">{{'birthday'|translate}}</div>
+								<small>{{packetSaleforBooking.userBirthdayStr}}</small>
+							</div>
+							<div class="col-sm-4">
+								<div class="project-label">{{'phone'|translate}}</div>
+								<small>{{packetSaleforBooking.userGsm}}</small>
+							</div>
+
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="project-label">{{'membershipStartDate'|translate}}</div>
+								<small>{{packetSaleforBooking.smpStartDateStr}}</small>
+							</div>
+							<div class="col-sm-4">
+								<div class="project-label">{{'membershipEndDate'|translate}}</div>
+								<small>{{packetSaleforBooking.smpEndDateStr}}</small>
+							</div>
+							<div class="col-sm-4">
+								<div class="project-label">{{'membershipStatus'|translate}}</div>
+								<small>{{packetSaleforBooking.smpComment}}</small>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-sm-4 project-info">
+						<div class="project-action m-t-md">
+							<div class="btn-group">
+								<button class="btn btn-xs btn-default"
+									ng-click="makePayment(packetSaleforBooking)">
+									{{'payment'|translate}}</button>
+								<button class="btn btn-xs btn-default"
+									ng-click="showBooking(packetSaleforBooking)">
+									{{'booking'|translate}}</button>
+								<button class="btn btn-xs btn-default"
+									ng-click="packetDelete(packetSaleforBooking)">
+									{{'deleteLbl'|translate}}</button>
+							</div>
+						</div>
+						<div class="project-value">
+							<h2 class="text-success">{{packetSaleforBooking.leftPrice+'
+								'+ptCurrency}}</h2>
+							<div style="width: 12%" aria-valuemax="100" aria-valuemin="0"
+								aria-valuenow="{{packetSaleforBooking.complete}}"
+								role="progressbar" class=" progress-bar progress-bar-success">
+							</div>
+						</div>
+						<div class="project-people">
+							<img class="img-circle"
+								ng-src="{{packetSaleforBooking.profileUrl==null?(packetSaleforBooking.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(packetSaleforBooking.urlType==1?'../pt/member/get/profile/'+packetSaleforBooking.userId+'/1' :'/beinplanner/homerlib/images/'+packetSaleforBooking.profileUrl )   }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				{{'salesDate'|translate}}-{{packetSaleforBooking.salesDateStr}}</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12" ng-show="paymentShow">
+		<a ng-click="turnBackToSales()"><i
+			class="fa fa-angle-double-up fa-3x"></i></a>
+	</div>
+	<div class="col-lg-12 animated fadeInUp"
+		ng-include="userPacketPaymentPage" ng-show="paymentShow"></div>
+
+
+	<div class="col-lg-12" ng-show="bookingShow">
+		<a ng-click="turnBackToSales()"><i
+			class="fa fa-angle-double-up fa-3x"></i></a>
+	</div>
+	<div class="col-lg-12 animated fadeInUp" ng-include="userBookingPage"
+		ng-show="bookingShow"></div>
+
+
+</div>

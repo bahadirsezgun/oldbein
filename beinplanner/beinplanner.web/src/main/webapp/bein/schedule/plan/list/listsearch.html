@@ -1,0 +1,48 @@
+<div class="animate zoomIn"
+	ng-controller="PlanListSearchBookingController" ng-init="initPLSBC()">
+	<div class="row" ng-show="showTimes">
+		<div class="col-md-12 animated fadeInUp" ng-include="timesPage"></div>
+	</div>
+	<div class="register-container animate zoomIn" ng-show="!showTimes">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="text-center m-b-md">
+					<h3>{{'listClassSearch' | translate}}</h3>
+					<small>{{'listClassSearchComment' | translate}}</small>
+				</div>
+				<div class="hpanel">
+					<div class="panel-body">
+						<form action="#" id="loginForm">
+
+							<div class="form-group">
+								<label class="control-label" for="password">{{'instructor'|translate}}</label>
+								<select ng-model="staffId" class="form-control">
+									<option value="0">{{'all'|translate}}</option>
+									<option ng-repeat="staff in staffs" value="staff.userId">{{staff.userName+"
+										"+staff.userSurname}}</option>
+								</select> <span class="help-block small">{{'chooseInstructor'|translate}}</span>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="password">{{'searchDate'|translate}}</label>
+								<input type="text" name="password" id="planDateStr"
+									ng-model="planDateStr" class="form-control"> <span
+									class="help-block small">{{'enterSearchDate'|translate}}</span>
+							</div>
+
+							<button type="button" class="btn btn-success btn-block"
+								ng-click="searchPlans()">{{'findPlannedPackets'|translate}}</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong>BEINPlanner</strong> - {{'appNameTitle' | translate}} <br /> 2010
+				Copyright by BEINPlanner
+			</div>
+		</div>
+	</div>
+</div>

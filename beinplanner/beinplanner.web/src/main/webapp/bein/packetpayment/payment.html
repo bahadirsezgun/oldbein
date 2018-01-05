@@ -1,0 +1,54 @@
+
+<div class="row projects"
+	ng-controller="PacketPaymentController as pppc" ng-init="init()">
+
+
+	<div class="col-md-2" ng-show="paymentProfileShow">
+		<div class="hpanel hblue contact-panel">
+			<div class="panel-body text-center">
+				<img alt="logo" class="img-circle m-b m-t-sm"
+					ng-src="{{selectedMember.profileUrl==null?(selectedMember.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(selectedMember.urlType==1?'../pt/member/get/profile/'+selectedMember.userId+'/1':'/beinplanner/homerlib/images/'+selectedMember.profileUrl )   }}">
+				<h5 style="word-wrap: break-word;">
+					<span style="margin-right: 5px">{{selectedMember.userName}}</span><span>{{selectedMember.userSurname}}</span>
+				</h5>
+				<div class="text-muted font-bold m-b-xs">{{selectedMember.userGsm}}</div>
+				<p>{{('birthday'|translate)+' '+selectedMember.userBirthdayStr}}</p>
+				<p>{{selectedMember.userEmail}}</p>
+				<div class="hr-line-dashed"></div>
+				<p>{{selectedMember.userComment}}</p>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div
+		class="{{paymentProfileShow?'col-lg-10':'col-lg-12'}}   text-center"
+		ng-show="noSaleFound">
+		<div class="panel-body">
+			<strong>{{'packetInfo'|translate}}</strong>
+
+			<div class="error-container animated bounceIn">
+				<i class="pe-7s-way text-success big-icon"></i>
+				<h1>{{'packetNotFound'|translate}}</h1>
+				<p>{{'packetNotFoundComment'|translate}}</p>
+				<a href="#/packetsale" class="btn btn-xs btn-success">{{'newPacketSale'|translate}}</a>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div class="{{paymentProfileShow?'col-lg-10':'col-lg-12'}} "
+		ng-include="userPacketSalePage" ng-show="showSale && !noSaleFound"></div>
+	<div class="{{paymentProfileShow?'col-lg-10':'col-lg-12'}} "
+		ng-show="!showSale && !noSaleFound">
+		<div class="row">
+			<div class="col-lg-12">
+				<a ng-click="backToSale()"><i
+					class="fa fa-angle-double-up fa-2x text-success"></i></a>
+			</div>
+			<div class="col-lg-12" ng-include="userPacketPaymentPage"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:datasource.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean name="sqlDao" class="tr.com.abasus.general.dao.SqlDaoMysql">
+		<property name="scheme" value="ptboss"></property>
+		<property name="dataSource" ref="mysql"></property>
+	</bean>
+
+	<bean name="sqlDaoLocal" class="tr.com.abasus.general.dao.SqlDaoMysql">
+		<property name="scheme" value="beinplanner"></property>
+		<property name="dataSource" ref="mysqlLocal"></property>
+	</bean>
+
+	<!-- ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓ Datasources ▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+
+	<bean id="mysql" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${datasource.driver}" />
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.user}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="minEvictableIdleTimeMillis" value="600000" />
+		<property name="timeBetweenEvictionRunsMillis" value="600000" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="120" />
+		<property name="validationQuery" value="select 1" />
+	</bean>
+
+	<bean id="mysqlLocal" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${datasource.driver}" />
+		<property name="url" value="${datasource.urlLocal}" />
+		<property name="username" value="${datasource.user}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="minEvictableIdleTimeMillis" value="600000" />
+		<property name="timeBetweenEvictionRunsMillis" value="600000" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="120" />
+		<property name="validationQuery" value="select 1" />
+	</bean>
+
+</beans>

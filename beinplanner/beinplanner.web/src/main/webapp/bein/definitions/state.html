@@ -1,0 +1,101 @@
+<div class="row" ng-controller="DefinitionController as defc"
+	ng-init="init()">
+	<div class="col-md-6 col-sm-6">
+		<div class="hpanel panel-group">
+			<div class="panel-body">
+				<div class="text-center text-muted font-bold">{{'addNewStateTitle'|translate}}</div>
+
+			</div>
+			<div class="panel-section">
+
+				<div class="input-group">
+					<input type="text" class="form-control"
+						placeholder="{{'addNewStatePH'|translate}}" ng-model="stateName">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button"
+							ng-click="createState()">
+							<i class="glyphicon glyphicon-plus small"></i>
+						</button>
+					</span>
+				</div>
+
+			</div>
+
+			<div id="notes" >
+
+				<div class="panel-body note-link " ng-repeat="state in states">
+					<a href="#" data-toggle="tab" ng-click="showCities(state)"> <small
+						class="pull-right text-muted">{{state.createTimeStr}}</small>
+						<h5 class="text-success">
+							<u>{{state.stateName}}</u>
+						</h5>
+					</a>
+					<div class="small">
+						{{'stateComment'|translate}} <a ng-click="deleteState(state)"><i
+							class="pe-7s-close pull-right fa-2x "></i></a>
+					</div>
+
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+	<div class="col-md-6 col-sm-6">
+		<div class="hpanel panel-group">
+			<div class="panel-body tour-3">
+				<div class="text-center input-group ">
+					
+					<input type="text" class="form-control"
+						placeholder="{{'addNewFirmPH'|translate}}" ng-model="selectedStateName">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button"
+							ng-click="updateState()">
+							<i class="glyphicon glyphicon-refresh small"></i>
+						</button>
+					</span>
+					
+					
+				</div>
+
+			</div>
+			<div class="panel-section">
+
+				<div class="input-group tour-4">
+					<input type="text" class="form-control"
+						placeholder="{{'addNewCityPH'|translate}}" ng-model="cityName">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button"
+							ng-click="createCity()">
+							<i class="glyphicon glyphicon-plus small"></i>
+						</button>
+					</span>
+				</div>
+
+			</div>
+
+			<div class="tour-5">
+
+				<div class="panel-body note-link " ng-repeat="city in cities">
+					<div data-toggle="tab">
+						<a ng-click="deleteCity(city)"><i
+							class="pe-7s-close pull-right fa-2x "></i></a>
+						<h5 class="text-success">
+							<u>{{city.cityName}}</u>
+						</h5>
+					</div>
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</div>

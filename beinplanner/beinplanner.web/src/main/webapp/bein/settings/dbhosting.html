@@ -1,0 +1,208 @@
+<div class="row ptboss-container"
+	ng-controller="DbHostingController as dbhc" ng-init="init()">
+
+<div class="row">
+ <div class="col-sm-4">
+	<div class="hpanel panel-group ">
+		<div class="panel-section">
+			<div class="text-center">
+				<i class="pe-7s-server big-icon text-success"></i> <br />
+				<h4>
+					<span class="text-success">{{settings_dbHostTitle|
+						translate}}</span>
+				</h4>
+				<p>{{'settings_dbHostComment' | translate}}</p>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="hpanel panel-group ">
+		<div class="panel-section">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'dbIp'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'dbUrl_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="dbUrl" placeholder="168.156.90.88">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'dbPort'|translate}}*</label>
+
+
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'dbPort_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="dbPort" placeholder="3306">
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'userName'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'dbUsername_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="text" autocomplete="off" class="form-control"
+								ng-model="dbUsername" placeholder="{{'userName'|translate}}">
+						</div>
+					</div>
+
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">{{'password'|translate}}*</label>
+					<div class="col-sm-8">
+						<div class="input-group m-b">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary"
+									data-container="body" data-toggle="popover"
+									data-placement="bottom"
+									data-content="{{'dbPassword_comment'|translate}}">
+									<i class="pe-7s-help1"></i>
+								</button>
+							</span> <input type="password" autocomplete="off" class="form-control"
+								ng-model="dbPassword" placeholder="{{'password'|translate}}">
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+						<button type="button" class="btn btn-success btn-block"
+							ng-click="createDbHost()">{{'save'|translate}}</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+	<div class="col-sm-8">
+	<div class="hpanel panel-group ">
+		<div class="panel-section">
+			<div class="text-center">
+				<i class="pe-7s-server big-icon text-success"></i> <br />
+				<h4>
+					<span class="text-success">{{'dbBackupTitle'|
+						translate}}</span>
+				</h4>
+				<p>{{'dbBackupTitleComment' | translate}}</p>
+			</div>
+
+		</div>
+		
+		<div class="panel-body">
+		
+		<div class="row">
+				<div class="col-sm-6">
+				    <div class="hpanel rgbblue">
+				      <div class="panel-body">
+				        <div class="row text-center">
+							<i class="pe-7s-cloud-download big-icon text-success"></i> <br />
+							<h4>
+								<span class="text-success">{{'dbBackupDownloadTitle'|
+									translate}}</span>
+							</h4>
+							<p>{{'dbBackupDownloadTitleComment' | translate}}</p>
+						</div>
+				    
+					    <div class="row text-center">
+							<form name="form2" id="form2"
+								action="/beinplanner/pt/dbbackup/downloadDbBackup"
+								method="post">
+								<button type="button" class="btn btn-success"
+									ng-click="downloadFile()">{{'download' | translate}}</button>
+							</form>
+						</div>
+						<div class="m">
+								<div class="progress m-t-xs full progress-striped">
+									<div style="width: {{progressBackupValue}}%" aria-valuemax="100"
+										aria-valuemin="0" aria-valuenow="{{progressBackupValue}}"
+										role="progressbar" class=" progress-bar progress-bar-warning">
+										{{progressBackupValue}}%</div>
+								</div>
+							</div>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+				 	<div class="hpanel rgbyellow">
+				 	<div class="panel-body">
+				 	<div class="row text-center">
+							<i class="pe-7s-cloud-upload big-icon text-success"></i> <br />
+							<h4>
+								<span class="text-success">{{'dbBackupRestoreTitle'|
+									translate}}</span>
+							</h4>
+							<p>{{'dbBackupRestoreTitleComment' | translate}}</p>
+						</div>
+						<div class="row text-center">
+							<div class="form-group ">
+								<label>{{'sql_upload_file' | translate}}</label>
+
+
+								<div class="input-group">
+									<input type="text" class="form-control" ng-model="fileName">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-primary"
+											ng-click="fileOpen()">{{'chooseLbl'|translate}}</button>
+									</span>
+								</div>
+
+								<input type="file" id="dbFileUploadUrl" class="form-control"
+									autocomplete="off" name="" style="display: none">
+							</div>
+							<div class="m">
+								<div class="progress m-t-xs full progress-striped">
+									<div style="width: {{progressValue}}%" aria-valuemax="100"
+										aria-valuemin="0" aria-valuenow="{{progressValue}}"
+										role="progressbar" class=" progress-bar progress-bar-warning">
+										{{progressValue}}%</div>
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
+							<button type="button" class="btn btn-success"
+								ng-click="sendFile('dbFileUploadUrl')"
+								accept=".sql">{{'upload' |translate}}</button>
+						</div>
+					</div>
+				</div>
+			 </div>
+		</div>
+		</div>
+    </div>
+	
+	
+</div>	
+</div>	
+</div>

@@ -1,0 +1,55 @@
+
+<div class="row" ng-controller="StaffFindController as sfc"
+	ng-init="list()">
+
+	<div class="col-lg-3"
+		ng-repeat="staff in staffs | filter:{userSurname : search}">
+		<div class="hpanel hblue contact-panel">
+			<div class="panel-body text-center">
+				<img alt="logo" class="img-circle m-b"
+					ng-src="{{staff.profileUrl==null?(staff.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(staff.urlType==1?'../pt/member/get/profile/'+staff.userId+'/1' :'/beinplanner/homerlib/images/'+staff.profileUrl )   }}">
+				<h3>
+					<a href="" ng-click="getStaff(staff)">{{staff.userName}}
+						{{staff.userSurname}}</a>
+				</h3>
+				<h4>{{staff.staffStatu==0?('active'|translate):('passive'|translate)}}</h4>
+
+				<code class="font-bold m-b-xs text-center">{{staff.userGsm}}</code>
+				<div class="text-success font-thin m-b-sm "
+					ng-show="staff.userType==2">{{'staff'|translate}}</div>
+				<div class="text-success font-thin m-b-sm"
+					ng-show="staff.userType==3">{{'schedulerStaff'|translate}}</div>
+				<div class="text-success font-thin m-b-sm"
+					ng-show="staff.userType==4">{{'manager'|translate}}</div>
+				<div class="text-success font-thin m-b-sm"
+					ng-show="staff.userType==5">{{'superManager'|translate}}</div>
+				<div class="text-success font-thin m-b-sm"
+					ng-show="staff.userType==7">{{'passive'|translate}}</div>
+
+				<div class="text-error font-thin m-b-sm">{{staff.firmName}}</div>
+
+
+				<p>{{staff.userComment}}</p>
+			</div>
+			<div class="panel-footer contact-footer">
+				<div class="row">
+					<div class="col-md-12 border-right text-center">
+						<a ng-click="deleteStaff(staff.userId,staff.userType)"><i
+							class="pe-7s-close-circle fa-3x"></i>
+							</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="error-container animated bounceIn" ng-show="noStaff">
+					<i class="pe-7s-way text-success big-icon"></i>
+					<h1>{{'staffNotFound'|translate}}</h1>
+					<p>{{'staffNotFoundComment'|translate}}</p>
+	</div>
+	
+	
+</div>

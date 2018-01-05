@@ -1,0 +1,192 @@
+<div class="row projects" ng-controller="MembershipBookingController"
+	ng-init="initMembershipBooking()">
+	<div class="col-md-7">
+
+		<div class="row animated fadeInDown" ng-show="freeze">
+			<div class="hpanel">
+				<div class="panel-body">
+					<div class="color-line"></div>
+					<div class="modal-header text-center">
+						<h4 class="modal-title">{{'freeze'|translate}}</h4>
+						<small class="font-bold">{{'freezeComment'|translate}}</small>
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-4 control-label text-right">{{'membershipStartDate'|translate}}*</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control"
+										ng-model="freezeStartDate" id="freezeStartDate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 text-right">{{'progMembershipDuration'|translate}}*</label>
+								<div class="col-sm-8">
+									<label class="text-warning">{{progDuration}}*</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 text-right">{{'progDurationType'|translate}}*</label>
+								<div class="col-sm-8">
+									<label class="text-warning">{{progDurationTypeStr}}*</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 text-right">{{'comment'|translate}}*</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" ng-model="freezeComment"></textarea>
+								</div>
+							</div>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							ng-click="freeze=false">{{'close'|translate}}</button>
+						<button type="button" class="btn btn-primary"
+							ng-click="saveFreeze()">{{'confirm'|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="text-center">
+							<h4 class="m-b-xs">{{'membershipEndDate'|translate}}</h4>
+							<h4 class="m-b-xs">{{scheduleFactory.smpEndDateStr}}</h4>
+							<p class="font-bold text-warning">{{scheduleFactory.smpEndDayName|translate}}</p>
+							<p class="font-bold text-warning">{{scheduleFactory.smpStatusStr|translate
+								}}</p>
+							<div class="m">
+								<i class="pe-7s-display1 fa-5x"></i>
+							</div>
+							<p class="small">{{scheduleFactory.smpComment}}</p>
+							<p class="small">
+								{{'salesDate'|translate}}-{{packetSale.salesDateStr}}</p>
+
+							<button class="btn btn-warning btn-sm"
+								ng-click="openFreezeModal()">{{'freeze'|translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 text-center">
+				<div class="hpanel">
+					<div class="panel-body text-center">
+
+						<div id="datepicker"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="hpanel">
+				<div class="v-timeline vertical-container animate-panel"
+					data-child="vertical-timeline-block" data-delay="1"
+					ng-repeat="scheduleTimePlan in scheduleTimePlans">
+					<div class="vertical-timeline-block">
+						<div class="vertical-timeline-icon navy-bg">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<div class="vertical-timeline-content">
+							<div class="p-sm">
+								<span
+									class="label {{scheduleTimePlan.smpStatusStr=='active'?'label-success':'label-danger'}} pull-right">{{scheduleTimePlan.smpStatusStr|translate
+									}}</span>
+								<p>
+									<strong>{{'membershipEndDate'|translate}}</strong>:{{scheduleTimePlan.smpEndDateStr
+									}},{{scheduleTimePlan.smpEndDayName|translate}}
+								</p>
+								<div class="hr-line-dashed"></div>
+								<p ng-show="scheduleTimePlan.smpFreezeEndDateStr!=null">{{'freezeEndDate'|translate}}:{{scheduleTimePlan.smpFreezeEndDateStr}},{{scheduleTimePlan.smpFreezeEndDayName|translate}}</p>
+								<p ng-show="scheduleTimePlan.smpFreezeEndDateStr!=null">{{'freezeStartDate'|translate}}:{{scheduleTimePlan.smpStartDateStr
+									}},{{scheduleTimePlan.smpStartDayName|translate}}</p>
+								<p ng-show="scheduleTimePlan.smpFreezeEndDateStr==null">{{'startDate'|translate}}:{{scheduleTimePlan.smpStartDateStr
+									}},{{scheduleTimePlan.smpStartDayName|translate}}</p>
+
+							</div>
+							<div class="panel-footer">
+
+								<span>{{scheduleTimePlan.smpComment}}</span>
+								<button class="btn bt-default btn-xs"
+									ng-click="unFreeze(scheduleTimePlan.smtpId)"
+									ng-if="scheduleTimePlan.first">{{'cancel'|translate}}</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="col-md-4 col-md-offset-1 animate bounceIn border-left">
+
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hpanel ">
+					<div class="panel-body text-center">
+						<img alt="logo" class="img-circle img-small"
+							ng-src="{{scheduleFactory.profileUrl==null?(scheduleFactory.userGender==1?'/beinplanner/homerlib/images/profile.png':'/beinplanner/homerlib/images/profilem.png'):(scheduleFactory.urlType==1?'../pt/member/get/profile/'+scheduleFactory.userId+'/1' :'/beinplanner/homerlib/images/'+scheduleFactory.profileUrl )   }}">
+						<div class="m-t-sm">
+							<strong>{{scheduleFactory.userName}}
+								{{scheduleFactory.userSurname}}</strong>
+							<p class="small">{{scheduleFactory.userEmail}}</p>
+						</div>
+					</div>
+					<div class="panel-footer contact-footer">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								{{scheduleFactory.userGsm}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="hpanel hblue contact-panel">
+			<div class="panel-body text-center">
+				<div class="m">
+					<i class="pe-7s-cart fa-5x"></i>
+				</div>
+				<h3>
+					<a href="">{{packetSale.progName}}</a>
+				</h3>
+				<div class="text-muted font-bold m-b-xs">{{packetSale.progDescription}}</div>
+				<p>{{'unitPrice'|translate}}:&nbsp;{{packetSale.packetPrice}}&nbsp;
+					{{ptCurrency}}</p>
+
+				<div class="project-value">
+					<h2 class="text-success">
+						{{'left'|translate}}:&nbsp;{{packetSale.leftPrice}}&nbsp;
+						{{ptCurrency}}</h2>
+				</div>
+				<p>{{packetSale.progComment}}</p>
+			</div>
+
+		</div>
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+</div>

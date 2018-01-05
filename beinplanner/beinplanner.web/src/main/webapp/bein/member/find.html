@@ -1,0 +1,40 @@
+<div class="register-container animate zoomIn"
+	ng-controller="UserFindController as ufc" ng-init="init()">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="text-center m-b-md">
+				<h3>{{'findMember' | translate}}</h3>
+				<small>{{'findMemberComment' | translate}}</small>
+			</div>
+			<div class="hpanel">
+				<div class="panel-body">
+					<form>
+						<div class="row">
+							<div class="form-group col-lg-6">
+								<label>{{'name' | translate}}</label> <input type="text"
+									value="" id="" class="form-control" autocomplete="off" name=""
+									ng-model="filterName" ng-keypress="findKey($event)">
+							</div>
+							<div class="form-group col-lg-6">
+								<label>{{'surname' | translate}}</label> <input type="text"
+									value="" id="" class="form-control" autocomplete="off" name=""
+									ng-model="filterSurname" ng-keypress="findKey($event)">
+							</div>
+
+						</div>
+						<div class="text-center">
+							<button type="button" class="btn btn-success" ng-click="find()">{{'find'
+								| translate}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<strong>BEINPlanner</strong> - {{'appNameTitle' | translate}} <br /> 2010
+			Copyright by BEINPlanner
+		</div>
+	</div>
+</div>

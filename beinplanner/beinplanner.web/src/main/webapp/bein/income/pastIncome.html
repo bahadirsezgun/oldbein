@@ -1,0 +1,263 @@
+<div class="row " ng-controller="PastIncomeController as picc" ng-init="initPIC()">
+
+
+	<div class="login-container" ng-show="query">
+		<div class="hpanel">
+			<div class="panel-body">
+
+				<div class="form-group">
+					<label class="control-label">{{'branchName'|translate}}*</label> <select
+						class="form-control" ng-model="firmId"
+						ng-options="firm.firmId as firm.firmName for firm in firms">
+						<option ng-value="">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">{{'year'|translate}}*</label> <select
+						class="form-control " ng-model="year"
+						ng-options="y as y for y in years">
+						<option ng-value="0">{{'pleaseSelect'|translate}}</option>
+					</select>
+
+				</div>
+
+			</div>
+			<div class="panel-footer">
+				<button type="button" class="btn btn-success"
+					ng-click="queryPtInCome()">{{'find' | translate}}</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<div class="col-md-12" ng-show="main && !query">
+		<div class="row">
+			<a ng-click="closeDetail()"
+				class="pull-right text-big font-light text-danger"><i
+				class="pe-7s-close "></i></a>
+		</div>
+		<div class="hpanel">
+			<div class="panel-body">
+				<div class="flot-chart" style="height: 160px">
+					<div class="flot-chart-content" id="flot-line-chart-income"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="hpanel panel-group">
+			<div class="panel-header">
+				<div class="text-center m-b-md">
+					<h3>{{firmName}}</h3>
+					<small>{{year}}</small>
+				</div>
+			</div>
+			<div class="panel-body">
+
+				<table class="table table-bordered table-striped ">
+					<thead>
+						<th width="5%" class="text-center">{{'month'|translate}}</th>
+						<th width="13%" class="text-center hidden-xs">{{'incomeGeneral'|translate}}</th>
+						<th width="13%" class="text-center hidden-xs">{{'incomeFromMembers'|translate}}</th>
+						<th width="13%" class="text-center">{{'totalIncome'|translate}}</th>
+						<th width="13%" class="text-center hidden-xs">{{'expenseGeneral'|translate}}</th>
+						<th width="13%" class="text-center hidden-xs">{{'expenseToBonus'|translate}}</th>
+						<th width="13%" class="text-center">{{'totalExpense'|translate}}</th>
+						<th width="13%" class="text-center">{{'earn'|translate}}</th>
+						<th width="4%" class="text-center ">{{'detail'|translate}}</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="income in incomes"
+							class="{{income.totalEarn<0?'text-danger':'text-primary2'}}">
+							<td>{{income.pimMonthName|translate}}</td>
+							<td class="text-center hidden-xs">{{(income.incomeGeneral| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center hidden-xs">{{(income.incomeFromMembers| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center">{{(income.totalIncome| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center hidden-xs">{{(income.expenseGeneral| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center hidden-xs">{{(income.expenseToBonus| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center">{{(income.totalExpense| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center ">{{(income.totalEarn| currency :'':0 )+" "+ptCurrency}}</td>
+							<td class="text-center "><a ng-click="editIncome(income)"><i
+									class="pe-7s-config fa-2x text-success"></i> </a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" ng-show="!main  && !query">
+		<div class="row">
+			<a ng-click="closeDetail()"
+				class="pull-right text-big font-light text-danger"><i
+				class="pe-7s-close "></i></a>
+		</div>
+		<div class="row">
+			<div class="col-md-4 text-center">
+				<i class="pe-7s-display1 fa-5x text-success "></i>
+				<div class="hpanel hbggreen hmc-150">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>{{'totalIncome'|translate}}</h3>
+							<p class="text-big font-light">{{(incomeDetail.totalIncome| currency :'':0 )+" "+ptCurrency}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 text-center">
+				<i class="pe-7s-display1 fa-5x text-success "></i>
+				<div class="hpanel hbgblue hmc-150">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>{{'totalExpense'|translate}}</h3>
+							<p class="text-big font-light">{{(incomeDetail.totalExpense| currency :'':0 )+" "+ptCurrency}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 text-center">
+				<i class="pe-7s-display1 fa-5x text-success "></i>
+				<div
+					class="hpanel {{incomeDetail.totalEarn<0?'hbgred':'hbggreen'}}  hmc-150">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>{{'totalEarn'|translate}}</h3>
+							<p class="text-big font-light">{{(incomeDetail.totalEarn| currency :'':0 )+" "+ptCurrency}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="hr-line-dashed"></div>
+
+		<div class="row">
+
+			<div class="col-md-4">
+
+
+				<div class="hpanel panel-group">
+					<div class="panel-header">
+						<div class="text-center m-b-md">
+							<h3>{{'inOutCustomTitle'|translate}}</h3>
+						</div>
+					</div>
+					<div class="panel-body">
+
+						<table class="table table-bordered table-striped">
+							<thead>
+								<th width="20%" class="text-center">{{'date'|translate}}</th>
+								<th width="30%" class="text-center">{{'expense'|translate}}</th>
+								<th width="50%">{{'comment'|translate}}</th>
+							</thead>
+							<tbody>
+								<tr class="{{expense.peInOut==0?'text-danger':'text-success'}}"
+									ng-repeat="expense in ptMonthlyInOutObj.ptExp">
+									<td class="text-center">{{expense.peDateStr|translate}}</td>
+									<td class="text-center">{{(expense.peAmount| currency :'':0 )+" "+ptCurrency}}</td>
+									<td >{{expense.peComment}}</td>
+								</tr>
+							</tbody>
+
+
+						</table>
+
+
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+
+			<div class="col-md-4 text-center">
+
+
+				<div class="hpanel panel-group">
+					<div class="panel-header">
+						<div class="text-center m-b-md">
+							<h3>{{'bonusPaymentTitle'|translate}}</h3>
+						</div>
+					</div>
+					<div class="panel-body">
+
+						<table class="table table-bordered table-striped">
+							<thead>
+								<th width="20%" class="text-center">{{'instructor'|translate}}</th>
+								<th width="20%" class="text-center">{{'date'|translate}}</th>
+								<th width="20%" class="text-center">{{'payment'|translate}}</th>
+							</thead>
+							<tbody>
+								<tr class="{{expense.peInOut==0?'text-danger':'text-success'}}"
+									ng-repeat="bonus in ptMonthlyInOutObj.ubpf">
+									<td class="text-center">{{bonus.userName+"
+										"+bonus.userSurname}}</td>
+									<td class="text-center">{{bonus.bonPaymentDateStr}}</td>
+									<td class="text-center">{{(bonus.bonAmount| currency :'':0 )+" "+ptCurrency}}</td>
+								</tr>
+							</tbody>
+
+
+						</table>
+
+
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="col-md-4 text-center">
+
+
+				<div class="hpanel panel-group">
+					<div class="panel-header">
+						<div class="text-center m-b-md">
+							<h3>{{'memberPaymentTitle'|translate}}</h3>
+						</div>
+					</div>
+					<div class="panel-body">
+
+						<table class="table table-bordered table-striped">
+							<thead>
+								<th width="20%" class="text-center">{{'member'|translate}}</th>
+								<th width="20%" class="text-center">{{'date'|translate}}</th>
+								<th width="20%" class="text-center">{{'payment'|translate}}</th>
+								<th width="60%">{{'comment'|translate}}</th>
+							</thead>
+							<tbody>
+								<tr class="{{expense.peInOut==0?'text-danger':'text-success'}}"
+									ng-repeat="ppf in ptMonthlyInOutObj.ppf">
+									<td class="text-center">{{ppf.userName+"
+										"+ppf.userSurname}}</td>
+									<td class="text-center">{{ppf.payDateStr}}</td>
+									<td class="text-center">{{(ppf.payAmount| currency :'':0 )+" "+ptCurrency}}</td>
+									<td>{{ppf.payComment}}</td>
+								</tr>
+							</tbody>
+
+
+						</table>
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+</div>
